@@ -37,8 +37,11 @@ campo6=000
 C# code :
 
 ```cs
-IniSharp iniSharp = new IniSharp(fullPathFile);
-iniSharp.Read();
+IniConfig config = new IniConfig();
+IniSharp iniSharp = new IniSharp(fullPathFile,config);
+
+// If fullPathFile is not null or empty and file exists then actual == True
+Boolean actual = iniSharp.Read();
 
 // output of next line is "SEZIONE_1"
 Console.WriteLine(iniSharp.Section[0].Name);
@@ -57,10 +60,10 @@ Console.WriteLine(iniSharp.Section[1].Fields[0].Lines[1])
 
 ```
 
-Multiline value are separated by newline.
+Multiline value are separated by newline by default configuration provides by IniConfig config.
 
 
-Multivalue are separated by "," or "|" char.
+Multivalue can be also separated by "," or "|" char.
 
 
 ```dosini
@@ -68,6 +71,7 @@ Campo2=valore002,valoreacapo
 ```
 
 ```cs
+// default value for MultiValueSeparator in config is NEWLINE
 IniSharp iniSharp = new IniSharp(fullPathFile);
 iniSharp.MultiValueSeparator = MULTIVALUESEPARATOR.COMMA;
 ```
@@ -107,7 +111,7 @@ Add a new value in next line :
 String newValue = "ThisIsANewValue";
 
 IniConfig config = new IniConfig();
-config.MULTIVALUESEPARATOR = MULTIVALUESEPARATORLocal;
+config.MULTIVALUESEPARATOR = MULTIVALUESEPARATOR.PIPE;
 // Accessor strategy for index
 config.BYINDEX = AccessorsStatus.DINAMIC;
 // Accessor strategy DYNAMIC for name is not used
@@ -142,11 +146,17 @@ so use this way to comment a field :
 FieldName=FieldValue001 
 ``` 
 
-## Load\Write
+## Read\Write
 ```cs
-IniSharp iniSharp = new IniSharp(fi.FullName,config);
-iniSharp.Config =  config;
+FileInfo fiInput = new FileInfo("<fullPathFileInputFile>");
+IniConfig config = new IniConfig();
+IniSharp iniSharp = new IniSharp(fiInput.FullName,config);
 iniSharp.Read();
+
+// ... change something ...
+
+FileInfo fiOutput = new FileInfo("<fullPathFileOutputFile>");
+iniSharp.Write(fiOutput);
 ```			
 
 ## Tech
@@ -165,7 +175,7 @@ MIT
 
 ## Date
 
-24 feb 2025 
+24 feb 2025
 
 
 

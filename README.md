@@ -146,11 +146,17 @@ so use this way to comment a field :
 FieldName=FieldValue001 
 ``` 
 
-## Load\Write
+## Read\Write
 ```cs
-IniSharp iniSharp = new IniSharp(fi.FullName,config);
-iniSharp.Config =  config;
+FileInfo fiInput = new FileInfo("<fullPathFileInputFile>");
+IniConfig config = new IniConfig();
+IniSharp iniSharp = new IniSharp(fiInput.FullName,config);
 iniSharp.Read();
+
+// ... change something ...
+
+FileInfo fiOutput = new FileInfo("<fullPathFileOutputFile>");
+iniSharp.Write(fiOutput);
 ```			
 
 ## Tech

@@ -18,7 +18,7 @@
 	<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
 	<PackageLicenseExpression>MIT</PackageLicenseExpression>
 	<PackageReadmeFile>docs\README.md</PackageReadmeFile>
-	<RepositoryUrl>https://github.com/MagnitudoMemoriae/IniSharp</RepositoryUrl>
+	<RepositoryUrl>https://github.com/NavileTech/IniSharp</RepositoryUrl>
 	<Version>$(AssemblyVersion)</Version>
 	<RootNamespace>$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
 	<DocumentationMarkdown>$(MSBuildProjectDirectory)\docs\API.md</DocumentationMarkdown>
