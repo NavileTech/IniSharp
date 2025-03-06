@@ -37,11 +37,8 @@ campo6=000
 C# code :
 
 ```cs
-IniConfig config = new IniConfig();
-IniSharp iniSharp = new IniSharp(fullPathFile,config);
-
-// If fullPathFile is not null or empty and file exists then actual == True
-Boolean actual = iniSharp.Read();
+IniSharp iniSharp = new IniSharp(fullPathFile);
+iniSharp.Read();
 
 // output of next line is "SEZIONE_1"
 Console.WriteLine(iniSharp.Section[0].Name);
@@ -60,10 +57,10 @@ Console.WriteLine(iniSharp.Section[1].Fields[0].Lines[1])
 
 ```
 
-Multiline value are separated by newline by default configuration provides by IniConfig config.
+Multiline value are separated by newline.
 
 
-Multivalue can be also separated by "," or "|" char.
+Multivalue are separated by "," or "|" char.
 
 
 ```dosini
@@ -71,7 +68,6 @@ Campo2=valore002,valoreacapo
 ```
 
 ```cs
-// default value for MultiValueSeparator in config is NEWLINE
 IniSharp iniSharp = new IniSharp(fullPathFile);
 iniSharp.MultiValueSeparator = MULTIVALUESEPARATOR.COMMA;
 ```
@@ -111,7 +107,7 @@ Add a new value in next line :
 String newValue = "ThisIsANewValue";
 
 IniConfig config = new IniConfig();
-config.MULTIVALUESEPARATOR = MULTIVALUESEPARATOR.PIPE;
+config.MULTIVALUESEPARATOR = MULTIVALUESEPARATORLocal;
 // Accessor strategy for index
 config.BYINDEX = AccessorsStatus.DINAMIC;
 // Accessor strategy DYNAMIC for name is not used
@@ -169,7 +165,7 @@ MIT
 
 ## Date
 
-24 feb 2025
+24 feb 2025 
 
 
 

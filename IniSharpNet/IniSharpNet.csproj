@@ -1,0 +1,44 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AssemblyVersion>1.0.4.0</AssemblyVersion>
+    <FileVersion>1.0.4.0</FileVersion>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Copyright>MIT</Copyright>
+    <SignAssembly>True</SignAssembly>
+    <Title>IniSharpNet</Title>
+    <Description>Simple library to read ini file</Description>
+	<Authors>Ugo Marchesini</Authors>
+	<Company>NavileTech</Company>
+	<PackageId>NavileTech.$(AssemblyName)</PackageId>
+	<PackageTags>ini file , configuration</PackageTags>
+	<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+	<PackageLicenseExpression>MIT</PackageLicenseExpression>
+	<PackageReadmeFile>docs\README.md</PackageReadmeFile>
+	<RepositoryUrl>https://github.com/MagnitudoMemoriae/IniSharp</RepositoryUrl>
+	<Version>$(AssemblyVersion)</Version>
+	<RootNamespace>$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
+	<DocumentationMarkdown>$(MSBuildProjectDirectory)\docs\API.md</DocumentationMarkdown>
+	<DelaySign>False</DelaySign>
+	<GenerateDocumentationFile>True</GenerateDocumentationFile>
+	<DocumentationFile></DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Vsxmd" Version="1.4.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="docs\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>
