@@ -1,14 +1,13 @@
 ﻿using Microsoft.VisualStudio.TestPlatform.ObjectModel;
 
-
 namespace IniSharpBox.Test
 {
     [TestClass]
     public sealed class UnitTest005
     {
-
         private const string FileNameLocal = "Test003.ini";
         private const MULTIVALUESEPARATOR MULTIVALUESEPARATORLocal = MULTIVALUESEPARATOR.PIPE;
+
         [TestMethod]
         public void Load001()
         {
@@ -18,7 +17,6 @@ namespace IniSharpBox.Test
             config.MULTIVALUESEPARATOR = MULTIVALUESEPARATORLocal;
             config.BYNAME = AccessorsStrategy.DINAMIC;
             config.BYINDEX = AccessorsStrategy.DINAMIC;
-
 
             String writeFile = "UnitTest005_Load101.ini";
             String newValue = "NuovoValore001";
@@ -41,11 +39,12 @@ namespace IniSharpBox.Test
             // Get
             String valueFromFile2 = iniSharpBegin["SEZIONE_1"]["Campo2"][0];
 
-            Boolean actual = String.Equals( newValue , valueFromFile2);
+            Boolean actual = String.Equals(newValue, valueFromFile2);
 
             Assert.AreEqual(expected, actual);
-        }
 
+            Commons.DeleteOutputFile(writeFile);
+        }
 
         [TestMethod]
         public void Load002()
@@ -117,16 +116,16 @@ namespace IniSharpBox.Test
 
                 Commons.DeleteOutputFile(writeFile);
 
-                if(iTestCase != 18)
+                if (iTestCase != 18)
                 {
                     //continue;
                 }
 
-                if (TestCase[iTestCase,3] == AT_INDEX)
+                if (TestCase[iTestCase, 3] == AT_INDEX)
                 {
                     config.BYNAME = AccessorsStrategy.NOT_INITIALIZE;
 
-                    if(TestCase[iTestCase, 4] == AS_STATIC)
+                    if (TestCase[iTestCase, 4] == AS_STATIC)
                     {
                         config.BYINDEX = AccessorsStrategy.STATIC;
                     }
@@ -135,8 +134,8 @@ namespace IniSharpBox.Test
                         continue;
                         //config.BYINDEX = AccessorsStatus.DINAMIC;
                     }
-                    
-                    int SEZIONE_INDEX = TestCase[iTestCase,0];
+
+                    int SEZIONE_INDEX = TestCase[iTestCase, 0];
                     int FIELD_INDEX = TestCase[iTestCase, 1];
                     int VALUE_INDEX = TestCase[iTestCase, 2];
                     int RESULT = 0;
@@ -149,17 +148,17 @@ namespace IniSharpBox.Test
 
                         //
 
-                        if((iniSharpBegin.Check(SEZIONE_INDEX, FIELD_INDEX, VALUE_INDEX) != 0) /*&& (config.BYINDEX == AccessorsStatus.STATIC)*/)
+                        if ((iniSharpBegin.Check(SEZIONE_INDEX, FIELD_INDEX, VALUE_INDEX) != 0) /*&& (config.BYINDEX == AccessorsStatus.STATIC)*/)
                         {
                             RESULT = 0;
-                        } 
+                        }
                         else if ((iniSharpBegin.Check(SEZIONE_INDEX, FIELD_INDEX, VALUE_INDEX) == 2) && (config.BYINDEX == AccessorsStrategy.DINAMIC))
                         {
                             RESULT = 0;
                         }
                         else
                         {
-                            if(iniSharpBegin.Check(SEZIONE_INDEX, FIELD_INDEX, VALUE_INDEX) != 0)
+                            if (iniSharpBegin.Check(SEZIONE_INDEX, FIELD_INDEX, VALUE_INDEX) != 0)
                             {
                                 valueFromFile1 = null;
                             }
@@ -168,12 +167,11 @@ namespace IniSharpBox.Test
                                 valueFromFile1 = iniSharpBegin[SEZIONE_INDEX][FIELD_INDEX][VALUE_INDEX];
                             }
 
-                           
                             // Set
                             iniSharpBegin[SEZIONE_INDEX][FIELD_INDEX][VALUE_INDEX] = newValue;
 
                             // WriteOutput
-                            
+
                             iniSharpBegin.Write(Commons.GetOutputFile(writeFile));
 
                             // ReadOutput
@@ -183,27 +181,25 @@ namespace IniSharpBox.Test
                             valueFromFile2 = iniSharpEnd[SEZIONE_INDEX][FIELD_INDEX][VALUE_INDEX];
                             RESULT = 1;
                         }
-
                     }
                     catch (Exception ex)
                     {
                         RESULT = 0;
                     }
 
-                    if(RESULT == 0)
+                    if (RESULT == 0)
                     {
-                        Actuals.Add( RESULT == TestCase[iTestCase, 5]);
+                        Actuals.Add(RESULT == TestCase[iTestCase, 5]);
                     }
                     else
                     {
                         Actuals.Add(String.Equals(newValue, valueFromFile2) && !String.Equals(newValue, valueFromFile1) && (RESULT == TestCase[iTestCase, 5]));
                     }
 
-                    
+                    Commons.DeleteOutputFile(writeFile);
                 }
                 else
                 {
-
                     config.BYINDEX = AccessorsStrategy.NOT_INITIALIZE;
 
                     if (TestCase[iTestCase, 4] == AS_STATIC)
@@ -249,7 +245,6 @@ namespace IniSharpBox.Test
 
                     try
                     {
-                      
                         // ReadInput
                         IniSharp iniSharpBegin = Commons.LoadWithFileName(FileNameLocal, config);
                         if ((iniSharpBegin.Check(SEZIONE_NAME, FIELD_NAME, VALUE_INDEX) != 0) /*&& (config.BYNAME == AccessorsStatus.STATIC)*/)
@@ -287,9 +282,10 @@ namespace IniSharpBox.Test
 
                             RESULT = 1;
 
-                        }                        
+                            Commons.DeleteOutputFile(writeFile);
+                        }
                     }
-                    catch (Exception ex) 
+                    catch (Exception ex)
                     {
                         RESULT = 0;
                     }
@@ -302,12 +298,10 @@ namespace IniSharpBox.Test
                     {
                         Actuals.Add(String.Equals(newValue, valueFromFile2) && !String.Equals(newValue, valueFromFile1) && (RESULT == TestCase[iTestCase, 5]));
                     }
-                }                
+                }
             }
 
             actual = !Actuals.Any(x => x == false);
-
-
 
             Assert.AreEqual(expected, actual);
         }
@@ -315,7 +309,6 @@ namespace IniSharpBox.Test
         [TestMethod]
         public void Load003()
         {
-
             Boolean expected = true;
             String newValue = "NuovoValore001";
             Boolean actual = false;
@@ -334,11 +327,8 @@ namespace IniSharpBox.Test
             // Set
             Boolean bSuccess = iniSharpBegin.SetValue(0, 0, 0, newValue);
 
-
-
-            if(bSuccess == true)
+            if (bSuccess == true)
             {
-
                 // WriteOutput
                 iniSharpBegin.Write(Commons.GetOutputFile(writeFile));
 
@@ -356,7 +346,10 @@ namespace IniSharpBox.Test
             }
 
             Assert.AreEqual(expected, actual);
+
+            Commons.DeleteOutputFile(writeFile);
         }
+
 #if false
 
         [TestMethod]
@@ -369,7 +362,6 @@ namespace IniSharpBox.Test
 
             Assert.AreEqual(expected, actual);
         }
-
 
         [TestMethod]
         public void Load101()
@@ -403,7 +395,6 @@ namespace IniSharpBox.Test
 
             Assert.AreEqual(expected, actual);
         }
-
 
         [TestMethod]
         public void Load104()
@@ -449,7 +440,6 @@ namespace IniSharpBox.Test
 
             Assert.AreEqual(expected, actual);
         }
-
 
         [TestMethod]
         public void Load204()

@@ -64,6 +64,10 @@
   - [Contains(container,item)](#M-IniSharpBox-IniItemList-Contains-System-Collections-Generic-List{IniSharpBox-IniItem},IniSharpBox-IniItem- 'IniSharpBox.IniItemList.Contains(System.Collections.Generic.List{IniSharpBox.IniItem},IniSharpBox.IniItem)')
   - [Contains(container,name)](#M-IniSharpBox-IniItemList-Contains-System-Collections-Generic-List{IniSharpBox-IniItem},System-String- 'IniSharpBox.IniItemList.Contains(System.Collections.Generic.List{IniSharpBox.IniItem},System.String)')
   - [Contains(container,index)](#M-IniSharpBox-IniItemList-Contains-System-Collections-Generic-List{IniSharpBox-IniItem},System-Int32- 'IniSharpBox.IniItemList.Contains(System.Collections.Generic.List{IniSharpBox.IniItem},System.Int32)')
+- [IniJsonInterop](#T-IniSharpNet-Conversion-IniJsonInterop 'IniSharpNet.Conversion.IniJsonInterop')
+  - [GetIniAsJson(value,indented,preserveComments)](#M-IniSharpNet-Conversion-IniJsonInterop-GetIniAsJson-System-String,System-Boolean,System-Boolean- 'IniSharpNet.Conversion.IniJsonInterop.GetIniAsJson(System.String,System.Boolean,System.Boolean)')
+  - [GetJsonAsIni(value,restoreComments)](#M-IniSharpNet-Conversion-IniJsonInterop-GetJsonAsIni-System-String,System-Boolean- 'IniSharpNet.Conversion.IniJsonInterop.GetJsonAsIni(System.String,System.Boolean)')
+  - [JavaScriptEncode(value)](#M-IniSharpNet-Conversion-IniJsonInterop-JavaScriptEncode-System-String- 'IniSharpNet.Conversion.IniJsonInterop.JavaScriptEncode(System.String)')
 - [IniSharp](#T-IniSharpBox-IniSharp 'IniSharpBox.IniSharp')
   - [#ctor(filename,config)](#M-IniSharpBox-IniSharp-#ctor-System-String,IniSharpBox-IniConfig- 'IniSharpBox.IniSharp.#ctor(System.String,IniSharpBox.IniConfig)')
   - [#ctor(filename)](#M-IniSharpBox-IniSharp-#ctor-System-String- 'IniSharpBox.IniSharp.#ctor(System.String)')
@@ -826,6 +830,70 @@ Return true if an item with index is present in list , otherwise false
 | container | [System.Collections.Generic.List{IniSharpBox.IniItem}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{IniSharpBox.IniItem}') |  |
 | index | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') |  |
 
+<a name='T-IniSharpNet-Conversion-IniJsonInterop'></a>
+## IniJsonInterop `type`
+
+##### Namespace
+
+IniSharpNet.Conversion
+
+##### Summary
+
+Defines interoperability functions for INI and JSON.
+ Thanks to J. Ritchie Carroll (ritchiecarroll : https://gist.github.com/ritchiecarroll )
+
+ https://gist.github.com/ritchiecarroll/42909ef62e8597c58ee2301fd2a05e3c
+
+<a name='M-IniSharpNet-Conversion-IniJsonInterop-GetIniAsJson-System-String,System-Boolean,System-Boolean-'></a>
+### GetIniAsJson(value,indented,preserveComments) `method`
+
+##### Summary
+
+Gets INI as JSON.
+
+##### Returns
+
+Converted JSON.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| value | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | INI source. |
+| indented | [System.Boolean](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Boolean 'System.Boolean') | `true` to indent result JSON; otherwise, `false`. |
+| preserveComments | [System.Boolean](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Boolean 'System.Boolean') | `true` to preserve comments; otherwise, `false`. |
+
+<a name='M-IniSharpNet-Conversion-IniJsonInterop-GetJsonAsIni-System-String,System-Boolean-'></a>
+### GetJsonAsIni(value,restoreComments) `method`
+
+##### Summary
+
+Gets JSON as INI.
+
+##### Returns
+
+Converted INI.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| value | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | JSON source. |
+| restoreComments | [System.Boolean](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Boolean 'System.Boolean') | `true` to restore comments; otherwise, `false`. |
+
+<a name='M-IniSharpNet-Conversion-IniJsonInterop-JavaScriptEncode-System-String-'></a>
+### JavaScriptEncode(value) `method`
+
+##### Summary
+
+Performs JavaScript encoding on given string.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| value | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | The string to be encoded. |
+
 <a name='T-IniSharpBox-IniSharp'></a>
 ## IniSharp `type`
 
@@ -1190,7 +1258,7 @@ Return value if exist , otherwise null
 
 ##### Summary
 
-Parse a ini file passed as string 
+Parse a ini file passed as string
 Ex : File.ReadAllText
 
 ##### Returns
@@ -1208,7 +1276,7 @@ Ex : File.ReadAllText
 
 ##### Summary
 
-Parse a ini file passed as array of string 
+Parse a ini file passed as array of string
 Ex : File.ReadAllLines
 
 ##### Returns

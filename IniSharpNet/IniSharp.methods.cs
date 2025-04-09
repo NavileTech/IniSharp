@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace IniSharpBox
+﻿namespace IniSharpBox
 {
     public partial class IniSharp
     {
-
         /// <summary>
         /// Return value if exist , otherwise null
         /// </summary>
@@ -16,17 +9,18 @@ namespace IniSharpBox
         /// <param name="field"></param>
         /// <param name="indexvalue"></param>
         /// <returns></returns>
-        public String GetValue(int section,int field,int indexvalue)
+        public String GetValue(int section, int field, int indexvalue)
         {
             String ReturnValue = String.Empty;
 
-            if(this.Check(section,field,indexvalue) == 0)
+            if (this.Check(section, field, indexvalue) == 0)
             {
                 ReturnValue = this[section][field][indexvalue];
             }
 
             return ReturnValue;
         }
+
         /// <summary>
         /// Return value if exist , otherwise null
         /// </summary>
@@ -65,7 +59,6 @@ namespace IniSharpBox
             return ReturnValue;
         }
 
-
         /// <summary>
         /// Return value if exist , otherwise null
         /// </summary>
@@ -85,7 +78,6 @@ namespace IniSharpBox
             return ReturnValue;
         }
 
-
         /// <summary>
         /// Return value if exist , otherwise null
         /// </summary>
@@ -94,7 +86,7 @@ namespace IniSharpBox
         /// <param name="indexvalue"></param>
         /// <param name="value"></param>
         /// <returns></returns>
-        public Boolean SetValue(int section, int field, int indexvalue,String value)
+        public Boolean SetValue(int section, int field, int indexvalue, String value)
         {
             Boolean ReturnValue = false;
 
@@ -106,6 +98,7 @@ namespace IniSharpBox
 
             return ReturnValue;
         }
+
         /// <summary>
         /// Return value if exist , otherwise null
         /// </summary>
@@ -147,7 +140,6 @@ namespace IniSharpBox
 
             return ReturnValue;
         }
-
 
         /// <summary>
         /// Return value if exist , otherwise null
@@ -215,10 +207,8 @@ namespace IniSharpBox
                 ReturnValue = -2;
             }
 
-
             return ReturnValue;
         }
-
 
         /// <summary>
         /// Return status of get/set operation
@@ -264,7 +254,6 @@ namespace IniSharpBox
             {
                 ReturnValue = -2;
             }
-
 
             return ReturnValue;
         }
@@ -314,7 +303,6 @@ namespace IniSharpBox
                 ReturnValue = -2;
             }
 
-
             return ReturnValue;
         }
 
@@ -363,10 +351,7 @@ namespace IniSharpBox
                 ReturnValue = -2;
             }
 
-
             return ReturnValue;
         }
-
-
     }
 }

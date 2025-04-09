@@ -8,13 +8,12 @@ namespace IniSharpBox.Test
     [TestClass]
     public class UnitTest001
     {
-
-
         private const string FileName001 = "Test001.ini";
+
         [TestMethod]
         public void Load001()
         {
-            IniSharp iniSharp = Commons.LoadWithFileName(FileName001,new IniConfig());
+            IniSharp iniSharp = Commons.LoadWithFileName(FileName001, new IniConfig());
             Boolean expected = true;
 
             Boolean actual = Commons.TestActual001(iniSharp);
@@ -44,7 +43,6 @@ namespace IniSharpBox.Test
             Assert.AreEqual(expected, actual);
         }
 
-
         [TestMethod]
         public void Load004()
         {
@@ -59,7 +57,7 @@ namespace IniSharpBox.Test
         [TestMethod]
         public void Load005()
         {
-            IniSharp iniSharp = Commons.LoadWithFileName(FileName001 , new IniConfig());
+            IniSharp iniSharp = Commons.LoadWithFileName(FileName001, new IniConfig());
 
             Boolean expected = true;
             Boolean actual = (iniSharp.Sections.Section[0].Fields[0].DefaultValue == "valore1");
@@ -99,7 +97,7 @@ namespace IniSharpBox.Test
             Boolean expected = true;
 
             String newValue = "ThisIsANewValue";
-                
+
             Boolean actual1 = (iniSharp["SEZIONE_1"]["campo001"][0] == "valore1");
 
             iniSharp["SEZIONE_1"]["campo001"][0] = newValue;
@@ -110,7 +108,6 @@ namespace IniSharpBox.Test
 
             Assert.AreEqual(expected, actual);
         }
-
 
         [TestMethod]
         public void Load101()
@@ -144,7 +141,6 @@ namespace IniSharpBox.Test
 
             Assert.AreEqual(expected, actual);
         }
-
 
         [TestMethod]
         public void Load104()
@@ -189,7 +185,6 @@ namespace IniSharpBox.Test
 
             Assert.AreEqual(expected, actual);
         }
-
 
         [TestMethod]
         public void Load204()

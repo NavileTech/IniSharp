@@ -1,21 +1,8 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.IO.Pipes;
-using System.Linq;
-using System.Reflection;
+﻿using System.Diagnostics;
 using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-using static System.Collections.Specialized.BitVector32;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace IniSharpBox
 {
-
-
     /// <summary>
     /// Class for manage ini file
     /// </summary>
@@ -26,9 +13,8 @@ namespace IniSharpBox
         private int _fieldId = 0;
         private PARSE_STATE State = PARSE_STATE.INIT;
 
-
         /// <summary>
-        /// Get/Set trace debug 
+        /// Get/Set trace debug
         /// </summary>
         public Boolean EnableDebug { get; set; }
 
@@ -45,30 +31,29 @@ namespace IniSharpBox
         { get { return (!Error || (!HasException)); } }
 
         /// <summary>
-        /// List of verbose error 
+        /// List of verbose error
         /// </summary>
         private List<String> _Errors = new List<String>();
 
         /// <summary>
-        /// Return list of verbose error 
+        /// Return list of verbose error
         /// </summary>
         public List<String> Errors
         { get { return _Errors; } }
 
-
         /// <summary>
-        /// Return true if an exception occur during file parsing , otherwise false 
+        /// Return true if an exception occur during file parsing , otherwise false
         /// </summary>
         public Boolean HasException
         { get { return (_Exceptions.Count() > 0); } }
 
         /// <summary>
-        /// List of verbose Exceptions 
+        /// List of verbose Exceptions
         /// </summary>
         private List<String> _Exceptions = new List<String>();
 
         /// <summary>
-        /// Return list of verbose error 
+        /// Return list of verbose error
         /// </summary>
         public List<String> Exceptions
         { get { return _Exceptions; } }
@@ -205,8 +190,7 @@ namespace IniSharpBox
 
             this.Comments = new List<String>();
 
-            
-            if(config == null)
+            if (config == null)
             {
                 _Config = new IniConfig();
             }
@@ -218,9 +202,8 @@ namespace IniSharpBox
             this.Sections = new Sections(this.Config);
         }
 
-
         /// <summary>
-        /// Parse a ini file passed as string 
+        /// Parse a ini file passed as string
         /// Ex : File.ReadAllText
         /// </summary>
         /// <param name="text"></param>
@@ -234,7 +217,7 @@ namespace IniSharpBox
         }
 
         /// <summary>
-        /// Parse a ini file passed as array of string 
+        /// Parse a ini file passed as array of string
         /// Ex : File.ReadAllLines
         /// </summary>
         /// <param name="lines"></param>
@@ -291,7 +274,7 @@ namespace IniSharpBox
         }
 
         /// <summary>
-        /// Inner method : parse a ini file passed as array of string 
+        /// Inner method : parse a ini file passed as array of string
         /// </summary>
         /// <param name="lines"></param>
         /// <returns></returns>
@@ -334,7 +317,7 @@ namespace IniSharpBox
 
                             if (Line.StartsWith("#") == true)
                             {
-                                // Command
+                                // Comment
                                 section.Comments.Add(Line);
                                 State = PARSE_STATE.COMMENT;
                                 continue;
@@ -450,7 +433,6 @@ namespace IniSharpBox
 
             sb.Append(this.Sections.Write());
 
-
             if (((fi.Exists == true) && (overWrite == true)) || (fi.Exists == false))
             {
                 File.WriteAllText(fi.FullName, sb.ToString());
@@ -458,7 +440,6 @@ namespace IniSharpBox
             }
 
             return ReturnValue;
-
         }
     }
 }

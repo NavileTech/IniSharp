@@ -9,8 +9,6 @@ namespace IniSharpBox.Test
     [TestClass]
     public class UnitTest006
     {
-
-
         private const string FileName001 = "Test001.ini";
 
         private List<Boolean> TestReadMethods(IniSharp ini, String filename)
@@ -24,10 +22,12 @@ namespace IniSharpBox.Test
                         ini.Read();
                         Actuals.Add(ini.HasException);
                         break;
+
                     case 1:
                         ini.Read(Commons.GetInputText(filename));
                         Actuals.Add(ini.HasException);
                         break;
+
                     case 2:
                         ini.Read(Commons.GetInputLines(filename));
                         Actuals.Add(ini.HasException);
@@ -44,7 +44,6 @@ namespace IniSharpBox.Test
         [TestMethod]
         public void Constructor001()
         {
-
             Dictionary<String, MULTIVALUESEPARATOR> files = new Dictionary<string, MULTIVALUESEPARATOR>();
 
             files["Test001.ini"] = MULTIVALUESEPARATOR.NEWLINE;
@@ -60,7 +59,6 @@ namespace IniSharpBox.Test
                 for (int iMVS = 0; iMVS < Helpers.MULTIVALUESEPARATORs.Count; iMVS++)
                 {
                     MULTIVALUESEPARATOR mvsActual = Helpers.MULTIVALUESEPARATORs[iMVS];
-                   
 
                     for (int iContructionMethod = 0; iContructionMethod < 6; iContructionMethod++)
                     {
@@ -70,27 +68,31 @@ namespace IniSharpBox.Test
                                 iniShaptTest = new IniSharp();
                                 Actuals.AddRange(TestReadMethods(iniShaptTest, filename));
                                 break;
+
                             case 1:
                                 iniShaptTest = new IniSharp(new FileInfo(filename));
                                 Actuals.AddRange(TestReadMethods(iniShaptTest, filename));
                                 break;
+
                             case 2:
                                 iniShaptTest = new IniSharp(new IniConfig());
                                 Actuals.AddRange(TestReadMethods(iniShaptTest, filename));
                                 break;
+
                             case 3:
                                 iniShaptTest = new IniSharp(filename);
                                 Actuals.AddRange(TestReadMethods(iniShaptTest, filename));
                                 break;
+
                             case 4:
                                 iniShaptTest = new IniSharp(new FileInfo(filename), new IniConfig());
                                 Actuals.AddRange(TestReadMethods(iniShaptTest, filename));
                                 break;
+
                             case 5:
                                 iniShaptTest = new IniSharp(filename, new IniConfig());
                                 Actuals.AddRange(TestReadMethods(iniShaptTest, filename));
                                 break;
-
                         }
                     }
                 }
@@ -100,7 +102,6 @@ namespace IniSharpBox.Test
             // For all constructor method
             // For all read text method
 
-
             Boolean expected = true;
 
             // There is at least one exception
@@ -108,6 +109,7 @@ namespace IniSharpBox.Test
 
             Assert.AreEqual(expected, actual);
         }
+
 #if false
         [TestMethod]
         public void Load001()
@@ -141,7 +143,6 @@ namespace IniSharpBox.Test
 
             Assert.AreEqual(expected, actual);
         }
-
 
         [TestMethod]
         public void Load004()
@@ -197,7 +198,7 @@ namespace IniSharpBox.Test
             Boolean expected = true;
 
             String newValue = "ThisIsANewValue";
-                
+
             Boolean actual1 = (iniSharp["SEZIONE_1"]["campo001"][0] == "valore1");
 
             iniSharp["SEZIONE_1"]["campo001"][0] = newValue;
@@ -208,7 +209,6 @@ namespace IniSharpBox.Test
 
             Assert.AreEqual(expected, actual);
         }
-
 
         [TestMethod]
         public void Load101()
@@ -242,7 +242,6 @@ namespace IniSharpBox.Test
 
             Assert.AreEqual(expected, actual);
         }
-
 
         [TestMethod]
         public void Load104()
@@ -288,7 +287,6 @@ namespace IniSharpBox.Test
             Assert.AreEqual(expected, actual);
         }
 
-
         [TestMethod]
         public void Load204()
         {
@@ -299,7 +297,7 @@ namespace IniSharpBox.Test
 
             Assert.AreEqual(expected, actual);
         }
-    
+
 #endif
     }
 }

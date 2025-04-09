@@ -1,5 +1,18 @@
 # IniSharp
+
 ## Library for ini configuration file
+
+**IniSharp** is a lightweight and easy-to-use C# library designed for managing INI configuration files. It provides a simple API to perform common operations such as reading values, writing updates, and checking the existence of specific sections, keys, and values within an INI file. Whether you're building desktop applications, utilities, or tools that rely on structured configuration files, IniSharp offers a reliable and efficient solution for handling INI-based settings.
+
+## Features
+
+- ✅ Read values from specified sections and keys  
+- ✍️ Write or update values within an INI file  
+- 🔍 Check for the existence of sections or keys  
+- ⚙️ Minimal dependencies and easy integration into existing projects  
+
+With **IniSharp**, you can streamline configuration management in your C# applications with clear, readable code and dependable performance.
+
 
 IniSharp is a .NET library to manage ini configuration file.
 This repository contains following projects :
@@ -175,7 +188,7 @@ MIT
 
 ## Date
 
-24 feb 2025
+08 apr 2025
 
 
 

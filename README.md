@@ -1,15 +1,30 @@
 # IniSharp
+
 ## Library for ini configuration file
 
-IniSharp is a .NET library to manage ini configuration file.
+**IniSharp** is a lightweight and easy-to-use C# library designed for managing INI configuration files. It provides a simple API to perform common operations such as reading values, writing updates, and checking the existence of specific sections, keys, and values within an INI file. 
+Whether you're building desktop applications, utilities, or tools that rely on structured configuration files, **IniSharp** offers a reliable and efficient solution for handling INI-based settings.
+
+## Features
+
+- ✅ Read values from specified sections and keys  
+- ✍️ Write or update values within an INI file  
+- 🔍 Check for the existence of sections or keys  
+- ⚙️ Minimal dependencies and easy integration into existing projects  
+
+With **IniSharp**, you can streamline configuration management in your C# applications with clear, readable code and dependable performance.
+
+## Projects
+
+IniSharp is a .NET library to manage ini configuration file and it's a part of a **Visual Studio 2022** solution containing others projects.
 This repository contains following projects :
-- IniSharp (.Net framework of library , now not completed tested)
-- IniSharp.Test (.Net framework of test library , now not completed tested)
+- IniSharp (.Net framework of library , now disabled)
+- IniSharp.Test (.Net framework of test library , now disabled)
 - IniSharpNet (.NET library)
 - IniSharpNet.Test  (.NET test library)
 - IniSharp.GUI (for GUI test of the .NET library)
  
-Usage :
+## Some usage
 
 config.ini
 ```dosini
@@ -87,6 +102,11 @@ IniSharp iniSharp = new IniSharp(fullPathFile);
 iniSharp.MultiValueSeparator = MULTIVALUESEPARATOR.PIPE;
 ```
 
+## Grammar tips
+
+A section line (**[somesection]** ) must start with "**[**" (open square brackets) char and end with a "**]**" (close square brackets) char. Every char (except new line and any *trimmable* char according to C# rules) after "\]" will produce an unpreditable result, best case scenario return an error.
+
+A field line ("fieldname=fieldcontent" ) must start with a char and end with new line, parser split line with "=" char and trim both content.
 
 
 
@@ -114,7 +134,7 @@ IniConfig config = new IniConfig();
 config.MULTIVALUESEPARATOR = MULTIVALUESEPARATOR.PIPE;
 // Accessor strategy for index
 config.BYINDEX = AccessorsStatus.DINAMIC;
-// Accessor strategy DYNAMIC for name is not used
+// Accessor strategy DYNAMIC for name (.BYNAME) is not used
 
 
 // Get/Set indexed value, int and string
@@ -175,7 +195,7 @@ MIT
 
 ## Date
 
-24 feb 2025
+08 apr 2025
 
 
 

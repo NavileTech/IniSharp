@@ -1,17 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.IO.Pipes;
-using System.Linq;
-using System.Reflection;
-using System.Reflection.Metadata.Ecma335;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-using static System.Collections.Specialized.BitVector32;
-using static System.Net.Mime.MediaTypeNames;
+﻿using System.Text;
 
 namespace IniSharpBox
 {
@@ -20,7 +7,6 @@ namespace IniSharpBox
     /// </summary>
     public class IniConfig
     {
-
         /// <summary>
         /// Constructor
         /// </summary>
@@ -86,7 +72,6 @@ namespace IniSharpBox
         /// </summary>
         protected string[] _ArrMultiValueSeparator = new string[] { "\r\n", "\r", "\n" };
 
-
         /// <summary>
         /// Return array of char of separator of field values
         /// </summary>
@@ -94,7 +79,6 @@ namespace IniSharpBox
         {
             get { return _ArrMultiValueSeparator; }
         }
-
 
         private AccessorsStrategy _BYINDEX = AccessorsStrategy.STATIC;
 
@@ -108,6 +92,7 @@ namespace IniSharpBox
         }
 
         private AccessorsStrategy _BYNAME = AccessorsStrategy.STATIC;
+
         /// <summary>
         /// Return strategy for accessor property
         /// </summary>
@@ -123,12 +108,13 @@ namespace IniSharpBox
     /// </summary>
     public abstract class IniBase
     {
-
         private int _ID = -1;
+
         /// <summary>
         /// Unique identifier for section or field
         /// </summary>
-        protected int ID { get { return _ID; } set { _ID = value; } }
+        protected int ID
+        { get { return _ID; } set { _ID = value; } }
 
         /// <summary>
         /// Return next id used for initialize list item in IniSharp like Section and Field
@@ -139,28 +125,26 @@ namespace IniSharpBox
             return _ID++;
         }
 
-
         /// <summary>
-        /// Protected field for configuration class 
+        /// Protected field for configuration class
         /// </summary>
         protected IniConfig _Config = new IniConfig();
+
         /// <summary>
         /// Return configuration set of arguments
         /// </summary>
         public IniConfig Config
         {
-            get { return _Config;  }
+            get { return _Config; }
             //set;
         }
-
     }
 
     /// <summary>
-    /// Abstact class for single item 
+    /// Abstact class for single item
     /// </summary>
     public abstract class IniItem : IniBase
     {
-
         /// <summary>
         /// Contains comment after declation of Section or Field
         /// </summary>
@@ -190,15 +174,13 @@ namespace IniSharpBox
     /// </summary>
     public abstract class IniItemList : IniItem
     {
-
-
         /// <summary>
         /// Return true if item is present in list , otherwise false
         /// </summary>
         /// <param name="container"></param>
         /// <param name="item"></param>
         /// <returns></returns>
-        /// 
+        ///
         public bool Contains(List<IniItem> container, IniItem item)
         {
             return container.Contains(item);
@@ -225,7 +207,6 @@ namespace IniSharpBox
         {
             return container.Count > index;
         }
-
     }
 
     /// <summary>
@@ -334,6 +315,7 @@ namespace IniSharpBox
                     case AccessorsStrategy.STATIC:
                         ReturnValue = String.Empty;
                         break;
+
                     case AccessorsStrategy.DINAMIC:
                         ReturnValue = String.Empty;
                         break;
@@ -361,6 +343,7 @@ namespace IniSharpBox
                     case AccessorsStrategy.STATIC:
                         //throw new IndexOutOfRangeException();
                         break;
+
                     case AccessorsStrategy.DINAMIC:
                         if (Lines.Count == index)
                         {
@@ -377,7 +360,7 @@ namespace IniSharpBox
         }
 
         /// <summary>
-        /// Indexer declaration 
+        /// Indexer declaration
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
@@ -397,13 +380,14 @@ namespace IniSharpBox
         /// Constructor
         /// </summary>
         /// <param name="id"></param>
-        /// <param name="config"></param>        
+        /// <param name="config"></param>
         public Field(int id, IniConfig? config) : this(config)
         {
             _Initialize = true;
             ID = id;
             Name = $"{ID}";
         }
+
 #if false
         /// <summary>
         /// Constructor
@@ -416,8 +400,9 @@ namespace IniSharpBox
             Name = name;
         }
 #endif
+
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="id"></param>
         /// <param name="name"></param>
@@ -434,14 +419,14 @@ namespace IniSharpBox
         /// </summary>
         public Field(IniConfig? config) : this()
         {
-            if(config == null)
+            if (config == null)
             {
                 _Config = new IniConfig();
             }
             else
             {
                 _Config = config;
-            }               
+            }
         }
 
         /// <summary>
@@ -522,6 +507,7 @@ namespace IniSharpBox
         /// List of fields
         /// </summary>
         public List<Field> Field { get; set; }
+
 #if false
         internal Field GetIfExist(int index)
         {
@@ -540,6 +526,7 @@ namespace IniSharpBox
             }
         }
 #endif
+
         private int GetIndexByName(string name)
         {
             return Field.FindIndex(x => x.Name == name);
@@ -601,6 +588,7 @@ namespace IniSharpBox
                     case AccessorsStrategy.STATIC:
                         ReturnValue = null;
                         break;
+
                     case AccessorsStrategy.DINAMIC:
                         ReturnValue = null;
                         if (Field.Count == index)
@@ -631,6 +619,7 @@ namespace IniSharpBox
                     case AccessorsStrategy.STATIC:
                         //throw new IndexOutOfRangeException();
                         break;
+
                     case AccessorsStrategy.DINAMIC:
                         if (Field.Count == index)
                         {
@@ -660,6 +649,7 @@ namespace IniSharpBox
                     case AccessorsStrategy.STATIC:
                         ReturnValue = null;
                         break;
+
                     case AccessorsStrategy.DINAMIC:
                         ReturnValue = null;
                         //ReturnValue = new Field(this.NetxId(), name, this.Config);
@@ -690,7 +680,7 @@ namespace IniSharpBox
         }
 
         /// <summary>
-        /// Indexer declaration 
+        /// Indexer declaration
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
@@ -707,7 +697,7 @@ namespace IniSharpBox
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
@@ -722,8 +712,6 @@ namespace IniSharpBox
                 AccessorSet(value, name, Config.BYNAME);
             }
         }
-
-
 
         /// <summary>
         /// Return number of element of Field list
@@ -777,7 +765,7 @@ namespace IniSharpBox
         public Fields Fields { get; set; }
 
         /// <summary>
-        /// Indexer declaration 
+        /// Indexer declaration
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
@@ -794,7 +782,7 @@ namespace IniSharpBox
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
@@ -838,9 +826,8 @@ namespace IniSharpBox
         /// <summary>
         /// Contructor
         /// </summary>
-        public Section(IniConfig? config) 
+        public Section(IniConfig? config)
         {
-
             if (config == null)
             {
                 _Config = new IniConfig();
@@ -855,7 +842,7 @@ namespace IniSharpBox
         }
 
         /// <summary>
-        /// Return last field  
+        /// Return last field
         /// </summary>
         /// <returns></returns>
         public Field Last()
@@ -871,7 +858,6 @@ namespace IniSharpBox
         {
             Fields.Add(item);
         }
-
 
         /// <summary>
         /// Return fields strings
@@ -940,6 +926,7 @@ namespace IniSharpBox
                     case AccessorsStrategy.STATIC:
                         ReturnValue = null;
                         break;
+
                     case AccessorsStrategy.DINAMIC:
                         ReturnValue = null;
                         if (Section.Count == index)
@@ -970,6 +957,7 @@ namespace IniSharpBox
                     case AccessorsStrategy.STATIC:
                         //throw new IndexOutOfRangeException();
                         break;
+
                     case AccessorsStrategy.DINAMIC:
                         if (Section.Count == index)
                         {
@@ -999,6 +987,7 @@ namespace IniSharpBox
                     case AccessorsStrategy.STATIC:
                         ReturnValue = null;
                         break;
+
                     case AccessorsStrategy.DINAMIC:
                         ReturnValue = null;
                         //ReturnValue = new Section(this.NetxId(),name,this.Config);
@@ -1100,7 +1089,7 @@ namespace IniSharpBox
         }
 
         /// <summary>
-        /// Add a new empty section with name 
+        /// Add a new empty section with name
         /// </summary>
         /// <param name="name"></param>
         public void Add(string name)
@@ -1116,7 +1105,6 @@ namespace IniSharpBox
         {
             Section.Clear();
         }
-
 
         /// <summary>
         /// Return true if item is present in list , otherwise false
@@ -1148,7 +1136,6 @@ namespace IniSharpBox
             return Section.Count > index;
         }
 
-
         /// <summary>
         /// Return Sections stirngs
         /// </summary>
@@ -1165,5 +1152,4 @@ namespace IniSharpBox
             return sb.ToString();
         }
     }
-
 }

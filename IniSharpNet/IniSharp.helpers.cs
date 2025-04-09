@@ -1,9 +1,5 @@
 ﻿using IniSharpBox;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using static System.Collections.Specialized.BitVector32;
 
 namespace IniSharpNet
 {
@@ -18,6 +14,16 @@ namespace IniSharpNet
         public static List<MULTIVALUESEPARATOR> MULTIVALUESEPARATORs
         {
             get { return new List<MULTIVALUESEPARATOR>() { MULTIVALUESEPARATOR.NEWLINE, MULTIVALUESEPARATOR.COMMA, MULTIVALUESEPARATOR.PIPE }; }
+        }
+
+        public static string Space(int number)
+        {
+            return new String(' ', number);
+        }
+
+        public static string StringIfLess(int index , int breakeven , string iftrue , string iffalse)
+        {
+            return index < breakeven ? iftrue : iffalse;
         }
     }
 }
