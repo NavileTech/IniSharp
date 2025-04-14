@@ -177,17 +177,17 @@
         public int Check(int section, int field, int indexvalue)
         {
             int ReturnValue = int.MinValue;
-            if (this.Sections.Contains(section) == true)
+            if (this.Body.Contains(section) == true)
             {
-                if (this.Sections[section].Fields.Contains(field) == true)
+                if (this.Body[section].Fields.Contains(field) == true)
                 {
-                    if (this.Sections[section].Fields[field].Lines.Count > indexvalue)
+                    if (this.Body[section].Fields[field].Lines.Count > indexvalue)
                     {
                         ReturnValue = 0;
                     }
                     else
                     {
-                        if (this.Sections[section].Fields[field].Lines.Count == indexvalue)
+                        if (this.Body[section].Fields[field].Lines.Count == indexvalue)
                         {
                             ReturnValue = 1;
                         }
@@ -225,17 +225,17 @@
         public int Check(int section, String field, int indexvalue)
         {
             int ReturnValue = int.MinValue;
-            if (this.Sections.Contains(section) == true)
+            if (this.Body.Contains(section) == true)
             {
-                if (this.Sections[section].Fields.Contains(field) == true)
+                if (this.Body[section].Fields.Contains(field) == true)
                 {
-                    if (this.Sections[section].Fields[field].Lines.Count > indexvalue)
+                    if (this.Body[section].Fields[field].Lines.Count > indexvalue)
                     {
                         ReturnValue = 0;
                     }
                     else
                     {
-                        if (this.Sections[section].Fields[field].Lines.Count == indexvalue)
+                        if (this.Body[section].Fields[field].Lines.Count == indexvalue)
                         {
                             ReturnValue = 1;
                         }
@@ -273,17 +273,17 @@
         public int Check(String section, int field, int indexvalue)
         {
             int ReturnValue = int.MinValue;
-            if (this.Sections.Contains(section) == true)
+            if (this.Body.Contains(section) == true)
             {
-                if (this.Sections[section].Fields.Contains(field) == true)
+                if (this.Body[section].Fields.Contains(field) == true)
                 {
-                    if (this.Sections[section].Fields[field].Lines.Count > indexvalue)
+                    if (this.Body[section].Fields[field].Lines.Count > indexvalue)
                     {
                         ReturnValue = 0;
                     }
                     else
                     {
-                        if (this.Sections[section].Fields[field].Lines.Count == indexvalue)
+                        if (this.Body[section].Fields[field].Lines.Count == indexvalue)
                         {
                             ReturnValue = 1;
                         }
@@ -321,17 +321,17 @@
         public int Check(String section, String field, int indexvalue)
         {
             int ReturnValue = int.MinValue;
-            if (this.Sections.Contains(section) == true)
+            if (this.Body.Contains(section) == true)
             {
-                if (this.Sections[section].Fields.Contains(field) == true)
+                if (this.Body[section].Fields.Contains(field) == true)
                 {
-                    if (this.Sections[section].Fields[field].Lines.Count > indexvalue)
+                    if (this.Body[section].Fields[field].Lines.Count > indexvalue)
                     {
                         ReturnValue = 0;
                     }
                     else
                     {
-                        if (this.Sections[section].Fields[field].Lines.Count == indexvalue)
+                        if (this.Body[section].Fields[field].Lines.Count == indexvalue)
                         {
                             ReturnValue = 1;
                         }

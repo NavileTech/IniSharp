@@ -1,5 +1,5 @@
 ﻿using IniSharpBox;
-using static System.Collections.Specialized.BitVector32;
+using System.Text;
 
 namespace IniSharpNet
 {
@@ -21,9 +21,20 @@ namespace IniSharpNet
             return new String(' ', number);
         }
 
-        public static string StringIfLess(int index , int breakeven , string iftrue , string iffalse)
+        public static string StringIfLess(int index, int breakeven, string iftrue, string iffalse)
         {
             return index < breakeven ? iftrue : iffalse;
+        }
+
+        public static StringBuilder ListOfStringToStringBuilderAppendLine(List<String> elements)
+        {
+            StringBuilder ReturnValue = new StringBuilder();
+
+            foreach (String element in elements)
+            {
+                ReturnValue.AppendLine(element);
+            }
+            return ReturnValue;
         }
     }
 }

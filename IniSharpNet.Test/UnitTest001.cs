@@ -60,7 +60,7 @@ namespace IniSharpBox.Test
             IniSharp iniSharp = Commons.LoadWithFileName(FileName001, new IniConfig());
 
             Boolean expected = true;
-            Boolean actual = (iniSharp.Sections.Section[0].Fields[0].DefaultValue == "valore1");
+            Boolean actual = (iniSharp.Body.Childs[0].Fields[0].DefaultValue == "valore1");
 
             Assert.AreEqual(expected, actual);
         }

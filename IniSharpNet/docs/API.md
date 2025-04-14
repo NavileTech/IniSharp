@@ -23,14 +23,18 @@
   - [Add(lines)](#M-IniSharpBox-Field-Add-System-Collections-Generic-List{System-String}- 'IniSharpBox.Field.Add(System.Collections.Generic.List{System.String})')
   - [Add(lines)](#M-IniSharpBox-Field-Add-System-String[]- 'IniSharpBox.Field.Add(System.String[])')
   - [Add(line)](#M-IniSharpBox-Field-Add-System-String- 'IniSharpBox.Field.Add(System.String)')
+  - [Merge(first,second,duplicateValue)](#M-IniSharpBox-Field-Merge-IniSharpBox-Field,IniSharpBox-Field,System-Boolean- 'IniSharpBox.Field.Merge(IniSharpBox.Field,IniSharpBox.Field,System.Boolean)')
   - [Replace(line)](#M-IniSharpBox-Field-Replace-System-String- 'IniSharpBox.Field.Replace(System.String)')
   - [Replace(lines)](#M-IniSharpBox-Field-Replace-System-Collections-Generic-List{System-String}- 'IniSharpBox.Field.Replace(System.Collections.Generic.List{System.String})')
   - [Replace(lines)](#M-IniSharpBox-Field-Replace-System-String[]- 'IniSharpBox.Field.Replace(System.String[])')
-  - [Write()](#M-IniSharpBox-Field-Write 'IniSharpBox.Field.Write')
+  - [ToSortedText()](#M-IniSharpBox-Field-ToSortedText 'IniSharpBox.Field.ToSortedText')
+  - [ToText()](#M-IniSharpBox-Field-ToText 'IniSharpBox.Field.ToText')
 - [Fields](#T-IniSharpBox-Fields 'IniSharpBox.Fields')
+  - [#ctor()](#M-IniSharpBox-Fields-#ctor 'IniSharpBox.Fields.#ctor')
   - [#ctor()](#M-IniSharpBox-Fields-#ctor-IniSharpBox-IniConfig- 'IniSharpBox.Fields.#ctor(IniSharpBox.IniConfig)')
+  - [Childs](#P-IniSharpBox-Fields-Childs 'IniSharpBox.Fields.Childs')
   - [Count](#P-IniSharpBox-Fields-Count 'IniSharpBox.Fields.Count')
-  - [Field](#P-IniSharpBox-Fields-Field 'IniSharpBox.Fields.Field')
+  - [GetNames](#P-IniSharpBox-Fields-GetNames 'IniSharpBox.Fields.GetNames')
   - [Item](#P-IniSharpBox-Fields-Item-System-Int32- 'IniSharpBox.Fields.Item(System.Int32)')
   - [Item](#P-IniSharpBox-Fields-Item-System-String- 'IniSharpBox.Fields.Item(System.String)')
   - [Add(item)](#M-IniSharpBox-Fields-Add-IniSharpBox-Field- 'IniSharpBox.Fields.Add(IniSharpBox.Field)')
@@ -38,7 +42,9 @@
   - [Contains(name)](#M-IniSharpBox-Fields-Contains-System-String- 'IniSharpBox.Fields.Contains(System.String)')
   - [Contains(index)](#M-IniSharpBox-Fields-Contains-System-Int32- 'IniSharpBox.Fields.Contains(System.Int32)')
   - [GetByName(name)](#M-IniSharpBox-Fields-GetByName-System-String- 'IniSharpBox.Fields.GetByName(System.String)')
-  - [Write()](#M-IniSharpBox-Fields-Write 'IniSharpBox.Fields.Write')
+  - [Merge(first,second,duplicateField,duplicateValue)](#M-IniSharpBox-Fields-Merge-IniSharpBox-Fields,IniSharpBox-Fields,System-Boolean,System-Boolean- 'IniSharpBox.Fields.Merge(IniSharpBox.Fields,IniSharpBox.Fields,System.Boolean,System.Boolean)')
+  - [ToSortedText()](#M-IniSharpBox-Fields-ToSortedText 'IniSharpBox.Fields.ToSortedText')
+  - [ToText()](#M-IniSharpBox-Fields-ToText 'IniSharpBox.Fields.ToText')
 - [Helpers](#T-IniSharpNet-Helpers 'IniSharpNet.Helpers')
   - [MULTIVALUESEPARATORs](#P-IniSharpNet-Helpers-MULTIVALUESEPARATORs 'IniSharpNet.Helpers.MULTIVALUESEPARATORs')
 - [IniBase](#T-IniSharpBox-IniBase 'IniSharpBox.IniBase')
@@ -64,10 +70,6 @@
   - [Contains(container,item)](#M-IniSharpBox-IniItemList-Contains-System-Collections-Generic-List{IniSharpBox-IniItem},IniSharpBox-IniItem- 'IniSharpBox.IniItemList.Contains(System.Collections.Generic.List{IniSharpBox.IniItem},IniSharpBox.IniItem)')
   - [Contains(container,name)](#M-IniSharpBox-IniItemList-Contains-System-Collections-Generic-List{IniSharpBox-IniItem},System-String- 'IniSharpBox.IniItemList.Contains(System.Collections.Generic.List{IniSharpBox.IniItem},System.String)')
   - [Contains(container,index)](#M-IniSharpBox-IniItemList-Contains-System-Collections-Generic-List{IniSharpBox-IniItem},System-Int32- 'IniSharpBox.IniItemList.Contains(System.Collections.Generic.List{IniSharpBox.IniItem},System.Int32)')
-- [IniJsonInterop](#T-IniSharpNet-Conversion-IniJsonInterop 'IniSharpNet.Conversion.IniJsonInterop')
-  - [GetIniAsJson(value,indented,preserveComments)](#M-IniSharpNet-Conversion-IniJsonInterop-GetIniAsJson-System-String,System-Boolean,System-Boolean- 'IniSharpNet.Conversion.IniJsonInterop.GetIniAsJson(System.String,System.Boolean,System.Boolean)')
-  - [GetJsonAsIni(value,restoreComments)](#M-IniSharpNet-Conversion-IniJsonInterop-GetJsonAsIni-System-String,System-Boolean- 'IniSharpNet.Conversion.IniJsonInterop.GetJsonAsIni(System.String,System.Boolean)')
-  - [JavaScriptEncode(value)](#M-IniSharpNet-Conversion-IniJsonInterop-JavaScriptEncode-System-String- 'IniSharpNet.Conversion.IniJsonInterop.JavaScriptEncode(System.String)')
 - [IniSharp](#T-IniSharpBox-IniSharp 'IniSharpBox.IniSharp')
   - [#ctor(filename,config)](#M-IniSharpBox-IniSharp-#ctor-System-String,IniSharpBox-IniConfig- 'IniSharpBox.IniSharp.#ctor(System.String,IniSharpBox.IniConfig)')
   - [#ctor(filename)](#M-IniSharpBox-IniSharp-#ctor-System-String- 'IniSharpBox.IniSharp.#ctor(System.String)')
@@ -75,8 +77,10 @@
   - [#ctor(filename)](#M-IniSharpBox-IniSharp-#ctor-System-IO-FileInfo- 'IniSharpBox.IniSharp.#ctor(System.IO.FileInfo)')
   - [#ctor(config)](#M-IniSharpBox-IniSharp-#ctor-IniSharpBox-IniConfig- 'IniSharpBox.IniSharp.#ctor(IniSharpBox.IniConfig)')
   - [#ctor()](#M-IniSharpBox-IniSharp-#ctor 'IniSharpBox.IniSharp.#ctor')
+  - [TAB](#F-IniSharpBox-IniSharp-TAB 'IniSharpBox.IniSharp.TAB')
   - [_Errors](#F-IniSharpBox-IniSharp-_Errors 'IniSharpBox.IniSharp._Errors')
   - [_Exceptions](#F-IniSharpBox-IniSharp-_Exceptions 'IniSharpBox.IniSharp._Exceptions')
+  - [Body](#P-IniSharpBox-IniSharp-Body 'IniSharpBox.IniSharp.Body')
   - [EnableDebug](#P-IniSharpBox-IniSharp-EnableDebug 'IniSharpBox.IniSharp.EnableDebug')
   - [Error](#P-IniSharpBox-IniSharp-Error 'IniSharpBox.IniSharp.Error')
   - [Errors](#P-IniSharpBox-IniSharp-Errors 'IniSharpBox.IniSharp.Errors')
@@ -84,12 +88,16 @@
   - [HasException](#P-IniSharpBox-IniSharp-HasException 'IniSharpBox.IniSharp.HasException')
   - [Item](#P-IniSharpBox-IniSharp-Item-System-Int32- 'IniSharpBox.IniSharp.Item(System.Int32)')
   - [Item](#P-IniSharpBox-IniSharp-Item-System-String- 'IniSharpBox.IniSharp.Item(System.String)')
-  - [Sections](#P-IniSharpBox-IniSharp-Sections 'IniSharpBox.IniSharp.Sections')
   - [Success](#P-IniSharpBox-IniSharp-Success 'IniSharpBox.IniSharp.Success')
+  - [AreEquals(first,second)](#M-IniSharpBox-IniSharp-AreEquals-IniSharpBox-IniSharp,IniSharpBox-IniSharp- 'IniSharpBox.IniSharp.AreEquals(IniSharpBox.IniSharp,IniSharpBox.IniSharp)')
   - [Check(section,field,indexvalue)](#M-IniSharpBox-IniSharp-Check-System-Int32,System-Int32,System-Int32- 'IniSharpBox.IniSharp.Check(System.Int32,System.Int32,System.Int32)')
   - [Check(section,field,indexvalue)](#M-IniSharpBox-IniSharp-Check-System-Int32,System-String,System-Int32- 'IniSharpBox.IniSharp.Check(System.Int32,System.String,System.Int32)')
   - [Check(section,field,indexvalue)](#M-IniSharpBox-IniSharp-Check-System-String,System-Int32,System-Int32- 'IniSharpBox.IniSharp.Check(System.String,System.Int32,System.Int32)')
   - [Check(section,field,indexvalue)](#M-IniSharpBox-IniSharp-Check-System-String,System-String,System-Int32- 'IniSharpBox.IniSharp.Check(System.String,System.String,System.Int32)')
+  - [Equals(other)](#M-IniSharpBox-IniSharp-Equals-IniSharpBox-IniSharp- 'IniSharpBox.IniSharp.Equals(IniSharpBox.IniSharp)')
+  - [FromJson(text)](#M-IniSharpBox-IniSharp-FromJson-System-String- 'IniSharpBox.IniSharp.FromJson(System.String)')
+  - [FromJsonDeserialize(text)](#M-IniSharpBox-IniSharp-FromJsonDeserialize-System-String- 'IniSharpBox.IniSharp.FromJsonDeserialize(System.String)')
+  - [FromXml(text)](#M-IniSharpBox-IniSharp-FromXml-System-String- 'IniSharpBox.IniSharp.FromXml(System.String)')
   - [GetValue(section,field,indexvalue)](#M-IniSharpBox-IniSharp-GetValue-System-Int32,System-Int32,System-Int32- 'IniSharpBox.IniSharp.GetValue(System.Int32,System.Int32,System.Int32)')
   - [GetValue(section,field,indexvalue)](#M-IniSharpBox-IniSharp-GetValue-System-Int32,System-String,System-Int32- 'IniSharpBox.IniSharp.GetValue(System.Int32,System.String,System.Int32)')
   - [GetValue(section,field,indexvalue)](#M-IniSharpBox-IniSharp-GetValue-System-String,System-Int32,System-Int32- 'IniSharpBox.IniSharp.GetValue(System.String,System.Int32,System.Int32)')
@@ -101,6 +109,12 @@
   - [SetValue(section,field,indexvalue,value)](#M-IniSharpBox-IniSharp-SetValue-System-Int32,System-String,System-Int32,System-String- 'IniSharpBox.IniSharp.SetValue(System.Int32,System.String,System.Int32,System.String)')
   - [SetValue(section,field,indexvalue,value)](#M-IniSharpBox-IniSharp-SetValue-System-String,System-Int32,System-Int32,System-String- 'IniSharpBox.IniSharp.SetValue(System.String,System.Int32,System.Int32,System.String)')
   - [SetValue(section,field,indexvalue,value)](#M-IniSharpBox-IniSharp-SetValue-System-String,System-String,System-Int32,System-String- 'IniSharpBox.IniSharp.SetValue(System.String,System.String,System.Int32,System.String)')
+  - [SortedWrite(fi,overWrite)](#M-IniSharpBox-IniSharp-SortedWrite-System-IO-FileInfo,System-Boolean- 'IniSharpBox.IniSharp.SortedWrite(System.IO.FileInfo,System.Boolean)')
+  - [ToJson()](#M-IniSharpBox-IniSharp-ToJson 'IniSharpBox.IniSharp.ToJson')
+  - [ToJsonSerialize()](#M-IniSharpBox-IniSharp-ToJsonSerialize 'IniSharpBox.IniSharp.ToJsonSerialize')
+  - [ToSortedText()](#M-IniSharpBox-IniSharp-ToSortedText 'IniSharpBox.IniSharp.ToSortedText')
+  - [ToText()](#M-IniSharpBox-IniSharp-ToText 'IniSharpBox.IniSharp.ToText')
+  - [ToXml()](#M-IniSharpBox-IniSharp-ToXml 'IniSharpBox.IniSharp.ToXml')
   - [Write(fi,overWrite)](#M-IniSharpBox-IniSharp-Write-System-IO-FileInfo,System-Boolean- 'IniSharpBox.IniSharp.Write(System.IO.FileInfo,System.Boolean)')
   - [_Constructor(filename,config)](#M-IniSharpBox-IniSharp-_Constructor-System-IO-FileInfo,IniSharpBox-IniConfig- 'IniSharpBox.IniSharp._Constructor(System.IO.FileInfo,IniSharpBox.IniConfig)')
   - [_Read(lines)](#M-IniSharpBox-IniSharp-_Read-System-String[]- 'IniSharpBox.IniSharp._Read(System.String[])')
@@ -118,18 +132,23 @@
   - [#ctor(id,config)](#M-IniSharpBox-Section-#ctor-System-Int32,IniSharpBox-IniConfig- 'IniSharpBox.Section.#ctor(System.Int32,IniSharpBox.IniConfig)')
   - [#ctor(id,name,config)](#M-IniSharpBox-Section-#ctor-System-Int32,System-String,IniSharpBox-IniConfig- 'IniSharpBox.Section.#ctor(System.Int32,System.String,IniSharpBox.IniConfig)')
   - [#ctor()](#M-IniSharpBox-Section-#ctor-IniSharpBox-IniConfig- 'IniSharpBox.Section.#ctor(IniSharpBox.IniConfig)')
+  - [#ctor()](#M-IniSharpBox-Section-#ctor 'IniSharpBox.Section.#ctor')
   - [Fields](#P-IniSharpBox-Section-Fields 'IniSharpBox.Section.Fields')
   - [Item](#P-IniSharpBox-Section-Item-System-Int32- 'IniSharpBox.Section.Item(System.Int32)')
   - [Item](#P-IniSharpBox-Section-Item-System-String- 'IniSharpBox.Section.Item(System.String)')
   - [Add(item)](#M-IniSharpBox-Section-Add-IniSharpBox-Field- 'IniSharpBox.Section.Add(IniSharpBox.Field)')
   - [Last()](#M-IniSharpBox-Section-Last 'IniSharpBox.Section.Last')
-  - [Write()](#M-IniSharpBox-Section-Write 'IniSharpBox.Section.Write')
+  - [Merge(first,second,duplicateField,duplicateValue)](#M-IniSharpBox-Section-Merge-IniSharpBox-Section,IniSharpBox-Section,System-Boolean,System-Boolean- 'IniSharpBox.Section.Merge(IniSharpBox.Section,IniSharpBox.Section,System.Boolean,System.Boolean)')
+  - [ToSortedText()](#M-IniSharpBox-Section-ToSortedText 'IniSharpBox.Section.ToSortedText')
+  - [ToText()](#M-IniSharpBox-Section-ToText 'IniSharpBox.Section.ToText')
 - [Sections](#T-IniSharpBox-Sections 'IniSharpBox.Sections')
   - [#ctor()](#M-IniSharpBox-Sections-#ctor-IniSharpBox-IniConfig- 'IniSharpBox.Sections.#ctor(IniSharpBox.IniConfig)')
+  - [#ctor()](#M-IniSharpBox-Sections-#ctor 'IniSharpBox.Sections.#ctor')
+  - [Childs](#P-IniSharpBox-Sections-Childs 'IniSharpBox.Sections.Childs')
   - [Count](#P-IniSharpBox-Sections-Count 'IniSharpBox.Sections.Count')
+  - [GetNames](#P-IniSharpBox-Sections-GetNames 'IniSharpBox.Sections.GetNames')
   - [Item](#P-IniSharpBox-Sections-Item-System-Int32- 'IniSharpBox.Sections.Item(System.Int32)')
   - [Item](#P-IniSharpBox-Sections-Item-System-String- 'IniSharpBox.Sections.Item(System.String)')
-  - [Section](#P-IniSharpBox-Sections-Section 'IniSharpBox.Sections.Section')
   - [Add(item)](#M-IniSharpBox-Sections-Add-IniSharpBox-Section- 'IniSharpBox.Sections.Add(IniSharpBox.Section)')
   - [Add(name)](#M-IniSharpBox-Sections-Add-System-String- 'IniSharpBox.Sections.Add(System.String)')
   - [Clear()](#M-IniSharpBox-Sections-Clear 'IniSharpBox.Sections.Clear')
@@ -137,7 +156,9 @@
   - [Contains(name)](#M-IniSharpBox-Sections-Contains-System-String- 'IniSharpBox.Sections.Contains(System.String)')
   - [Contains(index)](#M-IniSharpBox-Sections-Contains-System-Int32- 'IniSharpBox.Sections.Contains(System.Int32)')
   - [GetByName(name)](#M-IniSharpBox-Sections-GetByName-System-String- 'IniSharpBox.Sections.GetByName(System.String)')
-  - [Write()](#M-IniSharpBox-Sections-Write 'IniSharpBox.Sections.Write')
+  - [Merge(first,second,duplicateSection,duplicateField,duplicateValue)](#M-IniSharpBox-Sections-Merge-IniSharpBox-Sections,IniSharpBox-Sections,System-Boolean,System-Boolean,System-Boolean- 'IniSharpBox.Sections.Merge(IniSharpBox.Sections,IniSharpBox.Sections,System.Boolean,System.Boolean,System.Boolean)')
+  - [ToSortedText()](#M-IniSharpBox-Sections-ToSortedText 'IniSharpBox.Sections.ToSortedText')
+  - [ToText()](#M-IniSharpBox-Sections-ToText 'IniSharpBox.Sections.ToText')
 
 <a name='T-IniSharpBox-AccessorsStrategy'></a>
 ## AccessorsStrategy `type`
@@ -362,6 +383,26 @@ Write string in field
 | ---- | ---- | ----------- |
 | line | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
 
+<a name='M-IniSharpBox-Field-Merge-IniSharpBox-Field,IniSharpBox-Field,System-Boolean-'></a>
+### Merge(first,second,duplicateValue) `method`
+
+##### Summary
+
+Return a Field as merged from 2 Field.
+If duplicateValue is true allow multiple instance of value, otherwise do not allow duplicate instance.
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| first | [IniSharpBox.Field](#T-IniSharpBox-Field 'IniSharpBox.Field') |  |
+| second | [IniSharpBox.Field](#T-IniSharpBox-Field 'IniSharpBox.Field') |  |
+| duplicateValue | [System.Boolean](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Boolean 'System.Boolean') |  |
+
 <a name='M-IniSharpBox-Field-Replace-System-String-'></a>
 ### Replace(line) `method`
 
@@ -401,8 +442,23 @@ Clear and write an array of string in field
 | ---- | ---- | ----------- |
 | lines | [System.String[]](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String[] 'System.String[]') |  |
 
-<a name='M-IniSharpBox-Field-Write'></a>
-### Write() `method`
+<a name='M-IniSharpBox-Field-ToSortedText'></a>
+### ToSortedText() `method`
+
+##### Summary
+
+Return sorted field name/value
+
+##### Returns
+
+
+
+##### Parameters
+
+This method has no parameters.
+
+<a name='M-IniSharpBox-Field-ToText'></a>
+### ToText() `method`
 
 ##### Summary
 
@@ -427,6 +483,17 @@ IniSharpBox
 
 Class for manage a set of field in a section of a ini file
 
+<a name='M-IniSharpBox-Fields-#ctor'></a>
+### #ctor() `constructor`
+
+##### Summary
+
+Constructor (parameterless)
+
+##### Parameters
+
+This constructor has no parameters.
+
 <a name='M-IniSharpBox-Fields-#ctor-IniSharpBox-IniConfig-'></a>
 ### #ctor() `constructor`
 
@@ -438,6 +505,13 @@ Constructor
 
 This constructor has no parameters.
 
+<a name='P-IniSharpBox-Fields-Childs'></a>
+### Childs `property`
+
+##### Summary
+
+List of fields
+
 <a name='P-IniSharpBox-Fields-Count'></a>
 ### Count `property`
 
@@ -445,12 +519,12 @@ This constructor has no parameters.
 
 Return number of element of Field list
 
-<a name='P-IniSharpBox-Fields-Field'></a>
-### Field `property`
+<a name='P-IniSharpBox-Fields-GetNames'></a>
+### GetNames `property`
 
 ##### Summary
 
-List of fields
+Returns a list of names of Field
 
 <a name='P-IniSharpBox-Fields-Item-System-Int32-'></a>
 ### Item `property`
@@ -567,8 +641,45 @@ Return a field contained in Field list , otherwise return a new Field()
 | ---- | ---- | ----------- |
 | name | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
 
-<a name='M-IniSharpBox-Fields-Write'></a>
-### Write() `method`
+<a name='M-IniSharpBox-Fields-Merge-IniSharpBox-Fields,IniSharpBox-Fields,System-Boolean,System-Boolean-'></a>
+### Merge(first,second,duplicateField,duplicateValue) `method`
+
+##### Summary
+
+Return a merged Field from 2 input Field.
+If duplicateValue is true allow multiple instance of value, otherwise do not allow duplicate instance.
+If duplicateValue is true allow multiple instance of field with same Name, otherwise do not allow duplicate instance.
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| first | [IniSharpBox.Fields](#T-IniSharpBox-Fields 'IniSharpBox.Fields') |  |
+| second | [IniSharpBox.Fields](#T-IniSharpBox-Fields 'IniSharpBox.Fields') |  |
+| duplicateField | [System.Boolean](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Boolean 'System.Boolean') |  |
+| duplicateValue | [System.Boolean](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Boolean 'System.Boolean') |  |
+
+<a name='M-IniSharpBox-Fields-ToSortedText'></a>
+### ToSortedText() `method`
+
+##### Summary
+
+Return a sorted version ToText() without comments
+
+##### Returns
+
+
+
+##### Parameters
+
+This method has no parameters.
+
+<a name='M-IniSharpBox-Fields-ToText'></a>
+### ToText() `method`
 
 ##### Summary
 
@@ -830,70 +941,6 @@ Return true if an item with index is present in list , otherwise false
 | container | [System.Collections.Generic.List{IniSharpBox.IniItem}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{IniSharpBox.IniItem}') |  |
 | index | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') |  |
 
-<a name='T-IniSharpNet-Conversion-IniJsonInterop'></a>
-## IniJsonInterop `type`
-
-##### Namespace
-
-IniSharpNet.Conversion
-
-##### Summary
-
-Defines interoperability functions for INI and JSON.
- Thanks to J. Ritchie Carroll (ritchiecarroll : https://gist.github.com/ritchiecarroll )
-
- https://gist.github.com/ritchiecarroll/42909ef62e8597c58ee2301fd2a05e3c
-
-<a name='M-IniSharpNet-Conversion-IniJsonInterop-GetIniAsJson-System-String,System-Boolean,System-Boolean-'></a>
-### GetIniAsJson(value,indented,preserveComments) `method`
-
-##### Summary
-
-Gets INI as JSON.
-
-##### Returns
-
-Converted JSON.
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| value | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | INI source. |
-| indented | [System.Boolean](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Boolean 'System.Boolean') | `true` to indent result JSON; otherwise, `false`. |
-| preserveComments | [System.Boolean](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Boolean 'System.Boolean') | `true` to preserve comments; otherwise, `false`. |
-
-<a name='M-IniSharpNet-Conversion-IniJsonInterop-GetJsonAsIni-System-String,System-Boolean-'></a>
-### GetJsonAsIni(value,restoreComments) `method`
-
-##### Summary
-
-Gets JSON as INI.
-
-##### Returns
-
-Converted INI.
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| value | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | JSON source. |
-| restoreComments | [System.Boolean](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Boolean 'System.Boolean') | `true` to restore comments; otherwise, `false`. |
-
-<a name='M-IniSharpNet-Conversion-IniJsonInterop-JavaScriptEncode-System-String-'></a>
-### JavaScriptEncode(value) `method`
-
-##### Summary
-
-Performs JavaScript encoding on given string.
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| value | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | The string to be encoded. |
-
 <a name='T-IniSharpBox-IniSharp'></a>
 ## IniSharp `type`
 
@@ -983,6 +1030,13 @@ Constructor
 
 This constructor has no parameters.
 
+<a name='F-IniSharpBox-IniSharp-TAB'></a>
+### TAB `constants`
+
+##### Summary
+
+Define tabulation for json custom formatting
+
 <a name='F-IniSharpBox-IniSharp-_Errors'></a>
 ### _Errors `constants`
 
@@ -996,6 +1050,13 @@ List of verbose error
 ##### Summary
 
 List of verbose Exceptions
+
+<a name='P-IniSharpBox-IniSharp-Body'></a>
+### Body `property`
+
+##### Summary
+
+List of section of ini file
 
 <a name='P-IniSharpBox-IniSharp-EnableDebug'></a>
 ### EnableDebug `property`
@@ -1067,19 +1128,30 @@ Indexer declaration
 | ---- | ---- | ----------- |
 | name | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
 
-<a name='P-IniSharpBox-IniSharp-Sections'></a>
-### Sections `property`
-
-##### Summary
-
-List of section of ini file
-
 <a name='P-IniSharpBox-IniSharp-Success'></a>
 ### Success `property`
 
 ##### Summary
 
 Return true if parsing susseed , otherwise false  (negate of Error)
+
+<a name='M-IniSharpBox-IniSharp-AreEquals-IniSharpBox-IniSharp,IniSharpBox-IniSharp-'></a>
+### AreEquals(first,second) `method`
+
+##### Summary
+
+Return true if are equals according to ToSortedText(), otherwise false.
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| first | [IniSharpBox.IniSharp](#T-IniSharpBox-IniSharp 'IniSharpBox.IniSharp') |  |
+| second | [IniSharpBox.IniSharp](#T-IniSharpBox-IniSharp 'IniSharpBox.IniSharp') |  |
 
 <a name='M-IniSharpBox-IniSharp-Check-System-Int32,System-Int32,System-Int32-'></a>
 ### Check(section,field,indexvalue) `method`
@@ -1176,6 +1248,74 @@ Return status of get/set operation
 | section | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
 | field | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
 | indexvalue | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') |  |
+
+<a name='M-IniSharpBox-IniSharp-Equals-IniSharpBox-IniSharp-'></a>
+### Equals(other) `method`
+
+##### Summary
+
+
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| other | [IniSharpBox.IniSharp](#T-IniSharpBox-IniSharp 'IniSharpBox.IniSharp') |  |
+
+<a name='M-IniSharpBox-IniSharp-FromJson-System-String-'></a>
+### FromJson(text) `method`
+
+##### Summary
+
+Return true if deserialization of a serialized json custom formatted string succeded, otherwise false.
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| text | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+
+<a name='M-IniSharpBox-IniSharp-FromJsonDeserialize-System-String-'></a>
+### FromJsonDeserialize(text) `method`
+
+##### Summary
+
+Return true if deserialization of a serialized json Newtonsoft formatted string succeded, otherwise false.
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| text | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+
+<a name='M-IniSharpBox-IniSharp-FromXml-System-String-'></a>
+### FromXml(text) `method`
+
+##### Summary
+
+Return true if xml deserialization of a serialized xml string succeded, otherwise false.
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| text | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
 
 <a name='M-IniSharpBox-IniSharp-GetValue-System-Int32,System-Int32,System-Int32-'></a>
 ### GetValue(section,field,indexvalue) `method`
@@ -1384,6 +1524,99 @@ Return value if exist , otherwise null
 | indexvalue | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') |  |
 | value | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
 
+<a name='M-IniSharpBox-IniSharp-SortedWrite-System-IO-FileInfo,System-Boolean-'></a>
+### SortedWrite(fi,overWrite) `method`
+
+##### Summary
+
+Write a sorted ini file on disk
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| fi | [System.IO.FileInfo](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.IO.FileInfo 'System.IO.FileInfo') |  |
+| overWrite | [System.Boolean](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Boolean 'System.Boolean') |  |
+
+<a name='M-IniSharpBox-IniSharp-ToJson'></a>
+### ToJson() `method`
+
+##### Summary
+
+Return a serialized json custom formatted string
+
+##### Returns
+
+
+
+##### Parameters
+
+This method has no parameters.
+
+<a name='M-IniSharpBox-IniSharp-ToJsonSerialize'></a>
+### ToJsonSerialize() `method`
+
+##### Summary
+
+Return a serialized json Newtonsoft formatted string
+
+##### Returns
+
+
+
+##### Parameters
+
+This method has no parameters.
+
+<a name='M-IniSharpBox-IniSharp-ToSortedText'></a>
+### ToSortedText() `method`
+
+##### Summary
+
+Returns a formatted sorted, by item name, ini file string
+
+##### Returns
+
+
+
+##### Parameters
+
+This method has no parameters.
+
+<a name='M-IniSharpBox-IniSharp-ToText'></a>
+### ToText() `method`
+
+##### Summary
+
+Return a formatted ini file string
+
+##### Returns
+
+
+
+##### Parameters
+
+This method has no parameters.
+
+<a name='M-IniSharpBox-IniSharp-ToXml'></a>
+### ToXml() `method`
+
+##### Summary
+
+Return a serialized xml formatted string
+
+##### Returns
+
+
+
+##### Parameters
+
+This method has no parameters.
+
 <a name='M-IniSharpBox-IniSharp-Write-System-IO-FileInfo,System-Boolean-'></a>
 ### Write(fi,overWrite) `method`
 
@@ -1562,6 +1795,17 @@ Contructor
 
 This constructor has no parameters.
 
+<a name='M-IniSharpBox-Section-#ctor'></a>
+### #ctor() `constructor`
+
+##### Summary
+
+Contructor
+
+##### Parameters
+
+This constructor has no parameters.
+
 <a name='P-IniSharpBox-Section-Fields'></a>
 ### Fields `property`
 
@@ -1631,8 +1875,43 @@ Return last field
 
 This method has no parameters.
 
-<a name='M-IniSharpBox-Section-Write'></a>
-### Write() `method`
+<a name='M-IniSharpBox-Section-Merge-IniSharpBox-Section,IniSharpBox-Section,System-Boolean,System-Boolean-'></a>
+### Merge(first,second,duplicateField,duplicateValue) `method`
+
+##### Summary
+
+
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| first | [IniSharpBox.Section](#T-IniSharpBox-Section 'IniSharpBox.Section') |  |
+| second | [IniSharpBox.Section](#T-IniSharpBox-Section 'IniSharpBox.Section') |  |
+| duplicateField | [System.Boolean](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Boolean 'System.Boolean') |  |
+| duplicateValue | [System.Boolean](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Boolean 'System.Boolean') |  |
+
+<a name='M-IniSharpBox-Section-ToSortedText'></a>
+### ToSortedText() `method`
+
+##### Summary
+
+Return sorted fields strings , comment are ignored
+
+##### Returns
+
+
+
+##### Parameters
+
+This method has no parameters.
+
+<a name='M-IniSharpBox-Section-ToText'></a>
+### ToText() `method`
 
 ##### Summary
 
@@ -1668,12 +1947,37 @@ Contructor
 
 This constructor has no parameters.
 
+<a name='M-IniSharpBox-Sections-#ctor'></a>
+### #ctor() `constructor`
+
+##### Summary
+
+Contructor
+
+##### Parameters
+
+This constructor has no parameters.
+
+<a name='P-IniSharpBox-Sections-Childs'></a>
+### Childs `property`
+
+##### Summary
+
+List of section
+
 <a name='P-IniSharpBox-Sections-Count'></a>
 ### Count `property`
 
 ##### Summary
 
 Return number of item
+
+<a name='P-IniSharpBox-Sections-GetNames'></a>
+### GetNames `property`
+
+##### Summary
+
+Return list of Name of section
 
 <a name='P-IniSharpBox-Sections-Item-System-Int32-'></a>
 ### Item `property`
@@ -1709,13 +2013,6 @@ Indexer declaration
 | Name | Type | Description |
 | ---- | ---- | ----------- |
 | name | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
-
-<a name='P-IniSharpBox-Sections-Section'></a>
-### Section `property`
-
-##### Summary
-
-List of section
 
 <a name='M-IniSharpBox-Sections-Add-IniSharpBox-Section-'></a>
 ### Add(item) `method`
@@ -1822,8 +2119,47 @@ Return section by name
 | ---- | ---- | ----------- |
 | name | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
 
-<a name='M-IniSharpBox-Sections-Write'></a>
-### Write() `method`
+<a name='M-IniSharpBox-Sections-Merge-IniSharpBox-Sections,IniSharpBox-Sections,System-Boolean,System-Boolean,System-Boolean-'></a>
+### Merge(first,second,duplicateSection,duplicateField,duplicateValue) `method`
+
+##### Summary
+
+Return a merged Sections from 2 input Sections.
+If duplicateValue is true allow multiple instance of value, otherwise do not allow duplicate instance.
+If duplicateValue is true allow multiple instance of field with same Name, otherwise do not allow duplicate instance.
+If duplicateValue is true allow multiple instance of session with same Name, otherwise do not allow duplicate instance.
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| first | [IniSharpBox.Sections](#T-IniSharpBox-Sections 'IniSharpBox.Sections') |  |
+| second | [IniSharpBox.Sections](#T-IniSharpBox-Sections 'IniSharpBox.Sections') |  |
+| duplicateSection | [System.Boolean](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Boolean 'System.Boolean') |  |
+| duplicateField | [System.Boolean](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Boolean 'System.Boolean') |  |
+| duplicateValue | [System.Boolean](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Boolean 'System.Boolean') |  |
+
+<a name='M-IniSharpBox-Sections-ToSortedText'></a>
+### ToSortedText() `method`
+
+##### Summary
+
+Return Sections stirngs
+
+##### Returns
+
+
+
+##### Parameters
+
+This method has no parameters.
+
+<a name='M-IniSharpBox-Sections-ToText'></a>
+### ToText() `method`
 
 ##### Summary
 

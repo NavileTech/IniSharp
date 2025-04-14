@@ -142,36 +142,36 @@ namespace IniSharpBox.Test
 
         public static Boolean TestActual002(IniSharp iniSharp)
         {
-            Boolean actual = (iniSharp.Sections[0].Name == "SEZIONE_1") &&
-                                (iniSharp.Sections[1].Name == "SEZIONE_2") &&
-                                (iniSharp.Sections[2].Name == "SEZIONE_3") &&
-                                (iniSharp.Sections[3].Name == "SEZIONE_4") &&
-                                (iniSharp.Sections[4].Name == "SEZIONE_5");
+            Boolean actual = (iniSharp.Body[0].Name == "SEZIONE_1") &&
+                                (iniSharp.Body[1].Name == "SEZIONE_2") &&
+                                (iniSharp.Body[2].Name == "SEZIONE_3") &&
+                                (iniSharp.Body[3].Name == "SEZIONE_4") &&
+                                (iniSharp.Body[4].Name == "SEZIONE_5");
 
             return actual;
         }
 
         public static Boolean TestActual003(IniSharp iniSharp)
         {
-            Boolean actual = (iniSharp.Sections[0].Fields[0].Name == "campo001") &&
-                                (iniSharp.Sections[0].Fields[1].Name == "Campo2") &&
-                                (iniSharp.Sections[1].Fields[0].Name == "Campo2") &&
-                                (iniSharp.Sections[1].Fields[1].Name == "campo4") &&
-                                (iniSharp.Sections[2].Fields.Count == 0) &&
-                                (iniSharp.Sections[3].Fields.Count == 0) &&
-                                (iniSharp.Sections[4].Fields[0].Name == "campo6");
+            Boolean actual = (iniSharp.Body[0].Fields[0].Name == "campo001") &&
+                                (iniSharp.Body[0].Fields[1].Name == "Campo2") &&
+                                (iniSharp.Body[1].Fields[0].Name == "Campo2") &&
+                                (iniSharp.Body[1].Fields[1].Name == "campo4") &&
+                                (iniSharp.Body[2].Fields.Count == 0) &&
+                                (iniSharp.Body[3].Fields.Count == 0) &&
+                                (iniSharp.Body[4].Fields[0].Name == "campo6");
 
             return actual;
         }
 
         public static Boolean TestActual004(IniSharp iniSharp)
         {
-            Boolean actual = (iniSharp.Sections[0].Fields[0].Lines[0] == "valore1") &&
-                                (iniSharp.Sections[0].Fields[1].Lines[0] == "valore002") &&
-                                (iniSharp.Sections[1].Fields[0].Lines[0] == "valore002") &&
-                                (iniSharp.Sections[1].Fields[0].Lines[1] == "valoreacapo") &&
-                                (iniSharp.Sections[1].Fields[1].Lines[0] == "") &&
-                                (iniSharp.Sections[4].Fields[0].Lines[0] == "000");
+            Boolean actual = (iniSharp.Body[0].Fields[0].Lines[0] == "valore1") &&
+                                (iniSharp.Body[0].Fields[1].Lines[0] == "valore002") &&
+                                (iniSharp.Body[1].Fields[0].Lines[0] == "valore002") &&
+                                (iniSharp.Body[1].Fields[0].Lines[1] == "valoreacapo") &&
+                                (iniSharp.Body[1].Fields[1].Lines[0] == "") &&
+                                (iniSharp.Body[4].Fields[0].Lines[0] == "000");
 
             return actual;
         }

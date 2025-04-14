@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using Newtonsoft.Json;
+using System.Diagnostics;
 using System.Text;
 
 namespace IniSharpBox
@@ -16,17 +17,20 @@ namespace IniSharpBox
         /// <summary>
         /// Get/Set trace debug
         /// </summary>
+        [JsonIgnore]
         public Boolean EnableDebug { get; set; }
 
         /// <summary>
         /// Return true if an error occur during file parsing ,otherwise false (negate of Success)
         /// </summary>
+        [JsonIgnore]
         public Boolean Error
-        { get { return (_Errors.Count() > 0); } }
+        { get { return (_Errors.Count > 0); } }
 
         /// <summary>
         /// Return true if parsing susseed , otherwise false  (negate of Error)
         /// </summary>
+        [JsonIgnore]
         public Boolean Success
         { get { return (!Error || (!HasException)); } }
 
@@ -38,14 +42,16 @@ namespace IniSharpBox
         /// <summary>
         /// Return list of verbose error
         /// </summary>
+        [JsonIgnore]
         public List<String> Errors
         { get { return _Errors; } }
 
         /// <summary>
         /// Return true if an exception occur during file parsing , otherwise false
         /// </summary>
+        [JsonIgnore]
         public Boolean HasException
-        { get { return (_Exceptions.Count() > 0); } }
+        { get { return (_Exceptions.Count > 0); } }
 
         /// <summary>
         /// List of verbose Exceptions
@@ -55,6 +61,7 @@ namespace IniSharpBox
         /// <summary>
         /// Return list of verbose error
         /// </summary>
+        [JsonIgnore]
         public List<String> Exceptions
         { get { return _Exceptions; } }
 
@@ -67,7 +74,7 @@ namespace IniSharpBox
         /// <summary>
         /// List of section of ini file
         /// </summary>
-        public Sections Sections { get; set; }
+        public Sections Body { get; set; }
 
         /// <summary>
         /// Indexer declaration
@@ -75,15 +82,16 @@ namespace IniSharpBox
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
+        [JsonIgnore]
         public Section this[int index]
         {
             get
             {
-                return this.Sections.AccessorGet(index, this.Config.BYINDEX);
+                return this.Body.AccessorGet(index, this.Config.BYINDEX);
             }
             set
             {
-                this.Sections.AccessorSet(value, index, this.Config.BYINDEX);
+                this.Body.AccessorSet(value, index, this.Config.BYINDEX);
             }
         }
 
@@ -92,15 +100,16 @@ namespace IniSharpBox
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
+        [JsonIgnore]
         public Section this[String name]
         {
             get
             {
-                return this.Sections.AccessorGet(name, this.Config.BYNAME);
+                return this.Body.AccessorGet(name, this.Config.BYNAME);
             }
             set
             {
-                this.Sections.AccessorSet(value, name, this.Config.BYNAME);
+                this.Body.AccessorSet(value, name, this.Config.BYNAME);
             }
         }
 
@@ -199,7 +208,7 @@ namespace IniSharpBox
                 _Config = config;
             }
 
-            this.Sections = new Sections(this.Config);
+            this.Body = new Sections(this.Config);
         }
 
         /// <summary>
@@ -284,7 +293,7 @@ namespace IniSharpBox
 
             try
             {
-                Sections = new Sections(Config);
+                Body = new Sections(Config);
                 _fieldId = 0;
 
                 State = PARSE_STATE.INIT;
@@ -292,22 +301,22 @@ namespace IniSharpBox
                 {
                     String Line = lines[i];
 
-                    if (Line.StartsWith("#") || Line.StartsWith(";"))
+                    if (Line.StartsWith('#') || Line.StartsWith(';'))
                     {
                         // Comment
                         continue;
                     }
 
-                    if ((Line.Trim().StartsWith("[") == true) && (Line.Trim().EndsWith("]") == true))
+                    if ((Line.Trim().StartsWith('[') == true) && (Line.Trim().EndsWith(']') == true))
                     {
-                        String sectionName = Line.Replace("]", "").Replace("[", "").Trim();
-                        Section section = new Section(Sections.Count + 1, sectionName, this.Config);
+                        String sectionName = Line.Replace("]","").Replace("[", "").Trim();
+                        Section section = new Section(Body.Count + 1, sectionName, this.Config);
                         _fieldId = 0;
                         for (int j = i+1; j < lines.Length; j++)
                         {
                             Line = lines[j];
 
-                            if (Line.StartsWith(";") == true)
+                            if (Line.StartsWith(';') == true)
                             {
                                 // Comment
                                 section.Comments.Add(Line);
@@ -315,7 +324,7 @@ namespace IniSharpBox
                                 continue;
                             }
 
-                            if (Line.StartsWith("#") == true)
+                            if (Line.StartsWith('#') == true)
                             {
                                 // Comment
                                 section.Comments.Add(Line);
@@ -323,7 +332,7 @@ namespace IniSharpBox
                                 continue;
                             }
 
-                            if ((Line.Trim().StartsWith("[") == true) && (Line.Trim().EndsWith("]") == true))
+                            if ((Line.Trim().StartsWith('[') == true) && (Line.Trim().EndsWith(']') == true))
                             {
                                 // Next Section
                                 State = PARSE_STATE.SECTION;
@@ -336,14 +345,14 @@ namespace IniSharpBox
                                 continue;
                             }
 
-                            if ((Line.Trim().StartsWith("\t") == true) || (Line.Trim().StartsWith(" ") == true))
+                            if ((Line.Trim().StartsWith('\t') == true) || (Line.Trim().StartsWith(' ') == true))
                             {
                                 Trace("Linea vuota : " + j);
                                 section.Comments.Add(Line);
                                 continue;
                             }
 
-                            if (Line.Contains("=") == true)
+                            if (Line.Contains('=') == true)
                             {
                                 State = PARSE_STATE.FIELD;
                                 String[] parts = Line.Split('=');
@@ -359,14 +368,20 @@ namespace IniSharpBox
                                     case MULTIVALUESEPARATOR.COMMA:
                                         {
                                             String[] arr = parts[1].Trim().Split(this.Config.ArrMultiValueSeparator, StringSplitOptions.None);
-                                            section.Last().Lines.AddRange(arr);
+                                            for (int iLine = 0; iLine < arr.Length; iLine++)
+                                            {
+                                                section.Last().Lines.Add(arr[iLine].Trim());
+                                            }
                                         }
                                         break;
 
                                     case MULTIVALUESEPARATOR.PIPE:
                                         {
                                             String[] arr = parts[1].Trim().Split(this.Config.ArrMultiValueSeparator, StringSplitOptions.None);
-                                            section.Last().Lines.AddRange(arr);
+                                            for (int iLine = 0; iLine < arr.Length; iLine++)
+                                            {
+                                                section.Last().Lines.Add(arr[iLine].Trim());
+                                            }
                                         }
                                         break;
 
@@ -400,7 +415,7 @@ namespace IniSharpBox
                                 _Errors.Add(message);
                             }
                         }
-                        Sections.Add(section);
+                        Body.Add(section);
                     }
                 }
                 ReturnValue = true;
@@ -412,6 +427,37 @@ namespace IniSharpBox
             }
 
             return ReturnValue;
+        }
+
+        /// <summary>
+        /// Return a formatted ini file string
+        /// </summary>
+        /// <returns></returns>
+        public string ToText()
+        {
+            StringBuilder ReturnValue = new StringBuilder();
+
+            for (int i = 0; i < this.Comments.Count(); i++)
+            {
+                ReturnValue.AppendLine(this.Comments[i]);
+            }
+
+            ReturnValue.Append(this.Body.ToText());
+
+            return ReturnValue.ToString();
+        }
+
+        /// <summary>
+        /// Returns a formatted sorted, by item name, ini file string
+        /// </summary>
+        /// <returns></returns>
+        public string ToSortedText()
+        {
+            StringBuilder ReturnValue = new StringBuilder();
+
+            ReturnValue.Append(this.Body.ToSortedText());
+
+            return ReturnValue.ToString();
         }
 
         /// <summary>
@@ -431,11 +477,43 @@ namespace IniSharpBox
                 sb.AppendLine(this.Comments[i]);
             }
 
-            sb.Append(this.Sections.Write());
+            sb.Append(this.Body.ToText());
+
+            string text = sb.ToString();
+
+            WriteToFile(fi, text, overWrite);
+
+            return ReturnValue;
+        }
+
+        /// <summary>
+        /// Write a sorted ini file on disk
+        /// </summary>
+        /// <param name="fi"></param>
+        /// <param name="overWrite"></param>
+        /// <returns></returns>
+        public Boolean SortedWrite(FileInfo fi, Boolean overWrite = true)
+        {
+            Boolean ReturnValue = false;
+
+            StringBuilder sb = new StringBuilder();
+
+            sb.Append(this.Body.ToSortedText());
+
+            string text = sb.ToString();
+
+            WriteToFile(fi, text, overWrite);
+
+            return ReturnValue;
+        }
+
+        private bool WriteToFile(FileInfo fi, string text, Boolean overWrite = true)
+        {
+            Boolean ReturnValue = false;
 
             if (((fi.Exists == true) && (overWrite == true)) || (fi.Exists == false))
             {
-                File.WriteAllText(fi.FullName, sb.ToString());
+                File.WriteAllText(fi.FullName, text);
                 ReturnValue = true;
             }
 
