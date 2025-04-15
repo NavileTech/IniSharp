@@ -1,14 +1,11 @@
-﻿using System.Xml.Linq;
-
-
-namespace IniSharpBox.Test
+﻿namespace IniSharpBox.Test
 {
     [TestClass]
     public sealed class UnitTest004
     {
-
         private const string FileNameLocal = "Test003.ini";
         private const MULTIVALUESEPARATOR MULTIVALUESEPARATORLocal = MULTIVALUESEPARATOR.PIPE;
+
         [TestMethod]
         public void Load001()
         {
@@ -57,15 +54,16 @@ namespace IniSharpBox.Test
 
             IniSharp iniSharpEnd = Commons.LoadWithFileName(Commons.GetOutputFile(writeFile), config);
 
-            Boolean actual = ( (iniSharpEnd["SEZIONE_1"]["Campo2"][0] ==  newValue + "_A") &&
+            Boolean actual = ((iniSharpEnd["SEZIONE_1"]["Campo2"][0] ==  newValue + "_A") &&
                                (iniSharpEnd["SEZIONE_1"]["Campo2"][1] ==  newValue + "_B") &&
                                (iniSharpEnd["SEZIONE_1"]["Campo2"][2] ==  newValue + "_C") &&
-                               (iniSharpEnd["SEZIONE_1"]["Campo2"][3] ==  newValue + "_D") ) ;
+                               (iniSharpEnd["SEZIONE_1"]["Campo2"][3] ==  newValue + "_D"));
 
             Assert.AreEqual(expected, actual);
 
             Commons.DeleteOutputFile(writeFile);
         }
+
 #if false
         [TestMethod]
         public void Load003()
@@ -99,7 +97,6 @@ namespace IniSharpBox.Test
 
             Commons.DeleteOutputFile(writeFile);
         }
-
 
         [TestMethod]
         public void Load004()
@@ -159,7 +156,7 @@ namespace IniSharpBox.Test
 
             IniSharp iniSharpEnd = Commons.LoadWithFileName(Commons.GetOutputFile(writeFile), config);
 
-            Boolean actual = ( (iniSharpEnd["SEZIONE_1"]["Campo2"][0] ==  oldValue1) &&
+            Boolean actual = ((iniSharpEnd["SEZIONE_1"]["Campo2"][0] ==  oldValue1) &&
                                (iniSharpEnd["SEZIONE_1"]["Campo2"][1] ==  newValue + "_B"));
 
             Assert.AreEqual(expected, actual);
@@ -191,7 +188,6 @@ namespace IniSharpBox.Test
 
             Assert.AreEqual(expected, actual);
         }
-
 
         [TestMethod]
         public void Load104()
@@ -240,7 +236,6 @@ namespace IniSharpBox.Test
 
             Assert.AreEqual(expected, actual);
         }
-
 
         [TestMethod]
         public void Load204()

@@ -47,6 +47,10 @@
   - [ToText()](#M-IniSharpBox-Fields-ToText 'IniSharpBox.Fields.ToText')
 - [Helpers](#T-IniSharpNet-Helpers 'IniSharpNet.Helpers')
   - [MULTIVALUESEPARATORs](#P-IniSharpNet-Helpers-MULTIVALUESEPARATORs 'IniSharpNet.Helpers.MULTIVALUESEPARATORs')
+  - [ListOfStringToStringBuilderAppendLine(elements)](#M-IniSharpNet-Helpers-ListOfStringToStringBuilderAppendLine-System-Collections-Generic-List{System-String}- 'IniSharpNet.Helpers.ListOfStringToStringBuilderAppendLine(System.Collections.Generic.List{System.String})')
+  - [Space(number)](#M-IniSharpNet-Helpers-Space-System-Int32- 'IniSharpNet.Helpers.Space(System.Int32)')
+  - [StringIfLess(reference,breakeven,iftrue,iffalse)](#M-IniSharpNet-Helpers-StringIfLess-System-Int32,System-Int32,System-String,System-String- 'IniSharpNet.Helpers.StringIfLess(System.Int32,System.Int32,System.String,System.String)')
+  - [WriteToFile(fi,text,overWrite)](#M-IniSharpNet-Helpers-WriteToFile-System-IO-FileInfo,System-String,System-Boolean- 'IniSharpNet.Helpers.WriteToFile(System.IO.FileInfo,System.String,System.Boolean)')
 - [IniBase](#T-IniSharpBox-IniBase 'IniSharpBox.IniBase')
   - [_Config](#F-IniSharpBox-IniBase-_Config 'IniSharpBox.IniBase._Config')
   - [Config](#P-IniSharpBox-IniBase-Config 'IniSharpBox.IniBase.Config')
@@ -90,10 +94,12 @@
   - [Item](#P-IniSharpBox-IniSharp-Item-System-String- 'IniSharpBox.IniSharp.Item(System.String)')
   - [Success](#P-IniSharpBox-IniSharp-Success 'IniSharpBox.IniSharp.Success')
   - [AreEquals(first,second)](#M-IniSharpBox-IniSharp-AreEquals-IniSharpBox-IniSharp,IniSharpBox-IniSharp- 'IniSharpBox.IniSharp.AreEquals(IniSharpBox.IniSharp,IniSharpBox.IniSharp)')
+  - [BaseRead(lines)](#M-IniSharpBox-IniSharp-BaseRead-System-String[]- 'IniSharpBox.IniSharp.BaseRead(System.String[])')
   - [Check(section,field,indexvalue)](#M-IniSharpBox-IniSharp-Check-System-Int32,System-Int32,System-Int32- 'IniSharpBox.IniSharp.Check(System.Int32,System.Int32,System.Int32)')
   - [Check(section,field,indexvalue)](#M-IniSharpBox-IniSharp-Check-System-Int32,System-String,System-Int32- 'IniSharpBox.IniSharp.Check(System.Int32,System.String,System.Int32)')
   - [Check(section,field,indexvalue)](#M-IniSharpBox-IniSharp-Check-System-String,System-Int32,System-Int32- 'IniSharpBox.IniSharp.Check(System.String,System.Int32,System.Int32)')
   - [Check(section,field,indexvalue)](#M-IniSharpBox-IniSharp-Check-System-String,System-String,System-Int32- 'IniSharpBox.IniSharp.Check(System.String,System.String,System.Int32)')
+  - [Constructor(filename,config)](#M-IniSharpBox-IniSharp-Constructor-System-IO-FileInfo,IniSharpBox-IniConfig- 'IniSharpBox.IniSharp.Constructor(System.IO.FileInfo,IniSharpBox.IniConfig)')
   - [Equals(other)](#M-IniSharpBox-IniSharp-Equals-IniSharpBox-IniSharp- 'IniSharpBox.IniSharp.Equals(IniSharpBox.IniSharp)')
   - [FromJson(text)](#M-IniSharpBox-IniSharp-FromJson-System-String- 'IniSharpBox.IniSharp.FromJson(System.String)')
   - [FromJsonDeserialize(text)](#M-IniSharpBox-IniSharp-FromJsonDeserialize-System-String- 'IniSharpBox.IniSharp.FromJsonDeserialize(System.String)')
@@ -102,6 +108,9 @@
   - [GetValue(section,field,indexvalue)](#M-IniSharpBox-IniSharp-GetValue-System-Int32,System-String,System-Int32- 'IniSharpBox.IniSharp.GetValue(System.Int32,System.String,System.Int32)')
   - [GetValue(section,field,indexvalue)](#M-IniSharpBox-IniSharp-GetValue-System-String,System-Int32,System-Int32- 'IniSharpBox.IniSharp.GetValue(System.String,System.Int32,System.Int32)')
   - [GetValue(section,field,indexvalue)](#M-IniSharpBox-IniSharp-GetValue-System-String,System-String,System-Int32- 'IniSharpBox.IniSharp.GetValue(System.String,System.String,System.Int32)')
+  - [Import(other,duplicateSection,duplicateField,duplicateValue)](#M-IniSharpBox-IniSharp-Import-IniSharpBox-IniSharp,System-Boolean,System-Boolean,System-Boolean- 'IniSharpBox.IniSharp.Import(IniSharpBox.IniSharp,System.Boolean,System.Boolean,System.Boolean)')
+  - [Merge(first,second,duplicateSection,duplicateField,duplicateValue)](#M-IniSharpBox-IniSharp-Merge-IniSharpBox-IniSharp,IniSharpBox-IniSharp,System-Boolean,System-Boolean,System-Boolean- 'IniSharpBox.IniSharp.Merge(IniSharpBox.IniSharp,IniSharpBox.IniSharp,System.Boolean,System.Boolean,System.Boolean)')
+  - [Merge(other,duplicateSection,duplicateField,duplicateValue)](#M-IniSharpBox-IniSharp-Merge-IniSharpBox-IniSharp,System-Boolean,System-Boolean,System-Boolean- 'IniSharpBox.IniSharp.Merge(IniSharpBox.IniSharp,System.Boolean,System.Boolean,System.Boolean)')
   - [Read(text)](#M-IniSharpBox-IniSharp-Read-System-String- 'IniSharpBox.IniSharp.Read(System.String)')
   - [Read(lines)](#M-IniSharpBox-IniSharp-Read-System-String[]- 'IniSharpBox.IniSharp.Read(System.String[])')
   - [Read()](#M-IniSharpBox-IniSharp-Read 'IniSharpBox.IniSharp.Read')
@@ -116,8 +125,6 @@
   - [ToText()](#M-IniSharpBox-IniSharp-ToText 'IniSharpBox.IniSharp.ToText')
   - [ToXml()](#M-IniSharpBox-IniSharp-ToXml 'IniSharpBox.IniSharp.ToXml')
   - [Write(fi,overWrite)](#M-IniSharpBox-IniSharp-Write-System-IO-FileInfo,System-Boolean- 'IniSharpBox.IniSharp.Write(System.IO.FileInfo,System.Boolean)')
-  - [_Constructor(filename,config)](#M-IniSharpBox-IniSharp-_Constructor-System-IO-FileInfo,IniSharpBox-IniConfig- 'IniSharpBox.IniSharp._Constructor(System.IO.FileInfo,IniSharpBox.IniConfig)')
-  - [_Read(lines)](#M-IniSharpBox-IniSharp-_Read-System-String[]- 'IniSharpBox.IniSharp._Read(System.String[])')
 - [MULTIVALUESEPARATOR](#T-IniSharpBox-MULTIVALUESEPARATOR 'IniSharpBox.MULTIVALUESEPARATOR')
   - [COMMA](#F-IniSharpBox-MULTIVALUESEPARATOR-COMMA 'IniSharpBox.MULTIVALUESEPARATOR.COMMA')
   - [NEWLINE](#F-IniSharpBox-MULTIVALUESEPARATOR-NEWLINE 'IniSharpBox.MULTIVALUESEPARATOR.NEWLINE')
@@ -711,6 +718,80 @@ Helper class contains functions that help in assisting the library.
 
 Return a list of multi value separator enum
 
+<a name='M-IniSharpNet-Helpers-ListOfStringToStringBuilderAppendLine-System-Collections-Generic-List{System-String}-'></a>
+### ListOfStringToStringBuilderAppendLine(elements) `method`
+
+##### Summary
+
+Return a StringBuilder object loaded with AppendLine method using string from a list of string as argument
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| elements | [System.Collections.Generic.List{System.String}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{System.String}') |  |
+
+<a name='M-IniSharpNet-Helpers-Space-System-Int32-'></a>
+### Space(number) `method`
+
+##### Summary
+
+Return a string with number space as argument
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| number | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') |  |
+
+<a name='M-IniSharpNet-Helpers-StringIfLess-System-Int32,System-Int32,System-String,System-String-'></a>
+### StringIfLess(reference,breakeven,iftrue,iffalse) `method`
+
+##### Summary
+
+Return iftrue string if breakeaven is less then reference, otherwise return iffalse
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| reference | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') |  |
+| breakeven | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') |  |
+| iftrue | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+| iffalse | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+
+<a name='M-IniSharpNet-Helpers-WriteToFile-System-IO-FileInfo,System-String,System-Boolean-'></a>
+### WriteToFile(fi,text,overWrite) `method`
+
+##### Summary
+
+Write on file fi a text , if file exist and overWrite is true then text is overwritten and return true ,
+if file exist and overWrite is false then no text is written ,
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| fi | [System.IO.FileInfo](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.IO.FileInfo 'System.IO.FileInfo') |  |
+| text | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+| overWrite | [System.Boolean](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Boolean 'System.Boolean') |  |
+
 <a name='T-IniSharpBox-IniBase'></a>
 ## IniBase `type`
 
@@ -1153,6 +1234,23 @@ Return true if are equals according to ToSortedText(), otherwise false.
 | first | [IniSharpBox.IniSharp](#T-IniSharpBox-IniSharp 'IniSharpBox.IniSharp') |  |
 | second | [IniSharpBox.IniSharp](#T-IniSharpBox-IniSharp 'IniSharpBox.IniSharp') |  |
 
+<a name='M-IniSharpBox-IniSharp-BaseRead-System-String[]-'></a>
+### BaseRead(lines) `method`
+
+##### Summary
+
+Inner method : parse a ini file passed as array of string
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| lines | [System.String[]](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String[] 'System.String[]') |  |
+
 <a name='M-IniSharpBox-IniSharp-Check-System-Int32,System-Int32,System-Int32-'></a>
 ### Check(section,field,indexvalue) `method`
 
@@ -1249,12 +1347,26 @@ Return status of get/set operation
 | field | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
 | indexvalue | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') |  |
 
+<a name='M-IniSharpBox-IniSharp-Constructor-System-IO-FileInfo,IniSharpBox-IniConfig-'></a>
+### Constructor(filename,config) `method`
+
+##### Summary
+
+Inner construct of class
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| filename | [System.IO.FileInfo](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.IO.FileInfo 'System.IO.FileInfo') |  |
+| config | [IniSharpBox.IniConfig](#T-IniSharpBox-IniConfig 'IniSharpBox.IniConfig') |  |
+
 <a name='M-IniSharpBox-IniSharp-Equals-IniSharpBox-IniSharp-'></a>
 ### Equals(other) `method`
 
 ##### Summary
 
-
+Return true if external object is equal
 
 ##### Returns
 
@@ -1392,6 +1504,66 @@ Return value if exist , otherwise null
 | section | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
 | field | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
 | indexvalue | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') |  |
+
+<a name='M-IniSharpBox-IniSharp-Import-IniSharpBox-IniSharp,System-Boolean,System-Boolean,System-Boolean-'></a>
+### Import(other,duplicateSection,duplicateField,duplicateValue) `method`
+
+##### Summary
+
+Import inside this object a merged IniSharp object from external IniSharp object and this object the first is provide as argument with duplicate option for every level of ini file (section, field, values)
+Imported object has config preference of this object.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| other | [IniSharpBox.IniSharp](#T-IniSharpBox-IniSharp 'IniSharpBox.IniSharp') |  |
+| duplicateSection | [System.Boolean](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Boolean 'System.Boolean') |  |
+| duplicateField | [System.Boolean](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Boolean 'System.Boolean') |  |
+| duplicateValue | [System.Boolean](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Boolean 'System.Boolean') |  |
+
+<a name='M-IniSharpBox-IniSharp-Merge-IniSharpBox-IniSharp,IniSharpBox-IniSharp,System-Boolean,System-Boolean,System-Boolean-'></a>
+### Merge(first,second,duplicateSection,duplicateField,duplicateValue) `method`
+
+##### Summary
+
+Return a merged IniSharp object from 2 IniSharp object provide as argument with duplicate option for every level of ini file (section, field, values).
+Return object has config preference of first argument.
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| first | [IniSharpBox.IniSharp](#T-IniSharpBox-IniSharp 'IniSharpBox.IniSharp') |  |
+| second | [IniSharpBox.IniSharp](#T-IniSharpBox-IniSharp 'IniSharpBox.IniSharp') |  |
+| duplicateSection | [System.Boolean](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Boolean 'System.Boolean') |  |
+| duplicateField | [System.Boolean](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Boolean 'System.Boolean') |  |
+| duplicateValue | [System.Boolean](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Boolean 'System.Boolean') |  |
+
+<a name='M-IniSharpBox-IniSharp-Merge-IniSharpBox-IniSharp,System-Boolean,System-Boolean,System-Boolean-'></a>
+### Merge(other,duplicateSection,duplicateField,duplicateValue) `method`
+
+##### Summary
+
+Return a merged IniSharp object from external IniSharp object and this object the first is provide as argument with duplicate option for every level of ini file (section, field, values)
+Return object has config preference of this object.
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| other | [IniSharpBox.IniSharp](#T-IniSharpBox-IniSharp 'IniSharpBox.IniSharp') |  |
+| duplicateSection | [System.Boolean](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Boolean 'System.Boolean') |  |
+| duplicateField | [System.Boolean](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Boolean 'System.Boolean') |  |
+| duplicateValue | [System.Boolean](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Boolean 'System.Boolean') |  |
 
 <a name='M-IniSharpBox-IniSharp-Read-System-String-'></a>
 ### Read(text) `method`
@@ -1634,37 +1806,6 @@ Write ini file on disk
 | ---- | ---- | ----------- |
 | fi | [System.IO.FileInfo](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.IO.FileInfo 'System.IO.FileInfo') |  |
 | overWrite | [System.Boolean](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Boolean 'System.Boolean') |  |
-
-<a name='M-IniSharpBox-IniSharp-_Constructor-System-IO-FileInfo,IniSharpBox-IniConfig-'></a>
-### _Constructor(filename,config) `method`
-
-##### Summary
-
-Inner construct of class
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| filename | [System.IO.FileInfo](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.IO.FileInfo 'System.IO.FileInfo') |  |
-| config | [IniSharpBox.IniConfig](#T-IniSharpBox-IniConfig 'IniSharpBox.IniConfig') |  |
-
-<a name='M-IniSharpBox-IniSharp-_Read-System-String[]-'></a>
-### _Read(lines) `method`
-
-##### Summary
-
-Inner method : parse a ini file passed as array of string
-
-##### Returns
-
-
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| lines | [System.String[]](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String[] 'System.String[]') |  |
 
 <a name='T-IniSharpBox-MULTIVALUESEPARATOR'></a>
 ## MULTIVALUESEPARATOR `type`

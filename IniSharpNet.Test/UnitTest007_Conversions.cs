@@ -1,8 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.IO;
-using IniSharpBox;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 
 namespace IniSharpBox.Test
 {
@@ -34,11 +30,10 @@ namespace IniSharpBox.Test
             IniSharp deserialize = new IniSharp();
             deserialize.FromJson(textjson);
 
-            Boolean actual = IniSharp.AreEquals( iniSharp,deserialize);
+            Boolean actual = IniSharp.AreEquals(iniSharp, deserialize);
 
             Assert.AreEqual(expected, actual);
         }
-
 
         [TestMethod]
         public void ToJsonSerialize_001()
@@ -69,8 +64,31 @@ namespace IniSharpBox.Test
 
             Assert.AreEqual(expected, actual);
         }
+        [TestMethod]
+        public void ToJsonSerializeDeserialize_002()
+        {
+            Boolean expected = true;
+            IniSharp iniSharpSerialize = Commons.LoadWithFileName(FileName001, new IniConfig());
 
+            // it manage as nested dictionary
+            string customtextjson = iniSharpSerialize.ToJson();
 
+            // using Newtonsoft.Json
+            string newtonsofttextjson = iniSharpSerialize.ToJsonSerialize();
+
+            //
+            IniSharp iniSharpDeserializeCustom = new IniSharp();
+            iniSharpDeserializeCustom.FromJson(customtextjson);
+
+            IniSharp iniSharpDeserializeNewtonsoft = new IniSharp();
+            iniSharpDeserializeNewtonsoft.FromJsonDeserialize(newtonsofttextjson);
+
+            Boolean actual = IniSharp.AreEquals(iniSharpSerialize, iniSharpDeserializeCustom) &&
+                             IniSharp.AreEquals(iniSharpSerialize, iniSharpDeserializeNewtonsoft) &&
+                             IniSharp.AreEquals(iniSharpDeserializeCustom, iniSharpDeserializeNewtonsoft);
+
+            Assert.AreEqual(expected, actual);
+        }
         [TestMethod]
         public void ToXml_001()
         {

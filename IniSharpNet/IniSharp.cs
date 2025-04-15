@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using IniSharpNet;
+using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Text;
 
@@ -37,7 +38,7 @@ namespace IniSharpBox
         /// <summary>
         /// List of verbose error
         /// </summary>
-        private List<String> _Errors = new List<String>();
+        private readonly List<String> _Errors = [];
 
         /// <summary>
         /// Return list of verbose error
@@ -56,7 +57,7 @@ namespace IniSharpBox
         /// <summary>
         /// List of verbose Exceptions
         /// </summary>
-        private List<String> _Exceptions = new List<String>();
+        private readonly List<String> _Exceptions = [];
 
         /// <summary>
         /// Return list of verbose error
@@ -64,12 +65,6 @@ namespace IniSharpBox
         [JsonIgnore]
         public List<String> Exceptions
         { get { return _Exceptions; } }
-
-        //private ERROR _ErrorType = ERROR.NOT_EXECUTE;
-        //public ERROR ErrorType
-        //{
-        //    get { return _ErrorType; }
-        //}
 
         /// <summary>
         /// List of section of ini file
@@ -87,11 +82,13 @@ namespace IniSharpBox
         {
             get
             {
-                return this.Body.AccessorGet(index, this.Config.BYINDEX);
+#pragma warning disable CS8603 // Possibile restituzione di riferimento Null.
+                return Body.AccessorGet(index, Config.BYINDEX);
+#pragma warning restore CS8603 // Possibile restituzione di riferimento Null.
             }
             set
             {
-                this.Body.AccessorSet(value, index, this.Config.BYINDEX);
+                Body.AccessorSet(value, index, Config.BYINDEX);
             }
         }
 
@@ -105,7 +102,9 @@ namespace IniSharpBox
         {
             get
             {
+#pragma warning disable CS8603 // Possibile restituzione di riferimento Null.
                 return this.Body.AccessorGet(name, this.Config.BYNAME);
+#pragma warning restore CS8603 // Possibile restituzione di riferimento Null.
             }
             set
             {
@@ -126,18 +125,18 @@ namespace IniSharpBox
         /// </summary>
         /// <param name="filename"></param>
         /// <param name="config"></param>
-        public IniSharp(String filename, IniConfig? config)
+        public IniSharp(String filename, IniConfig? config) : this()
         {
-            this._Constructor(new FileInfo(filename), config);
+            this.Constructor(new FileInfo(filename), config);
         }
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="filename"></param>
-        public IniSharp(String filename)
+        public IniSharp(String filename) : this()
         {
-            this._Constructor(new FileInfo(filename), new IniConfig());
+            this.Constructor(new FileInfo(filename), new IniConfig());
         }
 
         /// <summary>
@@ -145,27 +144,27 @@ namespace IniSharpBox
         /// </summary>
         /// <param name="filename"></param>
         /// <param name="config"></param>
-        public IniSharp(FileInfo filename, IniConfig config)
+        public IniSharp(FileInfo filename, IniConfig config) : this()
         {
-            this._Constructor(filename, config);
+            this.Constructor(filename, config);
         }
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="filename"></param>
-        public IniSharp(FileInfo filename)
+        public IniSharp(FileInfo filename) : this()
         {
-            this._Constructor(filename, new IniConfig());
+            this.Constructor(filename, new IniConfig());
         }
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="config"></param>
-        public IniSharp(IniConfig config)
+        public IniSharp(IniConfig config) : this()
         {
-            this._Constructor(null, config);
+            this.Constructor(null, config);
         }
 
         /// <summary>
@@ -173,7 +172,8 @@ namespace IniSharpBox
         /// </summary>
         public IniSharp()
         {
-            this._Constructor(null, new IniConfig());
+            Body = new Sections();
+            this.Constructor(null, new IniConfig());
         }
 
         /// <summary>
@@ -181,7 +181,7 @@ namespace IniSharpBox
         /// </summary>
         /// <param name="filename"></param>
         /// <param name="config"></param>
-        private void _Constructor(FileInfo? filename, IniConfig? config)
+        private void Constructor(FileInfo? filename, IniConfig? config)
         {
             if (filename != null)
             {
@@ -197,7 +197,7 @@ namespace IniSharpBox
 
             EnableDebug = false;
 
-            this.Comments = new List<String>();
+            this.Comments = [];
 
             if (config == null)
             {
@@ -221,8 +221,8 @@ namespace IniSharpBox
         {
             this._inifile = null;
 
-            String[] lines = text.Split(new string[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
-            return _Read(lines);
+            String[] lines = text.Split(["\r\n", "\r", "\n"], StringSplitOptions.None);
+            return BaseRead(lines);
         }
 
         /// <summary>
@@ -234,7 +234,7 @@ namespace IniSharpBox
         public Boolean Read(String[] lines)
         {
             this._inifile = null;
-            return _Read(lines);
+            return BaseRead(lines);
         }
 
         /// <summary>
@@ -243,7 +243,7 @@ namespace IniSharpBox
         /// <returns></returns>
         public Boolean Read()
         {
-            Boolean ReturnValue = false;
+            Boolean ReturnValue;
             try
             {
                 if (this._inifile != null)
@@ -253,7 +253,7 @@ namespace IniSharpBox
                         if (this._inifile.Exists == true)
                         {
                             String[] lines = File.ReadAllLines(this._inifile.FullName);
-                            ReturnValue = this._Read(lines);
+                            ReturnValue = this.BaseRead(lines);
                         }
                         else
                         {
@@ -287,9 +287,9 @@ namespace IniSharpBox
         /// </summary>
         /// <param name="lines"></param>
         /// <returns></returns>
-        private Boolean _Read(String[] lines)
+        private Boolean BaseRead(String[] lines)
         {
-            Boolean ReturnValue = false;
+            Boolean ReturnValue;
 
             try
             {
@@ -309,8 +309,8 @@ namespace IniSharpBox
 
                     if ((Line.Trim().StartsWith('[') == true) && (Line.Trim().EndsWith(']') == true))
                     {
-                        String sectionName = Line.Replace("]","").Replace("[", "").Trim();
-                        Section section = new Section(Body.Count + 1, sectionName, this.Config);
+                        String sectionName = Line.Replace("]", "").Replace("[", "").Trim();
+                        Section section = new(Body.Count + 1, sectionName, this.Config);
                         _fieldId = 0;
                         for (int j = i+1; j < lines.Length; j++)
                         {
@@ -435,9 +435,9 @@ namespace IniSharpBox
         /// <returns></returns>
         public string ToText()
         {
-            StringBuilder ReturnValue = new StringBuilder();
+            StringBuilder ReturnValue = new();
 
-            for (int i = 0; i < this.Comments.Count(); i++)
+            for (int i = 0; i < this.Comments.Count; i++)
             {
                 ReturnValue.AppendLine(this.Comments[i]);
             }
@@ -453,7 +453,7 @@ namespace IniSharpBox
         /// <returns></returns>
         public string ToSortedText()
         {
-            StringBuilder ReturnValue = new StringBuilder();
+            StringBuilder ReturnValue = new();
 
             ReturnValue.Append(this.Body.ToSortedText());
 
@@ -470,9 +470,9 @@ namespace IniSharpBox
         {
             Boolean ReturnValue = false;
 
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
 
-            for (int i = 0; i < this.Comments.Count(); i++)
+            for (int i = 0; i < this.Comments.Count; i++)
             {
                 sb.AppendLine(this.Comments[i]);
             }
@@ -481,7 +481,7 @@ namespace IniSharpBox
 
             string text = sb.ToString();
 
-            WriteToFile(fi, text, overWrite);
+            Helpers.WriteToFile(fi, text, overWrite);
 
             return ReturnValue;
         }
@@ -496,26 +496,13 @@ namespace IniSharpBox
         {
             Boolean ReturnValue = false;
 
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
 
             sb.Append(this.Body.ToSortedText());
 
             string text = sb.ToString();
 
-            WriteToFile(fi, text, overWrite);
-
-            return ReturnValue;
-        }
-
-        private bool WriteToFile(FileInfo fi, string text, Boolean overWrite = true)
-        {
-            Boolean ReturnValue = false;
-
-            if (((fi.Exists == true) && (overWrite == true)) || (fi.Exists == false))
-            {
-                File.WriteAllText(fi.FullName, text);
-                ReturnValue = true;
-            }
+            Helpers.WriteToFile(fi, text, overWrite);
 
             return ReturnValue;
         }

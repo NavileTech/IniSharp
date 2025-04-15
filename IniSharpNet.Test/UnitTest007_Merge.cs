@@ -1,8 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.IO;
-using IniSharpBox;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 
 namespace IniSharpBox.Test
 {
@@ -22,7 +18,7 @@ namespace IniSharpBox.Test
             IniSharp first = Commons.LoadWithFileName(FileName002, iniConfig);
             IniSharp second = Commons.LoadWithFileName(FileName002_002, iniConfig);
 
-            IniSharp merged = IniSharp.Merge(first,second,false,false,false);
+            IniSharp merged = IniSharp.Merge(first, second, false, false, false);
             Debug.WriteLine("############# FIRST #############");
             Debug.WriteLine(first.ToText());
 
@@ -53,7 +49,7 @@ namespace IniSharpBox.Test
             Debug.WriteLine("############# SECOND #############");
             Debug.WriteLine(second.ToText());
 
-            IniSharp third =  first.Merge(second, false, false, false);
+            IniSharp third = first.Merge(second, false, false, false);
             Debug.WriteLine("############# THIRD #############");
             Debug.WriteLine(third.ToText());
 
@@ -92,6 +88,5 @@ namespace IniSharpBox.Test
 
             Assert.AreEqual(expected, actual);
         }
-
     }
 }

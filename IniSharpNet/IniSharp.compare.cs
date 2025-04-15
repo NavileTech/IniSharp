@@ -10,7 +10,7 @@
         /// <returns></returns>
         public static bool AreEquals(IniSharp first, IniSharp second)
         {
-            bool ReturnValue = false;
+            bool ReturnValue;
             MULTIVALUESEPARATOR oldValue = second.Config.MULTIVALUESEPARATOR;
 
             second.Config.MULTIVALUESEPARATOR = first.Config.MULTIVALUESEPARATOR;
@@ -23,7 +23,7 @@
         }
 
         /// <summary>
-        ///
+        ///Return true if external object is equal
         /// </summary>
         /// <param name="other"></param>
         /// <returns></returns>

@@ -1,6 +1,4 @@
-﻿using Microsoft.VisualStudio.TestPlatform.ObjectModel;
-
-namespace IniSharpBox.Test
+﻿namespace IniSharpBox.Test
 {
     [TestClass]
     public sealed class UnitTest005

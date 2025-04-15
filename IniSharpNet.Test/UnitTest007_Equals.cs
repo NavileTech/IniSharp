@@ -1,10 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.IO;
-using IniSharpBox;
-using System.Diagnostics;
-
-namespace IniSharpBox.Test
+﻿namespace IniSharpBox.Test
 {
     [TestClass]
     public class UnitTest008_Equals
@@ -21,11 +15,10 @@ namespace IniSharpBox.Test
             IniSharp first = Commons.LoadWithFileName(FileName001, new IniConfig());
             IniSharp second = Commons.LoadWithFileName(FileName001, new IniConfig());
 
-            Boolean actual = IniSharp.AreEquals(first,second);
+            Boolean actual = IniSharp.AreEquals(first, second);
 
             Assert.AreEqual(expected, actual);
         }
-
 
         [TestMethod]
         public void Load002()
@@ -67,7 +60,7 @@ namespace IniSharpBox.Test
 
             second.Body[0].Name = "XXXX";
 
-            Boolean actual = IniSharp.AreEquals( first, second);
+            Boolean actual = IniSharp.AreEquals(first, second);
 
             Assert.AreEqual(expected, actual);
         }

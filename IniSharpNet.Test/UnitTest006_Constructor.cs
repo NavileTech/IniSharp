@@ -1,8 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.IO;
-using IniSharpBox;
-using IniSharpNet;
+﻿using IniSharpNet;
 
 namespace IniSharpBox.Test
 {

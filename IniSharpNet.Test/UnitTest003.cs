@@ -3,9 +3,9 @@
     [TestClass]
     public sealed class UnitTest003
     {
-
         private const string FileNameLocal = "Test003.ini";
         private const MULTIVALUESEPARATOR MULTIVALUESEPARATORLocal = MULTIVALUESEPARATOR.PIPE;
+
         [TestMethod]
         public void Load001()
         {
@@ -55,7 +55,6 @@
             Assert.AreEqual(expected, actual);
         }
 
-
         [TestMethod]
         public void Load004()
         {
@@ -71,7 +70,6 @@
 
             Assert.AreEqual(expected, actual);
         }
-
 
         [TestMethod]
         public void Load101()
@@ -120,7 +118,6 @@
 
             Assert.AreEqual(expected, actual);
         }
-
 
         [TestMethod]
         public void Load104()
@@ -184,7 +181,6 @@
 
             Assert.AreEqual(expected, actual);
         }
-
 
         [TestMethod]
         public void Load204()

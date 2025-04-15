@@ -1,9 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.IO;
-using IniSharpBox;
-
-namespace IniSharpBox.Test
+﻿namespace IniSharpBox.Test
 {
     [TestClass]
     public class UnitTest001

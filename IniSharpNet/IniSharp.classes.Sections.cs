@@ -1,7 +1,10 @@
 ﻿using System.Text;
 using System.Xml.Serialization;
 
+#pragma warning disable IDE0130 // La parola chiave namespace non corrisponde alla struttura di cartelle
+
 namespace IniSharpBox
+#pragma warning restore IDE0130 // La parola chiave namespace non corrisponde alla struttura di cartelle
 {
     /// <summary>
     /// Class for manage list of section of ini file
@@ -19,7 +22,9 @@ namespace IniSharpBox
         [XmlIgnore]
         public List<string> GetNames
         {
+#pragma warning disable IDE0305 // Semplifica l'inizializzazione della raccolta
             get { return Childs.Select(x => x.Name).ToList(); }
+#pragma warning restore IDE0305 // Semplifica l'inizializzazione della raccolta
         }
 
         internal Section GetIfExist(int index)
@@ -159,7 +164,9 @@ namespace IniSharpBox
         {
             get
             {
+#pragma warning disable CS8603 // Possibile restituzione di riferimento Null.
                 return AccessorGet(index, Config.BYINDEX);
+#pragma warning restore CS8603 // Possibile restituzione di riferimento Null.
             }
             set
             {
@@ -176,7 +183,9 @@ namespace IniSharpBox
         {
             get
             {
+#pragma warning disable CS8603 // Possibile restituzione di riferimento Null.
                 return AccessorGet(name, Config.BYNAME);
+#pragma warning restore CS8603 // Possibile restituzione di riferimento Null.
             }
             set
             {
@@ -195,7 +204,7 @@ namespace IniSharpBox
         /// </summary>
         public Sections(IniConfig config)
         {
-            Childs = new List<Section>();
+            Childs = [];
             _Config = config;
         }
 
@@ -204,7 +213,7 @@ namespace IniSharpBox
         /// </summary>
         public Sections()
         {
-            Childs = new List<Section>();
+            Childs = [];
             _Config = new IniConfig();
         }
 
@@ -235,7 +244,7 @@ namespace IniSharpBox
         /// <param name="name"></param>
         public void Add(string name)
         {
-            Section section = new Section(NetxId(), name, Config);
+            Section section = new(NetxId(), name, Config);
             Childs.Add(section);
         }
 
@@ -283,7 +292,7 @@ namespace IniSharpBox
         /// <returns></returns>
         public string ToText()
         {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
 
             for (int i = 0; i < Childs.Count; i++)
             {
@@ -299,9 +308,11 @@ namespace IniSharpBox
         /// <returns></returns>
         public string ToSortedText()
         {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
 
+#pragma warning disable IDE0305 // Semplifica l'inizializzazione della raccolta
             List<Section> sections = Childs.OrderBy(o => o.Name).ToList();
+#pragma warning restore IDE0305 // Semplifica l'inizializzazione della raccolta
 
             for (int i = 0; i < sections.Count; i++)
             {
@@ -325,7 +336,7 @@ namespace IniSharpBox
         /// <returns></returns>
         public static Sections Merge(Sections first, Sections second, bool duplicateSection, bool duplicateField, bool duplicateValue)
         {
-            Sections ReturnValue = new Sections(first.Config);
+            Sections ReturnValue = new(first.Config);
 
             for (int i = 0; i < first.Count; i++)
             {
