@@ -146,7 +146,18 @@ A section line (**[somesection]** ) must start with "**[**" (open square bracket
 
 A field line ("fieldname=fieldcontent" ) must start with a char and end with new line, parser split line with "=" char and trim both content.
 
+## Read\\Write
+```cs
+FileInfo fiInput = new FileInfo("<fullPathFileInputFile>");
+IniConfig config = new IniConfig();
+IniSharp iniSharp = new IniSharp(fiInput.FullName,config);
+iniSharp.Read();
 
+// ... change something ...
+
+FileInfo fiOutput = new FileInfo("<fullPathFileOutputFile>");
+iniSharp.Write(fiOutput);
+```
 
 ## Indexer 
 
@@ -314,19 +325,6 @@ IniSharp expose <b>public static bool AreEquals(IniSharp first, IniSharp second)
 Comparison is computated by sorted entity string of two object.
 
 Comparison are config agnostic.
-
-## Read\\Write
-```cs
-FileInfo fiInput = new FileInfo("<fullPathFileInputFile>");
-IniConfig config = new IniConfig();
-IniSharp iniSharp = new IniSharp(fiInput.FullName,config);
-iniSharp.Read();
-
-// ... change something ...
-
-FileInfo fiOutput = new FileInfo("<fullPathFileOutputFile>");
-iniSharp.Write(fiOutput);
-```
 
 ## Tech
 

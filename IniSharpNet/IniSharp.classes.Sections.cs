@@ -27,23 +27,6 @@ namespace IniSharpBox
 #pragma warning restore IDE0305 // Semplifica l'inizializzazione della raccolta
         }
 
-        internal Section GetIfExist(int index)
-        {
-            return Childs.Count >  index ? Childs[index] : new Section(NetxId(), $"{ID}", Config);
-        }
-
-        internal Section GetIfExist(string name)
-        {
-            if (Contains(name) == true)
-            {
-                return Childs[GetIndexByName(name)];
-            }
-            else
-            {
-                return new Section(Childs.Count, name, Config);
-            }
-        }
-
         internal int GetIndexByName(string name)
         {
             return Childs.FindIndex(x => x.Name == name);
@@ -323,29 +306,24 @@ namespace IniSharpBox
         }
 
         /// <summary>
-        /// Return a merged Sections from 2 input Sections.
-        /// If duplicateValue is true allow multiple instance of value, otherwise do not allow duplicate instance.
-        /// If duplicateValue is true allow multiple instance of field with same Name, otherwise do not allow duplicate instance.
-        /// If duplicateValue is true allow multiple instance of session with same Name, otherwise do not allow duplicate instance.
+        /// Return a merged Sections from 2 input Sections according to duplicate startegy
         /// </summary>
         /// <param name="first"></param>
         /// <param name="second"></param>
-        /// <param name="duplicateSection"></param>
-        /// <param name="duplicateField"></param>
-        /// <param name="duplicateValue"></param>
+        /// <param name="duplicate"></param>
         /// <returns></returns>
-        public static Sections Merge(Sections first, Sections second, bool duplicateSection, bool duplicateField, bool duplicateValue)
+        public static Sections Merge(Sections first, Sections second, ALLOWDUPLICATE duplicate)
         {
             Sections ReturnValue = new(first.Config);
 
             for (int i = 0; i < first.Count; i++)
             {
-                if (duplicateSection == false)
+                if (duplicate < ALLOWDUPLICATE.DO_SECTION)
                 {
                     bool contains = second.Contains(first[i].Name);
                     if (contains == true)
                     {
-                        ReturnValue.Childs.Add(Section.Merge(first[i], second.GetByName(first[i].Name), duplicateField, duplicateValue));
+                        ReturnValue.Childs.Add(Section.Merge(first[i], second.GetByName(first[i].Name), duplicate));
                     }
                     else
                     {
@@ -360,7 +338,7 @@ namespace IniSharpBox
 
             for (int i = 0; i < second.Count; i++)
             {
-                if (duplicateSection == false)
+                if (duplicate < ALLOWDUPLICATE.DO_SECTION)
                 {
                     bool contains = first.Contains(second[i].Name);
                     if (contains == true)
@@ -377,6 +355,41 @@ namespace IniSharpBox
                     ReturnValue.Childs.Add(second[i]);
                 }
             }
+            return ReturnValue;
+        }
+
+        /// <summary>
+        /// Return true if an item with name == Name exists and removing process succeed, otherwise false
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public bool Remove(string name)
+        {
+            bool ReturnValue = false;
+            int index = GetIndexByName(name);
+            if (index >= 0)
+            {
+                ReturnValue = Remove(index);
+            }
+
+            return ReturnValue;
+        }
+
+        /// <summary>
+        /// Return true if an item with index pass as argument exists and removing process succeed, otherwise false
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        public bool Remove(int index)
+        {
+            bool ReturnValue = false;
+
+            if (index >= 0)
+            {
+                Childs.RemoveAt(index);
+                ReturnValue = true;
+            }
+
             return ReturnValue;
         }
     }

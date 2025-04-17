@@ -3,6 +3,11 @@
 
 ## Contents
 
+- [ALLOWDUPLICATE](#T-IniSharpBox-ALLOWDUPLICATE 'IniSharpBox.ALLOWDUPLICATE')
+  - [DO_SECTION](#F-IniSharpBox-ALLOWDUPLICATE-DO_SECTION 'IniSharpBox.ALLOWDUPLICATE.DO_SECTION')
+  - [NOT_SECTION_DO_FIELD](#F-IniSharpBox-ALLOWDUPLICATE-NOT_SECTION_DO_FIELD 'IniSharpBox.ALLOWDUPLICATE.NOT_SECTION_DO_FIELD')
+  - [NOT_SECTION_NOT_FIELD_DO_VALUE](#F-IniSharpBox-ALLOWDUPLICATE-NOT_SECTION_NOT_FIELD_DO_VALUE 'IniSharpBox.ALLOWDUPLICATE.NOT_SECTION_NOT_FIELD_DO_VALUE')
+  - [NOT_SECTION_NOT_FIELD_NOT_VALUE](#F-IniSharpBox-ALLOWDUPLICATE-NOT_SECTION_NOT_FIELD_NOT_VALUE 'IniSharpBox.ALLOWDUPLICATE.NOT_SECTION_NOT_FIELD_NOT_VALUE')
 - [AccessorsStrategy](#T-IniSharpBox-AccessorsStrategy 'IniSharpBox.AccessorsStrategy')
   - [DINAMIC](#F-IniSharpBox-AccessorsStrategy-DINAMIC 'IniSharpBox.AccessorsStrategy.DINAMIC')
   - [NOT_INITIALIZE](#F-IniSharpBox-AccessorsStrategy-NOT_INITIALIZE 'IniSharpBox.AccessorsStrategy.NOT_INITIALIZE')
@@ -23,7 +28,9 @@
   - [Add(lines)](#M-IniSharpBox-Field-Add-System-Collections-Generic-List{System-String}- 'IniSharpBox.Field.Add(System.Collections.Generic.List{System.String})')
   - [Add(lines)](#M-IniSharpBox-Field-Add-System-String[]- 'IniSharpBox.Field.Add(System.String[])')
   - [Add(line)](#M-IniSharpBox-Field-Add-System-String- 'IniSharpBox.Field.Add(System.String)')
-  - [Merge(first,second,duplicateValue)](#M-IniSharpBox-Field-Merge-IniSharpBox-Field,IniSharpBox-Field,System-Boolean- 'IniSharpBox.Field.Merge(IniSharpBox.Field,IniSharpBox.Field,System.Boolean)')
+  - [Merge(first,second,duplicate)](#M-IniSharpBox-Field-Merge-IniSharpBox-Field,IniSharpBox-Field,IniSharpBox-ALLOWDUPLICATE- 'IniSharpBox.Field.Merge(IniSharpBox.Field,IniSharpBox.Field,IniSharpBox.ALLOWDUPLICATE)')
+  - [Remove(value)](#M-IniSharpBox-Field-Remove-System-String- 'IniSharpBox.Field.Remove(System.String)')
+  - [Remove(index)](#M-IniSharpBox-Field-Remove-System-Int32- 'IniSharpBox.Field.Remove(System.Int32)')
   - [Replace(line)](#M-IniSharpBox-Field-Replace-System-String- 'IniSharpBox.Field.Replace(System.String)')
   - [Replace(lines)](#M-IniSharpBox-Field-Replace-System-Collections-Generic-List{System-String}- 'IniSharpBox.Field.Replace(System.Collections.Generic.List{System.String})')
   - [Replace(lines)](#M-IniSharpBox-Field-Replace-System-String[]- 'IniSharpBox.Field.Replace(System.String[])')
@@ -42,7 +49,9 @@
   - [Contains(name)](#M-IniSharpBox-Fields-Contains-System-String- 'IniSharpBox.Fields.Contains(System.String)')
   - [Contains(index)](#M-IniSharpBox-Fields-Contains-System-Int32- 'IniSharpBox.Fields.Contains(System.Int32)')
   - [GetByName(name)](#M-IniSharpBox-Fields-GetByName-System-String- 'IniSharpBox.Fields.GetByName(System.String)')
-  - [Merge(first,second,duplicateField,duplicateValue)](#M-IniSharpBox-Fields-Merge-IniSharpBox-Fields,IniSharpBox-Fields,System-Boolean,System-Boolean- 'IniSharpBox.Fields.Merge(IniSharpBox.Fields,IniSharpBox.Fields,System.Boolean,System.Boolean)')
+  - [Merge(first,second,duplicate)](#M-IniSharpBox-Fields-Merge-IniSharpBox-Fields,IniSharpBox-Fields,IniSharpBox-ALLOWDUPLICATE- 'IniSharpBox.Fields.Merge(IniSharpBox.Fields,IniSharpBox.Fields,IniSharpBox.ALLOWDUPLICATE)')
+  - [Remove(name)](#M-IniSharpBox-Fields-Remove-System-String- 'IniSharpBox.Fields.Remove(System.String)')
+  - [Remove(index)](#M-IniSharpBox-Fields-Remove-System-Int32- 'IniSharpBox.Fields.Remove(System.Int32)')
   - [ToSortedText()](#M-IniSharpBox-Fields-ToSortedText 'IniSharpBox.Fields.ToSortedText')
   - [ToText()](#M-IniSharpBox-Fields-ToText 'IniSharpBox.Fields.ToText')
 - [Helpers](#T-IniSharpNet-Helpers 'IniSharpNet.Helpers')
@@ -51,6 +60,9 @@
   - [Space(number)](#M-IniSharpNet-Helpers-Space-System-Int32- 'IniSharpNet.Helpers.Space(System.Int32)')
   - [StringIfLess(reference,breakeven,iftrue,iffalse)](#M-IniSharpNet-Helpers-StringIfLess-System-Int32,System-Int32,System-String,System-String- 'IniSharpNet.Helpers.StringIfLess(System.Int32,System.Int32,System.String,System.String)')
   - [WriteToFile(fi,text,overWrite)](#M-IniSharpNet-Helpers-WriteToFile-System-IO-FileInfo,System-String,System-Boolean- 'IniSharpNet.Helpers.WriteToFile(System.IO.FileInfo,System.String,System.Boolean)')
+- [IIniItemRemove](#T-IniSharpBox-IIniItemRemove 'IniSharpBox.IIniItemRemove')
+  - [Remove(name)](#M-IniSharpBox-IIniItemRemove-Remove-System-String- 'IniSharpBox.IIniItemRemove.Remove(System.String)')
+  - [Remove(index)](#M-IniSharpBox-IIniItemRemove-Remove-System-Int32- 'IniSharpBox.IIniItemRemove.Remove(System.Int32)')
 - [IniBase](#T-IniSharpBox-IniBase 'IniSharpBox.IniBase')
   - [_Config](#F-IniSharpBox-IniBase-_Config 'IniSharpBox.IniBase._Config')
   - [Config](#P-IniSharpBox-IniBase-Config 'IniSharpBox.IniBase.Config')
@@ -71,16 +83,13 @@
   - [Initialize](#P-IniSharpBox-IniItem-Initialize 'IniSharpBox.IniItem.Initialize')
   - [Name](#P-IniSharpBox-IniItem-Name 'IniSharpBox.IniItem.Name')
 - [IniItemList](#T-IniSharpBox-IniItemList 'IniSharpBox.IniItemList')
-  - [Contains(container,item)](#M-IniSharpBox-IniItemList-Contains-System-Collections-Generic-List{IniSharpBox-IniItem},IniSharpBox-IniItem- 'IniSharpBox.IniItemList.Contains(System.Collections.Generic.List{IniSharpBox.IniItem},IniSharpBox.IniItem)')
-  - [Contains(container,name)](#M-IniSharpBox-IniItemList-Contains-System-Collections-Generic-List{IniSharpBox-IniItem},System-String- 'IniSharpBox.IniItemList.Contains(System.Collections.Generic.List{IniSharpBox.IniItem},System.String)')
-  - [Contains(container,index)](#M-IniSharpBox-IniItemList-Contains-System-Collections-Generic-List{IniSharpBox-IniItem},System-Int32- 'IniSharpBox.IniItemList.Contains(System.Collections.Generic.List{IniSharpBox.IniItem},System.Int32)')
 - [IniSharp](#T-IniSharpBox-IniSharp 'IniSharpBox.IniSharp')
+  - [#ctor()](#M-IniSharpBox-IniSharp-#ctor 'IniSharpBox.IniSharp.#ctor')
   - [#ctor(filename,config)](#M-IniSharpBox-IniSharp-#ctor-System-String,IniSharpBox-IniConfig- 'IniSharpBox.IniSharp.#ctor(System.String,IniSharpBox.IniConfig)')
   - [#ctor(filename)](#M-IniSharpBox-IniSharp-#ctor-System-String- 'IniSharpBox.IniSharp.#ctor(System.String)')
   - [#ctor(filename,config)](#M-IniSharpBox-IniSharp-#ctor-System-IO-FileInfo,IniSharpBox-IniConfig- 'IniSharpBox.IniSharp.#ctor(System.IO.FileInfo,IniSharpBox.IniConfig)')
   - [#ctor(filename)](#M-IniSharpBox-IniSharp-#ctor-System-IO-FileInfo- 'IniSharpBox.IniSharp.#ctor(System.IO.FileInfo)')
   - [#ctor(config)](#M-IniSharpBox-IniSharp-#ctor-IniSharpBox-IniConfig- 'IniSharpBox.IniSharp.#ctor(IniSharpBox.IniConfig)')
-  - [#ctor()](#M-IniSharpBox-IniSharp-#ctor 'IniSharpBox.IniSharp.#ctor')
   - [TAB](#F-IniSharpBox-IniSharp-TAB 'IniSharpBox.IniSharp.TAB')
   - [_Errors](#F-IniSharpBox-IniSharp-_Errors 'IniSharpBox.IniSharp._Errors')
   - [_Exceptions](#F-IniSharpBox-IniSharp-_Exceptions 'IniSharpBox.IniSharp._Exceptions')
@@ -99,6 +108,7 @@
   - [Check(section,field,indexvalue)](#M-IniSharpBox-IniSharp-Check-System-Int32,System-String,System-Int32- 'IniSharpBox.IniSharp.Check(System.Int32,System.String,System.Int32)')
   - [Check(section,field,indexvalue)](#M-IniSharpBox-IniSharp-Check-System-String,System-Int32,System-Int32- 'IniSharpBox.IniSharp.Check(System.String,System.Int32,System.Int32)')
   - [Check(section,field,indexvalue)](#M-IniSharpBox-IniSharp-Check-System-String,System-String,System-Int32- 'IniSharpBox.IniSharp.Check(System.String,System.String,System.Int32)')
+  - [Compare(first,second,third)](#M-IniSharpBox-IniSharp-Compare-IniSharpBox-IniSharp,IniSharpBox-IniSharp,IniSharpBox-IniSharp- 'IniSharpBox.IniSharp.Compare(IniSharpBox.IniSharp,IniSharpBox.IniSharp,IniSharpBox.IniSharp)')
   - [Constructor(filename,config)](#M-IniSharpBox-IniSharp-Constructor-System-IO-FileInfo,IniSharpBox-IniConfig- 'IniSharpBox.IniSharp.Constructor(System.IO.FileInfo,IniSharpBox.IniConfig)')
   - [Equals(other)](#M-IniSharpBox-IniSharp-Equals-IniSharpBox-IniSharp- 'IniSharpBox.IniSharp.Equals(IniSharpBox.IniSharp)')
   - [FromJson(text)](#M-IniSharpBox-IniSharp-FromJson-System-String- 'IniSharpBox.IniSharp.FromJson(System.String)')
@@ -108,12 +118,29 @@
   - [GetValue(section,field,indexvalue)](#M-IniSharpBox-IniSharp-GetValue-System-Int32,System-String,System-Int32- 'IniSharpBox.IniSharp.GetValue(System.Int32,System.String,System.Int32)')
   - [GetValue(section,field,indexvalue)](#M-IniSharpBox-IniSharp-GetValue-System-String,System-Int32,System-Int32- 'IniSharpBox.IniSharp.GetValue(System.String,System.Int32,System.Int32)')
   - [GetValue(section,field,indexvalue)](#M-IniSharpBox-IniSharp-GetValue-System-String,System-String,System-Int32- 'IniSharpBox.IniSharp.GetValue(System.String,System.String,System.Int32)')
-  - [Import(other,duplicateSection,duplicateField,duplicateValue)](#M-IniSharpBox-IniSharp-Import-IniSharpBox-IniSharp,System-Boolean,System-Boolean,System-Boolean- 'IniSharpBox.IniSharp.Import(IniSharpBox.IniSharp,System.Boolean,System.Boolean,System.Boolean)')
-  - [Merge(first,second,duplicateSection,duplicateField,duplicateValue)](#M-IniSharpBox-IniSharp-Merge-IniSharpBox-IniSharp,IniSharpBox-IniSharp,System-Boolean,System-Boolean,System-Boolean- 'IniSharpBox.IniSharp.Merge(IniSharpBox.IniSharp,IniSharpBox.IniSharp,System.Boolean,System.Boolean,System.Boolean)')
-  - [Merge(other,duplicateSection,duplicateField,duplicateValue)](#M-IniSharpBox-IniSharp-Merge-IniSharpBox-IniSharp,System-Boolean,System-Boolean,System-Boolean- 'IniSharpBox.IniSharp.Merge(IniSharpBox.IniSharp,System.Boolean,System.Boolean,System.Boolean)')
+  - [Hash()](#M-IniSharpBox-IniSharp-Hash 'IniSharpBox.IniSharp.Hash')
+  - [Import(other,duplicate)](#M-IniSharpBox-IniSharp-Import-IniSharpBox-IniSharp,IniSharpBox-ALLOWDUPLICATE- 'IniSharpBox.IniSharp.Import(IniSharpBox.IniSharp,IniSharpBox.ALLOWDUPLICATE)')
+  - [Import(other,config,duplicate)](#M-IniSharpBox-IniSharp-Import-System-IO-FileInfo,IniSharpBox-IniConfig,IniSharpBox-ALLOWDUPLICATE- 'IniSharpBox.IniSharp.Import(System.IO.FileInfo,IniSharpBox.IniConfig,IniSharpBox.ALLOWDUPLICATE)')
+  - [Import(other,config,duplicate)](#M-IniSharpBox-IniSharp-Import-System-String,IniSharpBox-IniConfig,IniSharpBox-ALLOWDUPLICATE- 'IniSharpBox.IniSharp.Import(System.String,IniSharpBox.IniConfig,IniSharpBox.ALLOWDUPLICATE)')
+  - [Load(fi,config)](#M-IniSharpBox-IniSharp-Load-System-IO-FileInfo,IniSharpBox-IniConfig- 'IniSharpBox.IniSharp.Load(System.IO.FileInfo,IniSharpBox.IniConfig)')
+  - [Load(text,config)](#M-IniSharpBox-IniSharp-Load-System-String,IniSharpBox-IniConfig- 'IniSharpBox.IniSharp.Load(System.String,IniSharpBox.IniConfig)')
+  - [Merge(first,second,firstConfig,secondConfig,duplicate)](#M-IniSharpBox-IniSharp-Merge-System-IO-FileInfo,System-IO-FileInfo,IniSharpBox-IniConfig,IniSharpBox-IniConfig,IniSharpBox-ALLOWDUPLICATE- 'IniSharpBox.IniSharp.Merge(System.IO.FileInfo,System.IO.FileInfo,IniSharpBox.IniConfig,IniSharpBox.IniConfig,IniSharpBox.ALLOWDUPLICATE)')
+  - [Merge(first,second,firstConfig,secondConfig,duplicate)](#M-IniSharpBox-IniSharp-Merge-System-IO-FileInfo,System-String,IniSharpBox-IniConfig,IniSharpBox-IniConfig,IniSharpBox-ALLOWDUPLICATE- 'IniSharpBox.IniSharp.Merge(System.IO.FileInfo,System.String,IniSharpBox.IniConfig,IniSharpBox.IniConfig,IniSharpBox.ALLOWDUPLICATE)')
+  - [Merge(first,second,firstConfig,duplicate)](#M-IniSharpBox-IniSharp-Merge-System-IO-FileInfo,IniSharpBox-IniSharp,IniSharpBox-IniConfig,IniSharpBox-ALLOWDUPLICATE- 'IniSharpBox.IniSharp.Merge(System.IO.FileInfo,IniSharpBox.IniSharp,IniSharpBox.IniConfig,IniSharpBox.ALLOWDUPLICATE)')
+  - [Merge(first,second,firstConfig,secondConfig,duplicate)](#M-IniSharpBox-IniSharp-Merge-System-String,System-IO-FileInfo,IniSharpBox-IniConfig,IniSharpBox-IniConfig,IniSharpBox-ALLOWDUPLICATE- 'IniSharpBox.IniSharp.Merge(System.String,System.IO.FileInfo,IniSharpBox.IniConfig,IniSharpBox.IniConfig,IniSharpBox.ALLOWDUPLICATE)')
+  - [Merge(first,second,firstConfig,secondConfig,duplicate)](#M-IniSharpBox-IniSharp-Merge-System-String,System-String,IniSharpBox-IniConfig,IniSharpBox-IniConfig,IniSharpBox-ALLOWDUPLICATE- 'IniSharpBox.IniSharp.Merge(System.String,System.String,IniSharpBox.IniConfig,IniSharpBox.IniConfig,IniSharpBox.ALLOWDUPLICATE)')
+  - [Merge(first,second,firstConfig,duplicate)](#M-IniSharpBox-IniSharp-Merge-System-String,IniSharpBox-IniSharp,IniSharpBox-IniConfig,IniSharpBox-ALLOWDUPLICATE- 'IniSharpBox.IniSharp.Merge(System.String,IniSharpBox.IniSharp,IniSharpBox.IniConfig,IniSharpBox.ALLOWDUPLICATE)')
+  - [Merge(first,second,secondConfig,duplicate)](#M-IniSharpBox-IniSharp-Merge-IniSharpBox-IniSharp,System-IO-FileInfo,IniSharpBox-IniConfig,IniSharpBox-ALLOWDUPLICATE- 'IniSharpBox.IniSharp.Merge(IniSharpBox.IniSharp,System.IO.FileInfo,IniSharpBox.IniConfig,IniSharpBox.ALLOWDUPLICATE)')
+  - [Merge(first,second,secondConfig,duplicate)](#M-IniSharpBox-IniSharp-Merge-IniSharpBox-IniSharp,System-String,IniSharpBox-IniConfig,IniSharpBox-ALLOWDUPLICATE- 'IniSharpBox.IniSharp.Merge(IniSharpBox.IniSharp,System.String,IniSharpBox.IniConfig,IniSharpBox.ALLOWDUPLICATE)')
+  - [Merge(first,second,duplicate)](#M-IniSharpBox-IniSharp-Merge-IniSharpBox-IniSharp,IniSharpBox-IniSharp,IniSharpBox-ALLOWDUPLICATE- 'IniSharpBox.IniSharp.Merge(IniSharpBox.IniSharp,IniSharpBox.IniSharp,IniSharpBox.ALLOWDUPLICATE)')
+  - [Merge(other,duplicate)](#M-IniSharpBox-IniSharp-Merge-IniSharpBox-IniSharp,IniSharpBox-ALLOWDUPLICATE- 'IniSharpBox.IniSharp.Merge(IniSharpBox.IniSharp,IniSharpBox.ALLOWDUPLICATE)')
+  - [Merge(other,config,duplicate)](#M-IniSharpBox-IniSharp-Merge-System-String,IniSharpBox-IniConfig,IniSharpBox-ALLOWDUPLICATE- 'IniSharpBox.IniSharp.Merge(System.String,IniSharpBox.IniConfig,IniSharpBox.ALLOWDUPLICATE)')
+  - [Merge(other,config,duplicate)](#M-IniSharpBox-IniSharp-Merge-System-IO-FileInfo,IniSharpBox-IniConfig,IniSharpBox-ALLOWDUPLICATE- 'IniSharpBox.IniSharp.Merge(System.IO.FileInfo,IniSharpBox.IniConfig,IniSharpBox.ALLOWDUPLICATE)')
   - [Read(text)](#M-IniSharpBox-IniSharp-Read-System-String- 'IniSharpBox.IniSharp.Read(System.String)')
   - [Read(lines)](#M-IniSharpBox-IniSharp-Read-System-String[]- 'IniSharpBox.IniSharp.Read(System.String[])')
   - [Read()](#M-IniSharpBox-IniSharp-Read 'IniSharpBox.IniSharp.Read')
+  - [Remove(name)](#M-IniSharpBox-IniSharp-Remove-System-String- 'IniSharpBox.IniSharp.Remove(System.String)')
+  - [Remove(index)](#M-IniSharpBox-IniSharp-Remove-System-Int32- 'IniSharpBox.IniSharp.Remove(System.Int32)')
   - [SetValue(section,field,indexvalue,value)](#M-IniSharpBox-IniSharp-SetValue-System-Int32,System-Int32,System-Int32,System-String- 'IniSharpBox.IniSharp.SetValue(System.Int32,System.Int32,System.Int32,System.String)')
   - [SetValue(section,field,indexvalue,value)](#M-IniSharpBox-IniSharp-SetValue-System-Int32,System-String,System-Int32,System-String- 'IniSharpBox.IniSharp.SetValue(System.Int32,System.String,System.Int32,System.String)')
   - [SetValue(section,field,indexvalue,value)](#M-IniSharpBox-IniSharp-SetValue-System-String,System-Int32,System-Int32,System-String- 'IniSharpBox.IniSharp.SetValue(System.String,System.Int32,System.Int32,System.String)')
@@ -124,6 +151,7 @@
   - [ToSortedText()](#M-IniSharpBox-IniSharp-ToSortedText 'IniSharpBox.IniSharp.ToSortedText')
   - [ToText()](#M-IniSharpBox-IniSharp-ToText 'IniSharpBox.IniSharp.ToText')
   - [ToXml()](#M-IniSharpBox-IniSharp-ToXml 'IniSharpBox.IniSharp.ToXml')
+  - [ValidateEquals(first,second)](#M-IniSharpBox-IniSharp-ValidateEquals-IniSharpBox-IniSharp,IniSharpBox-IniSharp- 'IniSharpBox.IniSharp.ValidateEquals(IniSharpBox.IniSharp,IniSharpBox.IniSharp)')
   - [Write(fi,overWrite)](#M-IniSharpBox-IniSharp-Write-System-IO-FileInfo,System-Boolean- 'IniSharpBox.IniSharp.Write(System.IO.FileInfo,System.Boolean)')
 - [MULTIVALUESEPARATOR](#T-IniSharpBox-MULTIVALUESEPARATOR 'IniSharpBox.MULTIVALUESEPARATOR')
   - [COMMA](#F-IniSharpBox-MULTIVALUESEPARATOR-COMMA 'IniSharpBox.MULTIVALUESEPARATOR.COMMA')
@@ -145,7 +173,7 @@
   - [Item](#P-IniSharpBox-Section-Item-System-String- 'IniSharpBox.Section.Item(System.String)')
   - [Add(item)](#M-IniSharpBox-Section-Add-IniSharpBox-Field- 'IniSharpBox.Section.Add(IniSharpBox.Field)')
   - [Last()](#M-IniSharpBox-Section-Last 'IniSharpBox.Section.Last')
-  - [Merge(first,second,duplicateField,duplicateValue)](#M-IniSharpBox-Section-Merge-IniSharpBox-Section,IniSharpBox-Section,System-Boolean,System-Boolean- 'IniSharpBox.Section.Merge(IniSharpBox.Section,IniSharpBox.Section,System.Boolean,System.Boolean)')
+  - [Merge(first,second,duplicate)](#M-IniSharpBox-Section-Merge-IniSharpBox-Section,IniSharpBox-Section,IniSharpBox-ALLOWDUPLICATE- 'IniSharpBox.Section.Merge(IniSharpBox.Section,IniSharpBox.Section,IniSharpBox.ALLOWDUPLICATE)')
   - [ToSortedText()](#M-IniSharpBox-Section-ToSortedText 'IniSharpBox.Section.ToSortedText')
   - [ToText()](#M-IniSharpBox-Section-ToText 'IniSharpBox.Section.ToText')
 - [Sections](#T-IniSharpBox-Sections 'IniSharpBox.Sections')
@@ -163,9 +191,55 @@
   - [Contains(name)](#M-IniSharpBox-Sections-Contains-System-String- 'IniSharpBox.Sections.Contains(System.String)')
   - [Contains(index)](#M-IniSharpBox-Sections-Contains-System-Int32- 'IniSharpBox.Sections.Contains(System.Int32)')
   - [GetByName(name)](#M-IniSharpBox-Sections-GetByName-System-String- 'IniSharpBox.Sections.GetByName(System.String)')
-  - [Merge(first,second,duplicateSection,duplicateField,duplicateValue)](#M-IniSharpBox-Sections-Merge-IniSharpBox-Sections,IniSharpBox-Sections,System-Boolean,System-Boolean,System-Boolean- 'IniSharpBox.Sections.Merge(IniSharpBox.Sections,IniSharpBox.Sections,System.Boolean,System.Boolean,System.Boolean)')
+  - [Merge(first,second,duplicate)](#M-IniSharpBox-Sections-Merge-IniSharpBox-Sections,IniSharpBox-Sections,IniSharpBox-ALLOWDUPLICATE- 'IniSharpBox.Sections.Merge(IniSharpBox.Sections,IniSharpBox.Sections,IniSharpBox.ALLOWDUPLICATE)')
+  - [Remove(name)](#M-IniSharpBox-Sections-Remove-System-String- 'IniSharpBox.Sections.Remove(System.String)')
+  - [Remove(index)](#M-IniSharpBox-Sections-Remove-System-Int32- 'IniSharpBox.Sections.Remove(System.Int32)')
   - [ToSortedText()](#M-IniSharpBox-Sections-ToSortedText 'IniSharpBox.Sections.ToSortedText')
   - [ToText()](#M-IniSharpBox-Sections-ToText 'IniSharpBox.Sections.ToText')
+
+<a name='T-IniSharpBox-ALLOWDUPLICATE'></a>
+## ALLOWDUPLICATE `type`
+
+##### Namespace
+
+IniSharpBox
+
+##### Summary
+
+Duplicate\Merge strategy used by Merge methods
+
+<a name='F-IniSharpBox-ALLOWDUPLICATE-DO_SECTION'></a>
+### DO_SECTION `constants`
+
+##### Summary
+
+If two section with same Name duplicate them writing in order
+
+<a name='F-IniSharpBox-ALLOWDUPLICATE-NOT_SECTION_DO_FIELD'></a>
+### NOT_SECTION_DO_FIELD `constants`
+
+##### Summary
+
+If two section with same Name merge them in one and follow next strategy , otherwise duplicate the sections
+If two field   with same Name (in two section with same Name) duplicate them writing in order (first then second)
+
+<a name='F-IniSharpBox-ALLOWDUPLICATE-NOT_SECTION_NOT_FIELD_DO_VALUE'></a>
+### NOT_SECTION_NOT_FIELD_DO_VALUE `constants`
+
+##### Summary
+
+If two section with same Name merge them in one and follow next strategy , otherwise duplicate the sections
+If two field   with same Name (in two section with same Name) merge them in one and follow next strategy , otherwise duplicate the fields
+If two field-value   with same value (in two section with same Name containig two field with same Name ) duplicate them  (first then second)
+
+<a name='F-IniSharpBox-ALLOWDUPLICATE-NOT_SECTION_NOT_FIELD_NOT_VALUE'></a>
+### NOT_SECTION_NOT_FIELD_NOT_VALUE `constants`
+
+##### Summary
+
+If two section with same Name merge them in one and follow next strategy , otherwise duplicate the sections
+If two field   with same Name (in two section with same Name) merge them in one and follow next strategy , otherwise duplicate the fields
+If two field-value   with same value (in two section with same Name containig two field with same Name ) merge them in one (pick first)
 
 <a name='T-IniSharpBox-AccessorsStrategy'></a>
 ## AccessorsStrategy `type`
@@ -390,8 +464,8 @@ Write string in field
 | ---- | ---- | ----------- |
 | line | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
 
-<a name='M-IniSharpBox-Field-Merge-IniSharpBox-Field,IniSharpBox-Field,System-Boolean-'></a>
-### Merge(first,second,duplicateValue) `method`
+<a name='M-IniSharpBox-Field-Merge-IniSharpBox-Field,IniSharpBox-Field,IniSharpBox-ALLOWDUPLICATE-'></a>
+### Merge(first,second,duplicate) `method`
 
 ##### Summary
 
@@ -408,7 +482,41 @@ If duplicateValue is true allow multiple instance of value, otherwise do not all
 | ---- | ---- | ----------- |
 | first | [IniSharpBox.Field](#T-IniSharpBox-Field 'IniSharpBox.Field') |  |
 | second | [IniSharpBox.Field](#T-IniSharpBox-Field 'IniSharpBox.Field') |  |
-| duplicateValue | [System.Boolean](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Boolean 'System.Boolean') |  |
+| duplicate | [IniSharpBox.ALLOWDUPLICATE](#T-IniSharpBox-ALLOWDUPLICATE 'IniSharpBox.ALLOWDUPLICATE') |  |
+
+<a name='M-IniSharpBox-Field-Remove-System-String-'></a>
+### Remove(value) `method`
+
+##### Summary
+
+Return true if an item with value exists and removing process succeed, otherwise false
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| value | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+
+<a name='M-IniSharpBox-Field-Remove-System-Int32-'></a>
+### Remove(index) `method`
+
+##### Summary
+
+Return true if an item with index pass as argument exists and removing process succeed, otherwise false
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| index | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') |  |
 
 <a name='M-IniSharpBox-Field-Replace-System-String-'></a>
 ### Replace(line) `method`
@@ -648,14 +756,12 @@ Return a field contained in Field list , otherwise return a new Field()
 | ---- | ---- | ----------- |
 | name | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
 
-<a name='M-IniSharpBox-Fields-Merge-IniSharpBox-Fields,IniSharpBox-Fields,System-Boolean,System-Boolean-'></a>
-### Merge(first,second,duplicateField,duplicateValue) `method`
+<a name='M-IniSharpBox-Fields-Merge-IniSharpBox-Fields,IniSharpBox-Fields,IniSharpBox-ALLOWDUPLICATE-'></a>
+### Merge(first,second,duplicate) `method`
 
 ##### Summary
 
-Return a merged Field from 2 input Field.
-If duplicateValue is true allow multiple instance of value, otherwise do not allow duplicate instance.
-If duplicateValue is true allow multiple instance of field with same Name, otherwise do not allow duplicate instance.
+Return a merged Field from 2 input Field according to duplicate strategy
 
 ##### Returns
 
@@ -667,8 +773,41 @@ If duplicateValue is true allow multiple instance of field with same Name, other
 | ---- | ---- | ----------- |
 | first | [IniSharpBox.Fields](#T-IniSharpBox-Fields 'IniSharpBox.Fields') |  |
 | second | [IniSharpBox.Fields](#T-IniSharpBox-Fields 'IniSharpBox.Fields') |  |
-| duplicateField | [System.Boolean](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Boolean 'System.Boolean') |  |
-| duplicateValue | [System.Boolean](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Boolean 'System.Boolean') |  |
+| duplicate | [IniSharpBox.ALLOWDUPLICATE](#T-IniSharpBox-ALLOWDUPLICATE 'IniSharpBox.ALLOWDUPLICATE') |  |
+
+<a name='M-IniSharpBox-Fields-Remove-System-String-'></a>
+### Remove(name) `method`
+
+##### Summary
+
+Return true if an item with name == Name exists and removing process succeed, otherwise false
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| name | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+
+<a name='M-IniSharpBox-Fields-Remove-System-Int32-'></a>
+### Remove(index) `method`
+
+##### Summary
+
+Return true if an item with index pass as argument exists and removing process succeed, otherwise false
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| index | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') |  |
 
 <a name='M-IniSharpBox-Fields-ToSortedText'></a>
 ### ToSortedText() `method`
@@ -791,6 +930,51 @@ if file exist and overWrite is false then no text is written ,
 | fi | [System.IO.FileInfo](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.IO.FileInfo 'System.IO.FileInfo') |  |
 | text | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
 | overWrite | [System.Boolean](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Boolean 'System.Boolean') |  |
+
+<a name='T-IniSharpBox-IIniItemRemove'></a>
+## IIniItemRemove `type`
+
+##### Namespace
+
+IniSharpBox
+
+##### Summary
+
+Interface define methods for remove items
+
+<a name='M-IniSharpBox-IIniItemRemove-Remove-System-String-'></a>
+### Remove(name) `method`
+
+##### Summary
+
+Return true if an item with name == Name exists and removing process succeed, otherwise false
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| name | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+
+<a name='M-IniSharpBox-IIniItemRemove-Remove-System-Int32-'></a>
+### Remove(index) `method`
+
+##### Summary
+
+Return true if an item with index pass as argument exists and removing process succeed, otherwise false
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| index | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') |  |
 
 <a name='T-IniSharpBox-IniBase'></a>
 ## IniBase `type`
@@ -968,60 +1152,6 @@ IniSharpBox
 
 Abstract class for list of items
 
-<a name='M-IniSharpBox-IniItemList-Contains-System-Collections-Generic-List{IniSharpBox-IniItem},IniSharpBox-IniItem-'></a>
-### Contains(container,item) `method`
-
-##### Summary
-
-Return true if item is present in list , otherwise false
-
-##### Returns
-
-
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| container | [System.Collections.Generic.List{IniSharpBox.IniItem}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{IniSharpBox.IniItem}') |  |
-| item | [IniSharpBox.IniItem](#T-IniSharpBox-IniItem 'IniSharpBox.IniItem') |  |
-
-<a name='M-IniSharpBox-IniItemList-Contains-System-Collections-Generic-List{IniSharpBox-IniItem},System-String-'></a>
-### Contains(container,name) `method`
-
-##### Summary
-
-Return true if an item with Name == name is present in list , otherwise false
-
-##### Returns
-
-
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| container | [System.Collections.Generic.List{IniSharpBox.IniItem}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{IniSharpBox.IniItem}') |  |
-| name | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
-
-<a name='M-IniSharpBox-IniItemList-Contains-System-Collections-Generic-List{IniSharpBox-IniItem},System-Int32-'></a>
-### Contains(container,index) `method`
-
-##### Summary
-
-Return true if an item with index is present in list , otherwise false
-
-##### Returns
-
-
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| container | [System.Collections.Generic.List{IniSharpBox.IniItem}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{IniSharpBox.IniItem}') |  |
-| index | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') |  |
-
 <a name='T-IniSharpBox-IniSharp'></a>
 ## IniSharp `type`
 
@@ -1032,6 +1162,17 @@ IniSharpBox
 ##### Summary
 
 Class for manage ini file
+
+<a name='M-IniSharpBox-IniSharp-#ctor'></a>
+### #ctor() `constructor`
+
+##### Summary
+
+Constructor
+
+##### Parameters
+
+This constructor has no parameters.
 
 <a name='M-IniSharpBox-IniSharp-#ctor-System-String,IniSharpBox-IniConfig-'></a>
 ### #ctor(filename,config) `constructor`
@@ -1099,17 +1240,6 @@ Constructor
 | Name | Type | Description |
 | ---- | ---- | ----------- |
 | config | [IniSharpBox.IniConfig](#T-IniSharpBox-IniConfig 'IniSharpBox.IniConfig') |  |
-
-<a name='M-IniSharpBox-IniSharp-#ctor'></a>
-### #ctor() `constructor`
-
-##### Summary
-
-Constructor
-
-##### Parameters
-
-This constructor has no parameters.
 
 <a name='F-IniSharpBox-IniSharp-TAB'></a>
 ### TAB `constants`
@@ -1347,6 +1477,25 @@ Return status of get/set operation
 | field | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
 | indexvalue | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') |  |
 
+<a name='M-IniSharpBox-IniSharp-Compare-IniSharpBox-IniSharp,IniSharpBox-IniSharp,IniSharpBox-IniSharp-'></a>
+### Compare(first,second,third) `method`
+
+##### Summary
+
+Return a value that show comparison status between 3 object
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| first | [IniSharpBox.IniSharp](#T-IniSharpBox-IniSharp 'IniSharpBox.IniSharp') |  |
+| second | [IniSharpBox.IniSharp](#T-IniSharpBox-IniSharp 'IniSharpBox.IniSharp') |  |
+| third | [IniSharpBox.IniSharp](#T-IniSharpBox-IniSharp 'IniSharpBox.IniSharp') |  |
+
 <a name='M-IniSharpBox-IniSharp-Constructor-System-IO-FileInfo,IniSharpBox-IniConfig-'></a>
 ### Constructor(filename,config) `method`
 
@@ -1505,8 +1654,24 @@ Return value if exist , otherwise null
 | field | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
 | indexvalue | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') |  |
 
-<a name='M-IniSharpBox-IniSharp-Import-IniSharpBox-IniSharp,System-Boolean,System-Boolean,System-Boolean-'></a>
-### Import(other,duplicateSection,duplicateField,duplicateValue) `method`
+<a name='M-IniSharpBox-IniSharp-Hash'></a>
+### Hash() `method`
+
+##### Summary
+
+Return an array get by computation of the SHA256 hash for an array achived from sorted text of ini file
+https://learn.microsoft.com/en-us/dotnet/api/system.security.cryptography.hashalgorithm?view=net-9.0
+
+##### Returns
+
+
+
+##### Parameters
+
+This method has no parameters.
+
+<a name='M-IniSharpBox-IniSharp-Import-IniSharpBox-IniSharp,IniSharpBox-ALLOWDUPLICATE-'></a>
+### Import(other,duplicate) `method`
 
 ##### Summary
 
@@ -1518,12 +1683,250 @@ Imported object has config preference of this object.
 | Name | Type | Description |
 | ---- | ---- | ----------- |
 | other | [IniSharpBox.IniSharp](#T-IniSharpBox-IniSharp 'IniSharpBox.IniSharp') |  |
-| duplicateSection | [System.Boolean](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Boolean 'System.Boolean') |  |
-| duplicateField | [System.Boolean](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Boolean 'System.Boolean') |  |
-| duplicateValue | [System.Boolean](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Boolean 'System.Boolean') |  |
+| duplicate | [IniSharpBox.ALLOWDUPLICATE](#T-IniSharpBox-ALLOWDUPLICATE 'IniSharpBox.ALLOWDUPLICATE') |  |
 
-<a name='M-IniSharpBox-IniSharp-Merge-IniSharpBox-IniSharp,IniSharpBox-IniSharp,System-Boolean,System-Boolean,System-Boolean-'></a>
-### Merge(first,second,duplicateSection,duplicateField,duplicateValue) `method`
+<a name='M-IniSharpBox-IniSharp-Import-System-IO-FileInfo,IniSharpBox-IniConfig,IniSharpBox-ALLOWDUPLICATE-'></a>
+### Import(other,config,duplicate) `method`
+
+##### Summary
+
+Import inside this object a merged IniSharp object from external IniSharp object and this object the first is provide as argument with duplicate option for every level of ini file (section, field, values)
+Imported object has config preference of this object.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| other | [System.IO.FileInfo](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.IO.FileInfo 'System.IO.FileInfo') |  |
+| config | [IniSharpBox.IniConfig](#T-IniSharpBox-IniConfig 'IniSharpBox.IniConfig') |  |
+| duplicate | [IniSharpBox.ALLOWDUPLICATE](#T-IniSharpBox-ALLOWDUPLICATE 'IniSharpBox.ALLOWDUPLICATE') |  |
+
+<a name='M-IniSharpBox-IniSharp-Import-System-String,IniSharpBox-IniConfig,IniSharpBox-ALLOWDUPLICATE-'></a>
+### Import(other,config,duplicate) `method`
+
+##### Summary
+
+Import inside this object a merged IniSharp object from external IniSharp object and this object the first is provide as argument with duplicate option for every level of ini file (section, field, values)
+Imported object has config preference of this object.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| other | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+| config | [IniSharpBox.IniConfig](#T-IniSharpBox-IniConfig 'IniSharpBox.IniConfig') |  |
+| duplicate | [IniSharpBox.ALLOWDUPLICATE](#T-IniSharpBox-ALLOWDUPLICATE 'IniSharpBox.ALLOWDUPLICATE') |  |
+
+<a name='M-IniSharpBox-IniSharp-Load-System-IO-FileInfo,IniSharpBox-IniConfig-'></a>
+### Load(fi,config) `method`
+
+##### Summary
+
+Return an IniSharp object
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| fi | [System.IO.FileInfo](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.IO.FileInfo 'System.IO.FileInfo') |  |
+| config | [IniSharpBox.IniConfig](#T-IniSharpBox-IniConfig 'IniSharpBox.IniConfig') |  |
+
+<a name='M-IniSharpBox-IniSharp-Load-System-String,IniSharpBox-IniConfig-'></a>
+### Load(text,config) `method`
+
+##### Summary
+
+Return an IniSharp object passing a text of ini file as argument
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| text | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+| config | [IniSharpBox.IniConfig](#T-IniSharpBox-IniConfig 'IniSharpBox.IniConfig') |  |
+
+<a name='M-IniSharpBox-IniSharp-Merge-System-IO-FileInfo,System-IO-FileInfo,IniSharpBox-IniConfig,IniSharpBox-IniConfig,IniSharpBox-ALLOWDUPLICATE-'></a>
+### Merge(first,second,firstConfig,secondConfig,duplicate) `method`
+
+##### Summary
+
+Return a merged IniSharp object from 2 IniSharp object provide as argument with duplicate option for every level of ini file (section, field, values).
+Return object has config preference of first argument.
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| first | [System.IO.FileInfo](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.IO.FileInfo 'System.IO.FileInfo') |  |
+| second | [System.IO.FileInfo](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.IO.FileInfo 'System.IO.FileInfo') |  |
+| firstConfig | [IniSharpBox.IniConfig](#T-IniSharpBox-IniConfig 'IniSharpBox.IniConfig') |  |
+| secondConfig | [IniSharpBox.IniConfig](#T-IniSharpBox-IniConfig 'IniSharpBox.IniConfig') |  |
+| duplicate | [IniSharpBox.ALLOWDUPLICATE](#T-IniSharpBox-ALLOWDUPLICATE 'IniSharpBox.ALLOWDUPLICATE') |  |
+
+<a name='M-IniSharpBox-IniSharp-Merge-System-IO-FileInfo,System-String,IniSharpBox-IniConfig,IniSharpBox-IniConfig,IniSharpBox-ALLOWDUPLICATE-'></a>
+### Merge(first,second,firstConfig,secondConfig,duplicate) `method`
+
+##### Summary
+
+Return a merged IniSharp object from 2 IniSharp object provide as argument with duplicate option for every level of ini file (section, field, values).
+Return object has config preference of first argument.
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| first | [System.IO.FileInfo](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.IO.FileInfo 'System.IO.FileInfo') |  |
+| second | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+| firstConfig | [IniSharpBox.IniConfig](#T-IniSharpBox-IniConfig 'IniSharpBox.IniConfig') |  |
+| secondConfig | [IniSharpBox.IniConfig](#T-IniSharpBox-IniConfig 'IniSharpBox.IniConfig') |  |
+| duplicate | [IniSharpBox.ALLOWDUPLICATE](#T-IniSharpBox-ALLOWDUPLICATE 'IniSharpBox.ALLOWDUPLICATE') |  |
+
+<a name='M-IniSharpBox-IniSharp-Merge-System-IO-FileInfo,IniSharpBox-IniSharp,IniSharpBox-IniConfig,IniSharpBox-ALLOWDUPLICATE-'></a>
+### Merge(first,second,firstConfig,duplicate) `method`
+
+##### Summary
+
+Return a merged IniSharp object from 2 IniSharp object provide as argument with duplicate option for every level of ini file (section, field, values).
+Return object has config preference of first argument.
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| first | [System.IO.FileInfo](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.IO.FileInfo 'System.IO.FileInfo') |  |
+| second | [IniSharpBox.IniSharp](#T-IniSharpBox-IniSharp 'IniSharpBox.IniSharp') |  |
+| firstConfig | [IniSharpBox.IniConfig](#T-IniSharpBox-IniConfig 'IniSharpBox.IniConfig') |  |
+| duplicate | [IniSharpBox.ALLOWDUPLICATE](#T-IniSharpBox-ALLOWDUPLICATE 'IniSharpBox.ALLOWDUPLICATE') |  |
+
+<a name='M-IniSharpBox-IniSharp-Merge-System-String,System-IO-FileInfo,IniSharpBox-IniConfig,IniSharpBox-IniConfig,IniSharpBox-ALLOWDUPLICATE-'></a>
+### Merge(first,second,firstConfig,secondConfig,duplicate) `method`
+
+##### Summary
+
+Return a merged IniSharp object from 2 IniSharp object provide as argument with duplicate option for every level of ini file (section, field, values).
+Return object has config preference of first argument.
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| first | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+| second | [System.IO.FileInfo](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.IO.FileInfo 'System.IO.FileInfo') |  |
+| firstConfig | [IniSharpBox.IniConfig](#T-IniSharpBox-IniConfig 'IniSharpBox.IniConfig') |  |
+| secondConfig | [IniSharpBox.IniConfig](#T-IniSharpBox-IniConfig 'IniSharpBox.IniConfig') |  |
+| duplicate | [IniSharpBox.ALLOWDUPLICATE](#T-IniSharpBox-ALLOWDUPLICATE 'IniSharpBox.ALLOWDUPLICATE') |  |
+
+<a name='M-IniSharpBox-IniSharp-Merge-System-String,System-String,IniSharpBox-IniConfig,IniSharpBox-IniConfig,IniSharpBox-ALLOWDUPLICATE-'></a>
+### Merge(first,second,firstConfig,secondConfig,duplicate) `method`
+
+##### Summary
+
+Return a merged IniSharp object from 2 IniSharp object provide as argument with duplicate option for every level of ini file (section, field, values).
+Return object has config preference of first argument.
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| first | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+| second | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+| firstConfig | [IniSharpBox.IniConfig](#T-IniSharpBox-IniConfig 'IniSharpBox.IniConfig') |  |
+| secondConfig | [IniSharpBox.IniConfig](#T-IniSharpBox-IniConfig 'IniSharpBox.IniConfig') |  |
+| duplicate | [IniSharpBox.ALLOWDUPLICATE](#T-IniSharpBox-ALLOWDUPLICATE 'IniSharpBox.ALLOWDUPLICATE') |  |
+
+<a name='M-IniSharpBox-IniSharp-Merge-System-String,IniSharpBox-IniSharp,IniSharpBox-IniConfig,IniSharpBox-ALLOWDUPLICATE-'></a>
+### Merge(first,second,firstConfig,duplicate) `method`
+
+##### Summary
+
+Return a merged IniSharp object from 2 IniSharp object provide as argument with duplicate option for every level of ini file (section, field, values).
+Return object has config preference of first argument.
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| first | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+| second | [IniSharpBox.IniSharp](#T-IniSharpBox-IniSharp 'IniSharpBox.IniSharp') |  |
+| firstConfig | [IniSharpBox.IniConfig](#T-IniSharpBox-IniConfig 'IniSharpBox.IniConfig') |  |
+| duplicate | [IniSharpBox.ALLOWDUPLICATE](#T-IniSharpBox-ALLOWDUPLICATE 'IniSharpBox.ALLOWDUPLICATE') |  |
+
+<a name='M-IniSharpBox-IniSharp-Merge-IniSharpBox-IniSharp,System-IO-FileInfo,IniSharpBox-IniConfig,IniSharpBox-ALLOWDUPLICATE-'></a>
+### Merge(first,second,secondConfig,duplicate) `method`
+
+##### Summary
+
+Return a merged IniSharp object from 2 IniSharp object provide as argument with duplicate option for every level of ini file (section, field, values).
+Return object has config preference of first argument.
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| first | [IniSharpBox.IniSharp](#T-IniSharpBox-IniSharp 'IniSharpBox.IniSharp') |  |
+| second | [System.IO.FileInfo](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.IO.FileInfo 'System.IO.FileInfo') |  |
+| secondConfig | [IniSharpBox.IniConfig](#T-IniSharpBox-IniConfig 'IniSharpBox.IniConfig') |  |
+| duplicate | [IniSharpBox.ALLOWDUPLICATE](#T-IniSharpBox-ALLOWDUPLICATE 'IniSharpBox.ALLOWDUPLICATE') |  |
+
+<a name='M-IniSharpBox-IniSharp-Merge-IniSharpBox-IniSharp,System-String,IniSharpBox-IniConfig,IniSharpBox-ALLOWDUPLICATE-'></a>
+### Merge(first,second,secondConfig,duplicate) `method`
+
+##### Summary
+
+Return a merged IniSharp object from 2 IniSharp object provide as argument with duplicate option for every level of ini file (section, field, values).
+Return object has config preference of first argument.
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| first | [IniSharpBox.IniSharp](#T-IniSharpBox-IniSharp 'IniSharpBox.IniSharp') |  |
+| second | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+| secondConfig | [IniSharpBox.IniConfig](#T-IniSharpBox-IniConfig 'IniSharpBox.IniConfig') |  |
+| duplicate | [IniSharpBox.ALLOWDUPLICATE](#T-IniSharpBox-ALLOWDUPLICATE 'IniSharpBox.ALLOWDUPLICATE') |  |
+
+<a name='M-IniSharpBox-IniSharp-Merge-IniSharpBox-IniSharp,IniSharpBox-IniSharp,IniSharpBox-ALLOWDUPLICATE-'></a>
+### Merge(first,second,duplicate) `method`
 
 ##### Summary
 
@@ -1540,12 +1943,10 @@ Return object has config preference of first argument.
 | ---- | ---- | ----------- |
 | first | [IniSharpBox.IniSharp](#T-IniSharpBox-IniSharp 'IniSharpBox.IniSharp') |  |
 | second | [IniSharpBox.IniSharp](#T-IniSharpBox-IniSharp 'IniSharpBox.IniSharp') |  |
-| duplicateSection | [System.Boolean](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Boolean 'System.Boolean') |  |
-| duplicateField | [System.Boolean](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Boolean 'System.Boolean') |  |
-| duplicateValue | [System.Boolean](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Boolean 'System.Boolean') |  |
+| duplicate | [IniSharpBox.ALLOWDUPLICATE](#T-IniSharpBox-ALLOWDUPLICATE 'IniSharpBox.ALLOWDUPLICATE') |  |
 
-<a name='M-IniSharpBox-IniSharp-Merge-IniSharpBox-IniSharp,System-Boolean,System-Boolean,System-Boolean-'></a>
-### Merge(other,duplicateSection,duplicateField,duplicateValue) `method`
+<a name='M-IniSharpBox-IniSharp-Merge-IniSharpBox-IniSharp,IniSharpBox-ALLOWDUPLICATE-'></a>
+### Merge(other,duplicate) `method`
 
 ##### Summary
 
@@ -1561,9 +1962,47 @@ Return object has config preference of this object.
 | Name | Type | Description |
 | ---- | ---- | ----------- |
 | other | [IniSharpBox.IniSharp](#T-IniSharpBox-IniSharp 'IniSharpBox.IniSharp') |  |
-| duplicateSection | [System.Boolean](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Boolean 'System.Boolean') |  |
-| duplicateField | [System.Boolean](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Boolean 'System.Boolean') |  |
-| duplicateValue | [System.Boolean](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Boolean 'System.Boolean') |  |
+| duplicate | [IniSharpBox.ALLOWDUPLICATE](#T-IniSharpBox-ALLOWDUPLICATE 'IniSharpBox.ALLOWDUPLICATE') |  |
+
+<a name='M-IniSharpBox-IniSharp-Merge-System-String,IniSharpBox-IniConfig,IniSharpBox-ALLOWDUPLICATE-'></a>
+### Merge(other,config,duplicate) `method`
+
+##### Summary
+
+Return a merged IniSharp object from external IniSharp object and this object the first is provide as argument with duplicate option for every level of ini file (section, field, values)
+Return object has config preference of this object.
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| other | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+| config | [IniSharpBox.IniConfig](#T-IniSharpBox-IniConfig 'IniSharpBox.IniConfig') |  |
+| duplicate | [IniSharpBox.ALLOWDUPLICATE](#T-IniSharpBox-ALLOWDUPLICATE 'IniSharpBox.ALLOWDUPLICATE') |  |
+
+<a name='M-IniSharpBox-IniSharp-Merge-System-IO-FileInfo,IniSharpBox-IniConfig,IniSharpBox-ALLOWDUPLICATE-'></a>
+### Merge(other,config,duplicate) `method`
+
+##### Summary
+
+Return a merged IniSharp object from external IniSharp object and this object the first is provide as argument with duplicate option for every level of ini file (section, field, values)
+Return object has config preference of this object.
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| other | [System.IO.FileInfo](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.IO.FileInfo 'System.IO.FileInfo') |  |
+| config | [IniSharpBox.IniConfig](#T-IniSharpBox-IniConfig 'IniSharpBox.IniConfig') |  |
+| duplicate | [IniSharpBox.ALLOWDUPLICATE](#T-IniSharpBox-ALLOWDUPLICATE 'IniSharpBox.ALLOWDUPLICATE') |  |
 
 <a name='M-IniSharpBox-IniSharp-Read-System-String-'></a>
 ### Read(text) `method`
@@ -1615,6 +2054,40 @@ Parse a ini file , filename is passed by constructor
 ##### Parameters
 
 This method has no parameters.
+
+<a name='M-IniSharpBox-IniSharp-Remove-System-String-'></a>
+### Remove(name) `method`
+
+##### Summary
+
+Return true if an item with name == Name exists and removing process succeed, otherwise false
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| name | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+
+<a name='M-IniSharpBox-IniSharp-Remove-System-Int32-'></a>
+### Remove(index) `method`
+
+##### Summary
+
+Return true if an item with index pass as argument exists and removing process succeed, otherwise false
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| index | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') |  |
 
 <a name='M-IniSharpBox-IniSharp-SetValue-System-Int32,System-Int32,System-Int32,System-String-'></a>
 ### SetValue(section,field,indexvalue,value) `method`
@@ -1788,6 +2261,24 @@ Return a serialized xml formatted string
 ##### Parameters
 
 This method has no parameters.
+
+<a name='M-IniSharpBox-IniSharp-ValidateEquals-IniSharpBox-IniSharp,IniSharpBox-IniSharp-'></a>
+### ValidateEquals(first,second) `method`
+
+##### Summary
+
+Return true if are equals according to ToSortedText() + both has Success == true + both has ToSortedText().Length > 0 , otherwise false.
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| first | [IniSharpBox.IniSharp](#T-IniSharpBox-IniSharp 'IniSharpBox.IniSharp') |  |
+| second | [IniSharpBox.IniSharp](#T-IniSharpBox-IniSharp 'IniSharpBox.IniSharp') |  |
 
 <a name='M-IniSharpBox-IniSharp-Write-System-IO-FileInfo,System-Boolean-'></a>
 ### Write(fi,overWrite) `method`
@@ -2016,8 +2507,8 @@ Return last field
 
 This method has no parameters.
 
-<a name='M-IniSharpBox-Section-Merge-IniSharpBox-Section,IniSharpBox-Section,System-Boolean,System-Boolean-'></a>
-### Merge(first,second,duplicateField,duplicateValue) `method`
+<a name='M-IniSharpBox-Section-Merge-IniSharpBox-Section,IniSharpBox-Section,IniSharpBox-ALLOWDUPLICATE-'></a>
+### Merge(first,second,duplicate) `method`
 
 ##### Summary
 
@@ -2033,8 +2524,7 @@ This method has no parameters.
 | ---- | ---- | ----------- |
 | first | [IniSharpBox.Section](#T-IniSharpBox-Section 'IniSharpBox.Section') |  |
 | second | [IniSharpBox.Section](#T-IniSharpBox-Section 'IniSharpBox.Section') |  |
-| duplicateField | [System.Boolean](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Boolean 'System.Boolean') |  |
-| duplicateValue | [System.Boolean](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Boolean 'System.Boolean') |  |
+| duplicate | [IniSharpBox.ALLOWDUPLICATE](#T-IniSharpBox-ALLOWDUPLICATE 'IniSharpBox.ALLOWDUPLICATE') |  |
 
 <a name='M-IniSharpBox-Section-ToSortedText'></a>
 ### ToSortedText() `method`
@@ -2260,15 +2750,12 @@ Return section by name
 | ---- | ---- | ----------- |
 | name | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
 
-<a name='M-IniSharpBox-Sections-Merge-IniSharpBox-Sections,IniSharpBox-Sections,System-Boolean,System-Boolean,System-Boolean-'></a>
-### Merge(first,second,duplicateSection,duplicateField,duplicateValue) `method`
+<a name='M-IniSharpBox-Sections-Merge-IniSharpBox-Sections,IniSharpBox-Sections,IniSharpBox-ALLOWDUPLICATE-'></a>
+### Merge(first,second,duplicate) `method`
 
 ##### Summary
 
-Return a merged Sections from 2 input Sections.
-If duplicateValue is true allow multiple instance of value, otherwise do not allow duplicate instance.
-If duplicateValue is true allow multiple instance of field with same Name, otherwise do not allow duplicate instance.
-If duplicateValue is true allow multiple instance of session with same Name, otherwise do not allow duplicate instance.
+Return a merged Sections from 2 input Sections according to duplicate startegy
 
 ##### Returns
 
@@ -2280,9 +2767,41 @@ If duplicateValue is true allow multiple instance of session with same Name, oth
 | ---- | ---- | ----------- |
 | first | [IniSharpBox.Sections](#T-IniSharpBox-Sections 'IniSharpBox.Sections') |  |
 | second | [IniSharpBox.Sections](#T-IniSharpBox-Sections 'IniSharpBox.Sections') |  |
-| duplicateSection | [System.Boolean](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Boolean 'System.Boolean') |  |
-| duplicateField | [System.Boolean](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Boolean 'System.Boolean') |  |
-| duplicateValue | [System.Boolean](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Boolean 'System.Boolean') |  |
+| duplicate | [IniSharpBox.ALLOWDUPLICATE](#T-IniSharpBox-ALLOWDUPLICATE 'IniSharpBox.ALLOWDUPLICATE') |  |
+
+<a name='M-IniSharpBox-Sections-Remove-System-String-'></a>
+### Remove(name) `method`
+
+##### Summary
+
+Return true if an item with name == Name exists and removing process succeed, otherwise false
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| name | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+
+<a name='M-IniSharpBox-Sections-Remove-System-Int32-'></a>
+### Remove(index) `method`
+
+##### Summary
+
+Return true if an item with index pass as argument exists and removing process succeed, otherwise false
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| index | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') |  |
 
 <a name='M-IniSharpBox-Sections-ToSortedText'></a>
 ### ToSortedText() `method`

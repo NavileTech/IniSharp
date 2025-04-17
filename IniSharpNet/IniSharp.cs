@@ -1,6 +1,7 @@
 ﻿using IniSharpNet;
 using Newtonsoft.Json;
 using System.Diagnostics;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace IniSharpBox
@@ -118,97 +119,6 @@ namespace IniSharpBox
             {
                 Debug.WriteLine(message);
             }
-        }
-
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="filename"></param>
-        /// <param name="config"></param>
-        public IniSharp(String filename, IniConfig? config) : this()
-        {
-            this.Constructor(new FileInfo(filename), config);
-        }
-
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="filename"></param>
-        public IniSharp(String filename) : this()
-        {
-            this.Constructor(new FileInfo(filename), new IniConfig());
-        }
-
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="filename"></param>
-        /// <param name="config"></param>
-        public IniSharp(FileInfo filename, IniConfig config) : this()
-        {
-            this.Constructor(filename, config);
-        }
-
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="filename"></param>
-        public IniSharp(FileInfo filename) : this()
-        {
-            this.Constructor(filename, new IniConfig());
-        }
-
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="config"></param>
-        public IniSharp(IniConfig config) : this()
-        {
-            this.Constructor(null, config);
-        }
-
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        public IniSharp()
-        {
-            Body = new Sections();
-            this.Constructor(null, new IniConfig());
-        }
-
-        /// <summary>
-        /// Inner construct of class
-        /// </summary>
-        /// <param name="filename"></param>
-        /// <param name="config"></param>
-        private void Constructor(FileInfo? filename, IniConfig? config)
-        {
-            if (filename != null)
-            {
-                if (filename.Exists == true)
-                {
-                    this._inifile = filename;
-                }
-                else
-                {
-                    this._inifile = null;
-                }
-            }
-
-            EnableDebug = false;
-
-            this.Comments = [];
-
-            if (config == null)
-            {
-                _Config = new IniConfig();
-            }
-            else
-            {
-                _Config = config;
-            }
-
-            this.Body = new Sections(this.Config);
         }
 
         /// <summary>
@@ -505,6 +415,16 @@ namespace IniSharpBox
             Helpers.WriteToFile(fi, text, overWrite);
 
             return ReturnValue;
+        }
+
+        /// <summary>
+        /// Return an array get by computation of the SHA256 hash for an array achived from sorted text of ini file
+        /// https://learn.microsoft.com/en-us/dotnet/api/system.security.cryptography.hashalgorithm?view=net-9.0
+        /// </summary>
+        /// <returns></returns>
+        public byte[] Hash()
+        {
+            return SHA256.HashData(Encoding.ASCII.GetBytes(ToSortedText()));
         }
     }
 }
