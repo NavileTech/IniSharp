@@ -1,7 +1,7 @@
 ﻿namespace IniSharpBox.Test
 {
     [TestClass]
-    public class UnitTest008_Equals
+    public class UnitTest009_Equals
     {
         private const string FileName001 = "Test001.ini";
         private const string FileName002 = "Test002.ini";

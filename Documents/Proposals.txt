@@ -1,0 +1,36 @@
+1)
+IniSharp.cs
+//public static IniSharp Load(String filename, IniConfig? config)
+
+//public static IniSharp Load(String filename)
+
+// DOIT
+public static IniSharp Load(FileInfo fi,IniConfig? config) 
+
+//public static IniSharp Load(FileInfo filename)
+
+// DOIT
+public static IniSharp Load(string text,bool duplicateSection, bool duplicateField, bool duplicateValue)
+
+//public IniSharp(string text,IniConfig config,bool duplicateSection, bool duplicateField, bool duplicateValue)
+
+//public static IniSharp Load(string text,bool duplicateSection, bool duplicateField, bool duplicateValue)
+
+public static IniSharp Merge(FileInfo first, FileInfo second, IniConfig config, bool duplicateSection, bool duplicateField, bool duplicateValue)
+
+public IniSharp Merge(FileInfo other, IniConfig config, bool duplicateSection, bool duplicateField, bool duplicateValue)
+
+public void Import(FileInfo other, IniConfig config, bool duplicateSection, bool duplicateField, bool duplicateValue)
+
+
+Merge
+
+fi 		fi
+fi		text
+fi		object
+text 	fi
+text 	text
+text	object
+object	fi
+object	text
+object	object

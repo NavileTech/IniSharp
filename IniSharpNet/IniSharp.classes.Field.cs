@@ -7,7 +7,7 @@ namespace IniSharpBox
     /// <summary>
     /// Class for manage field in a ini file
     /// </summary>
-    public class Field : IniItem
+    public class Field : IniItem, IIniItemRemove
     {
         /// <summary>
         /// Lines of a multiline field
@@ -16,7 +16,12 @@ namespace IniSharpBox
 
         private string GetIfExist(int index)
         {
-            return Lines.Count >  index ? Lines[index] : string.Empty;
+            return Lines.Count > index ? Lines[index] : string.Empty;
+        }
+
+        private int GetIndexByValue(string value)
+        {
+            return Lines.FindIndex(x => x == value);
         }
 
         /// <summary>
@@ -219,7 +224,7 @@ namespace IniSharpBox
         {
             if (config == null)
             {
-                _Config = new IniConfig();
+                _Config = new();
             }
             else
             {
@@ -232,9 +237,9 @@ namespace IniSharpBox
         /// </summary>
         public Field()
         {
-            Comments = new List<string>();
-            Lines = new List<string>();
-            _Config = new IniConfig();
+            Comments = [];
+            Lines = [];
+            _Config = new();
         }
 
         /// <summary>
@@ -243,7 +248,7 @@ namespace IniSharpBox
         /// <returns></returns>
         public string ToText()
         {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
 
             for (int i = 0; i < Comments.Count; i++)
             {
@@ -301,7 +306,7 @@ namespace IniSharpBox
         /// <returns></returns>
         public string ToSortedText()
         {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
 
             List<String> sorted = [.. Lines];
 
@@ -346,7 +351,7 @@ namespace IniSharpBox
             }
             else
             {
-                sb.AppendLine($"{Name}={sorted[0]}");
+                sb.AppendLine($"{Name}=");
             }
 
             return sb.ToString();
@@ -358,11 +363,16 @@ namespace IniSharpBox
         /// </summary>
         /// <param name="first"></param>
         /// <param name="second"></param>
-        /// <param name="duplicateValue"></param>
+        /// <param name="duplicate"></param>
         /// <returns></returns>
-        public static Field Merge(Field first, Field second, bool duplicateValue)
+        public static Field Merge(Field first, Field second, ALLOWDUPLICATE duplicate)
         {
-            Field ReturnValue = new Field(first.Config);
+            Field ReturnValue = new(first.Config);
+
+            if (duplicate > ALLOWDUPLICATE.NOT_SECTION_NOT_FIELD_DO_VALUE)
+            {
+                throw new NotSupportedException();
+            }
 
             ReturnValue.Name = first.Name;
             for (int i = 0; i < first.Lines.Count; i++)
@@ -373,7 +383,7 @@ namespace IniSharpBox
                 }
                 else
                 {
-                    if (duplicateValue == true)
+                    if (duplicate == ALLOWDUPLICATE.NOT_SECTION_NOT_FIELD_DO_VALUE)
                     {
                         ReturnValue.Add(first.Lines[i]);
                     }
@@ -388,11 +398,46 @@ namespace IniSharpBox
                 }
                 else
                 {
-                    if (duplicateValue == true)
+                    if (duplicate == ALLOWDUPLICATE.NOT_SECTION_NOT_FIELD_DO_VALUE)
                     {
                         ReturnValue.Add(second.Lines[j]);
                     }
                 }
+            }
+
+            return ReturnValue;
+        }
+
+        /// <summary>
+        /// Return true if an item with value exists and removing process succeed, otherwise false
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public bool Remove(string value)
+        {
+            bool ReturnValue = false;
+            int index = GetIndexByValue(value);
+            if (index >= 0)
+            {
+                ReturnValue = Remove(index);
+            }
+
+            return ReturnValue;
+        }
+
+        /// <summary>
+        /// Return true if an item with index pass as argument exists and removing process succeed, otherwise false
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        public bool Remove(int index)
+        {
+            bool ReturnValue = false;
+
+            if (index >= 0)
+            {
+                Lines.RemoveAt(index);
+                ReturnValue = true;
             }
 
             return ReturnValue;

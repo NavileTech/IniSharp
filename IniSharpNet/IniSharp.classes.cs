@@ -44,23 +44,23 @@ namespace IniSharpBox
             get { return _MULTIVALUESEPARATOR; }
             set
             {
-                _ArrMultiValueSeparator = new string[] { "\r\n", "\r", "\n" };
+                _ArrMultiValueSeparator = ["\r\n", "\r", "\n"];
                 switch (value)
                 {
                     case MULTIVALUESEPARATOR.NEWLINE:
-                        _ArrMultiValueSeparator = new string[] { "\r\n", "\r", "\n" };
+                        _ArrMultiValueSeparator = ["\r\n", "\r", "\n"];
                         break;
 
                     case MULTIVALUESEPARATOR.COMMA:
-                        _ArrMultiValueSeparator = new string[] { "," };
+                        _ArrMultiValueSeparator = [","];
                         break;
 
                     case MULTIVALUESEPARATOR.PIPE:
-                        _ArrMultiValueSeparator = new string[] { "|" };
+                        _ArrMultiValueSeparator = ["|"];
                         break;
 
                     default:
-                        _ArrMultiValueSeparator = new string[] { "\r\n", "\r", "\n" };
+                        _ArrMultiValueSeparator = ["\r\n", "\r", "\n"];
                         break;
                 }
 
@@ -71,7 +71,7 @@ namespace IniSharpBox
         /// <summary>
         /// Protected field for array of char of separator of field values
         /// </summary>
-        protected string[] _ArrMultiValueSeparator = new string[] { "\r\n", "\r", "\n" };
+        protected string[] _ArrMultiValueSeparator = ["\r\n", "\r", "\n"];
 
         /// <summary>
         /// Return array of char of separator of field values
@@ -132,7 +132,7 @@ namespace IniSharpBox
         /// <summary>
         /// Protected field for configuration class
         /// </summary>
-        protected IniConfig _Config = new IniConfig();
+        protected IniConfig _Config = new();
 
         /// <summary>
         /// Return configuration set of arguments
@@ -177,10 +177,31 @@ namespace IniSharpBox
     }
 
     /// <summary>
+    /// Interface define methods for remove items
+    /// </summary>
+    public interface IIniItemRemove
+    {
+        /// <summary>
+        /// Return true if an item with name == Name exists and removing process succeed, otherwise false
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public abstract bool Remove(string name);
+
+        /// <summary>
+        /// Return true if an item with index pass as argument exists and removing process succeed, otherwise false
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        public abstract bool Remove(int index);
+    }
+
+    /// <summary>
     /// Abstract class for list of items
     /// </summary>
     public abstract class IniItemList : IniItem
     {
+#if false
         /// <summary>
         /// Return true if item is present in list , otherwise false
         /// </summary>
@@ -214,5 +235,6 @@ namespace IniSharpBox
         {
             return container.Count > index;
         }
+#endif
     }
 }

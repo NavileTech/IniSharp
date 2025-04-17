@@ -353,5 +353,68 @@
 
             return ReturnValue;
         }
+
+        /// <summary>
+        /// Return true if an item with name == Name exists and removing process succeed, otherwise false
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public bool Remove(string name)
+        {
+            bool ReturnValue = false;
+            int index = Body.GetIndexByName(name);
+            if (index >= 0)
+            {
+                ReturnValue = Body.Remove(index);
+            }
+
+            return ReturnValue;
+        }
+
+        /// <summary>
+        /// Return true if an item with index pass as argument exists and removing process succeed, otherwise false
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        public bool Remove(int index)
+        {
+            bool ReturnValue = false;
+
+            if (index >= 0)
+            {
+                Body.Remove(index);
+                ReturnValue = true;
+            }
+
+            return ReturnValue;
+        }
+
+        /// <summary>
+        /// Return a value that show comparison status between 3 object
+        /// </summary>
+        /// <param name="first"></param>
+        /// <param name="second"></param>
+        /// <param name="third"></param>
+        /// <returns></returns>
+        public static byte Compare(IniSharp first, IniSharp second, IniSharp third)
+        {
+            byte ReturnValue = 0;
+            if (first.Hash().SequenceEqual(second.Hash()) == false)
+            {
+                ReturnValue += 1;
+            }
+
+            if (first.Hash().SequenceEqual(third.Hash()) == false)
+            {
+                ReturnValue += 2;
+            }
+
+            if (second.Hash().SequenceEqual(third.Hash()) == false)
+            {
+                ReturnValue += 4;
+            }
+
+            return ReturnValue;
+        }
     }
 }

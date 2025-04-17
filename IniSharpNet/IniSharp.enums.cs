@@ -89,4 +89,35 @@
         /// </summary>
         PIPE = 2,
     }
+
+    /// <summary>
+    /// Duplicate\Merge strategy used by Merge methods
+    /// </summary>
+    public enum ALLOWDUPLICATE
+    {
+        /// <summary>
+        /// If two section with same Name merge them in one and follow next strategy , otherwise duplicate the sections
+        /// If two field   with same Name (in two section with same Name) merge them in one and follow next strategy , otherwise duplicate the fields
+        /// If two field-value   with same value (in two section with same Name containig two field with same Name ) merge them in one (pick first)
+        /// </summary>
+        NOT_SECTION_NOT_FIELD_NOT_VALUE = 1,
+
+        /// <summary>
+        /// If two section with same Name merge them in one and follow next strategy , otherwise duplicate the sections
+        /// If two field   with same Name (in two section with same Name) merge them in one and follow next strategy , otherwise duplicate the fields
+        /// If two field-value   with same value (in two section with same Name containig two field with same Name ) duplicate them  (first then second)
+        /// </summary>
+        NOT_SECTION_NOT_FIELD_DO_VALUE = 2,
+
+        /// <summary>
+        /// If two section with same Name merge them in one and follow next strategy , otherwise duplicate the sections
+        /// If two field   with same Name (in two section with same Name) duplicate them writing in order (first then second)
+        /// </summary>
+        NOT_SECTION_DO_FIELD = 4,
+
+        /// <summary>
+        /// If two section with same Name duplicate them writing in order
+        /// </summary>
+        DO_SECTION = 8,
+    }
 }

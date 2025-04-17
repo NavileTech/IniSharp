@@ -23,7 +23,9 @@ namespace IniSharpBox
         {
             get
             {
+#pragma warning disable CS8603 // Possibile restituzione di riferimento Null.
                 return Fields.AccessorGet(index, Config.BYINDEX);
+#pragma warning restore CS8603 // Possibile restituzione di riferimento Null.
             }
             set
             {
@@ -41,7 +43,9 @@ namespace IniSharpBox
         {
             get
             {
+#pragma warning disable CS8603 // Possibile restituzione di riferimento Null.
                 return Fields.AccessorGet(name, Config.BYNAME);
+#pragma warning restore CS8603 // Possibile restituzione di riferimento Null.
             }
             set
             {
@@ -87,8 +91,8 @@ namespace IniSharpBox
             {
                 _Config = config;
             }
-            Comments = new List<string>();
-            Fields = new Fields(Config);
+            Comments = [];
+            Fields = new(Config);
             Name = string.Empty;
         }
 
@@ -97,9 +101,9 @@ namespace IniSharpBox
         /// </summary>
         public Section()
         {
-            _Config = new IniConfig();
-            Comments = new List<string>();
-            Fields = new Fields(Config);
+            _Config = new();
+            Comments = [];
+            Fields = new(Config);
             Name = string.Empty;
         }
 
@@ -109,7 +113,8 @@ namespace IniSharpBox
         /// <returns></returns>
         public Field Last()
         {
-            return Fields[Fields.Count - 1];
+            //https://learn.microsoft.com/it-it/dotnet/csharp/tutorials/ranges-indexes
+            return Fields[^1];// Operatore di indice
         }
 
         /// <summary>
@@ -127,7 +132,7 @@ namespace IniSharpBox
         /// <returns></returns>
         public string ToText()
         {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
 
             sb.AppendLine($"[{Name}]");
 
@@ -147,7 +152,7 @@ namespace IniSharpBox
         /// <returns></returns>
         public string ToSortedText()
         {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
 
             sb.AppendLine($"[{Name}]");
 
@@ -161,14 +166,15 @@ namespace IniSharpBox
         /// </summary>
         /// <param name="first"></param>
         /// <param name="second"></param>
-        /// <param name="duplicateField"></param>
-        /// <param name="duplicateValue"></param>
+        /// <param name="duplicate"></param>
         /// <returns></returns>
-        public static Section Merge(Section first, Section second, bool duplicateField, bool duplicateValue)
+        public static Section Merge(Section first, Section second, ALLOWDUPLICATE duplicate)
         {
-            Section ReturnValue = new Section(first.Config);
-            ReturnValue.Name = first.Name;
-            ReturnValue.Fields = Fields.Merge(first.Fields, second.Fields, duplicateField, duplicateValue);
+            Section ReturnValue = new(first.Config)
+            {
+                Name = first.Name,
+                Fields = Fields.Merge(first.Fields, second.Fields, duplicate)
+            };
             return ReturnValue;
         }
     }

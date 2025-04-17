@@ -294,26 +294,29 @@ namespace IniSharpBox
         }
 
         /// <summary>
-        /// Return a merged Field from 2 input Field.
-        /// If duplicateValue is true allow multiple instance of value, otherwise do not allow duplicate instance.
-        /// If duplicateValue is true allow multiple instance of field with same Name, otherwise do not allow duplicate instance.
+        /// Return a merged Field from 2 input Field according to duplicate strategy
         /// </summary>
         /// <param name="first"></param>
         /// <param name="second"></param>
-        /// <param name="duplicateField"></param>
-        /// <param name="duplicateValue"></param>
+        /// <param name="duplicate"></param>
         /// <returns></returns>
-        public static Fields Merge(Fields first, Fields second, bool duplicateField, bool duplicateValue)
+        public static Fields Merge(Fields first, Fields second, ALLOWDUPLICATE duplicate)
         {
             Fields ReturnValue = new Fields(first.Config);
+
+            if (duplicate > ALLOWDUPLICATE.NOT_SECTION_DO_FIELD)
+            {
+                throw new NotSupportedException();
+            }
+
             for (int i = 0; i < first.Count; i++)
             {
-                if (duplicateField == false)
+                if (duplicate < ALLOWDUPLICATE.NOT_SECTION_DO_FIELD)
                 {
                     bool contains = second.Contains(first[i].Name);
                     if (contains == true)
                     {
-                        ReturnValue.Childs.Add(Field.Merge(first[i], second.GetByName(first[i].Name), duplicateValue));
+                        ReturnValue.Childs.Add(Field.Merge(first[i], second.GetByName(first[i].Name), duplicate));
                     }
                     else
                     {
@@ -328,7 +331,7 @@ namespace IniSharpBox
 
             for (int i = 0; i < second.Count; i++)
             {
-                if (duplicateValue == false)
+                if (duplicate < ALLOWDUPLICATE.NOT_SECTION_DO_FIELD)
                 {
                     bool contains = first.Contains(second[i].Name);
                     if (contains == true)
@@ -345,6 +348,41 @@ namespace IniSharpBox
                     ReturnValue.Childs.Add(second[i]);
                 }
             }
+            return ReturnValue;
+        }
+
+        /// <summary>
+        /// Return true if an item with name == Name exists and removing process succeed, otherwise false
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public bool Remove(string name)
+        {
+            bool ReturnValue = false;
+            int index = GetIndexByName(name);
+            if (index >= 0)
+            {
+                ReturnValue = Remove(index);
+            }
+
+            return ReturnValue;
+        }
+
+        /// <summary>
+        /// Return true if an item with index pass as argument exists and removing process succeed, otherwise false
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        public bool Remove(int index)
+        {
+            bool ReturnValue = false;
+
+            if (index >= 0)
+            {
+                Childs.RemoveAt(index);
+                ReturnValue = true;
+            }
+
             return ReturnValue;
         }
     }

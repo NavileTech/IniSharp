@@ -19,10 +19,10 @@ namespace IniSharpBox
         /// <returns></returns>
         public string ToJson()
         {
-            string ReturnValue = String.Empty;
+            string ReturnValue;
             int ident = 0;
-            string comma = String.Empty;
-            StringBuilder sb = new StringBuilder();
+            string comma;
+            StringBuilder sb = new();
 
             sb.AppendLine("{"); // Strat of file
 
@@ -42,7 +42,7 @@ namespace IniSharpBox
                         ident++;
                         {
                             sb.AppendLine($"{Helpers.Space(ident*TAB)}\"{field.Name}\": {{"); // Start list of line
-                            string line = string.Empty;
+                            string line;
                             for (int iLine = 0; iLine < field.Lines.Count; iLine++)
                             {
                                 line = field.Lines[iLine];
@@ -91,7 +91,7 @@ namespace IniSharpBox
         /// <returns></returns>
         public bool FromJson(string text)
         {
-            bool ReturnValue = false;
+            bool ReturnValue;
             try
             {
                 Dictionary<string, List<Dictionary<string, Dictionary<string, string>>>> data = JsonConvert.DeserializeObject<Dictionary<string, List<Dictionary<string, Dictionary<string, string>>>>>(text);
@@ -99,13 +99,13 @@ namespace IniSharpBox
                 foreach (KeyValuePair<string, List<Dictionary<string, Dictionary<string, string>>>> section in data)
                 {
                     //Debug.WriteLine($"[{section.Key}]");
-                    Section sectionIni = new Section(0, section.Key, this.Config);
+                    Section sectionIni = new(0, section.Key, this.Config);
                     foreach (var fields in section.Value)
                     {
                         foreach (KeyValuePair<string, Dictionary<string, string>> field in fields)
                         {
                             //Debug.Write($"{field.Key} = ");
-                            Field fieldIni = new Field(0, field.Key, this.Config);
+                            Field fieldIni = new(0, field.Key, this.Config);
                             int counter = 0;
                             foreach (KeyValuePair<string, string> fieldvalue in field.Value)
                             {
@@ -164,12 +164,12 @@ namespace IniSharpBox
         /// <returns></returns>
         public string ToXml()
         {
-            string ReturnValue = string.Empty;
+            string ReturnValue;
 
             try
             {
-                XmlSerializer xmlserializer = new XmlSerializer(typeof(Sections));
-                StringWriter stringWriter = new StringWriter();
+                XmlSerializer xmlserializer = new(typeof(Sections));
+                StringWriter stringWriter = new();
                 XmlWriter writer = XmlWriter.Create(stringWriter);
 
                 xmlserializer.Serialize(writer, this.Body);
@@ -191,7 +191,7 @@ namespace IniSharpBox
         /// <returns></returns>
         public bool FromXml(string text)
         {
-            bool ReturnValue = false;
+            bool ReturnValue;
             try
             {
                 var deserializer = new XmlSerializer(typeof(Sections));

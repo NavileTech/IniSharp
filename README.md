@@ -146,7 +146,18 @@ A section line (**[somesection]** ) must start with "**[**" (open square bracket
 
 A field line ("fieldname=fieldcontent" ) must start with a char and end with new line, parser split line with "=" char and trim both content.
 
+## Read\\Write
+```cs
+FileInfo fiInput = new FileInfo("<fullPathFileInputFile>");
+IniConfig config = new IniConfig();
+IniSharp iniSharp = new IniSharp(fiInput.FullName,config);
+iniSharp.Read();
 
+// ... change something ...
+
+FileInfo fiOutput = new FileInfo("<fullPathFileOutputFile>");
+iniSharp.Write(fiOutput);
+```
 
 ## Indexer 
 
@@ -242,7 +253,9 @@ Import has the same goal by doing it's job in place.
 IniConfig iniConfig = new IniConfig();
 
 IniSharp first = new IniSharp(new FileInfo("<fullPathFileInputFile_first>"), iniConfig);
+first.Read();
 IniSharp second = new IniSharp(new FileInfo("<fullPathFileInputFile_second>"), iniConfig);
+second.Read();
 
 // duplicate section\field\value are not allowed
 // in case two loaded ini file has different field value separator (alert : need 2 different IniConfig) , merged object inherided config from first object
@@ -253,7 +266,9 @@ Import example :
 IniConfig iniConfig = new IniConfig();
 
 IniSharp first = new IniSharp(new FileInfo("<fullPathFileInputFile_first>"), iniConfig);
+first.Read();
 IniSharp second = new IniSharp(new FileInfo("<fullPathFileInputFile_second>"), iniConfig);
+second.Read();
 // Merged in place
 first.Import(second, false, false, false);
 ```
@@ -265,6 +280,7 @@ IniSharp expose 2 different Json conversion , one custom (ToJson,FromJson) and t
 Ini file to ToJson
 ```cs
 IniSharp iniSharpSerialize = new IniSharp(new FileInfo("<fullPathFileInputFile_first>"), new IniConfig());
+iniSharpSerialize.Read();
 
 // it manage as nested dictionary
 string customtextjson = iniSharpSerialize.ToJson();
@@ -292,6 +308,7 @@ It's responsability of IniSharp object established which one impose.
 IniSharp expose xml conversion methods (ToXml,FromXml)
 ```cs
 IniSharp iniSharp = new IniSharp(new FileInfo("<fullPathFileInputFile_first>"), new IniConfig());
+iniSharp.Read();
 
 string textxml = iniSharp.ToXml();
 
@@ -308,19 +325,6 @@ IniSharp expose <b>public static bool AreEquals(IniSharp first, IniSharp second)
 Comparison is computated by sorted entity string of two object.
 
 Comparison are config agnostic.
-
-## Read\\Write
-```cs
-FileInfo fiInput = new FileInfo("<fullPathFileInputFile>");
-IniConfig config = new IniConfig();
-IniSharp iniSharp = new IniSharp(fiInput.FullName,config);
-iniSharp.Read();
-
-// ... change something ...
-
-FileInfo fiOutput = new FileInfo("<fullPathFileOutputFile>");
-iniSharp.Write(fiOutput);
-```
 
 ## Tech
 
